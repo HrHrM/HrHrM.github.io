@@ -58,7 +58,9 @@ Todo lo demás en la página está al servicio de eso.
   `localStorage` o `matchMedia` en el cuerpo de un componente rompe el build:
   siempre dentro de `useEffect`.
 - **Las rutas dinámicas hay que enumerarlas una a una** en `prerender`. Y `action`
-  y `headers` no están disponibles.
+  y `headers` no están disponibles. `react-router.config.ts` las deriva de
+  `content/{es,en}/projects.ts`, y el `buildEnd` genera `sitemap.xml` y `robots.txt`
+  del mismo listado para que no puedan desincronizarse.
 - **`lucide-react` v1 ya no trae iconos de marca.** GitHub y LinkedIn van como SVG
   inline en `components/ui/BrandIcon.tsx`.
 - **Oxlint es linter, no formateador.** No sustituye a Prettier.
@@ -303,8 +305,9 @@ de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
 - [~] **Contenido** — estructura y tipos hechos; los textos siguen en `TODO`.
 - [x] **Diseño** — tokens, paleta y escala definidos y verificados.
 - [x] **Setup** — Vite, Tailwind v4, React Router con prerender. Falta el deploy.
-- [~] **Maquetado** — Home en español completa. Faltan `ProjectDetail` y el inglés.
-- [~] **Pulido** — accesibilidad y animación hechas. Faltan imágenes y Lighthouse.
+- [~] **Maquetado** — Home y `ProjectDetail` completas en español. Falta escribir el inglés.
+- [~] **Pulido** — accesibilidad, animación, sitemap y robots hechos. Faltan imágenes,
+      la OG image y pasar Lighthouse.
 - [ ] **Lanzamiento** — dominio propio, OG image, analytics ligero.
 
 ### Cómo comprobar que el prerender sigue vivo
