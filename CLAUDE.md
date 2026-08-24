@@ -23,9 +23,9 @@ Todo lo demás en la página está al servicio de eso.
 |---|---|---|
 | Build | Vite + React + TypeScript | |
 | Estilos | Tailwind CSS v4 | plugin `@tailwindcss/vite` |
-| Rutas | React Router | |
-| Prerender | `vite-react-ssg` | HTML estático en build → SEO real |
-| Animación | `motion` | con moderación |
+| Rutas | React Router 7 | `routes.ts`, rutas explícitas. **No** v8: exige Node ≥ 22.22.0 |
+| Prerender | React Router framework mode | `@react-router/dev`, `ssr: false` + `prerender` → un `.html` por ruta |
+| Animación | CSS (`@keyframes`) | una sola, en el Hero. `motion` **no** está instalado |
 | Iconos | `lucide-react` | |
 | Formulario | `react-hook-form` + `zod` | envío vía Formspree / Web3Forms |
 | Lint | Oxlint | `.oxlintrc.json`, sin ESLint |
@@ -40,8 +40,27 @@ Todo lo demás en la página está al servicio de eso.
   Nada de las tres directivas `@tailwind` de v3 — mucho tutorial sigue enseñando eso.
 - **Los tokens de diseño viven en `@theme`**, dentro de `src/styles/index.css`.
   Ese bloque es la única fuente de verdad de color, tipografía y escala.
-- **`vite-react-ssg` cambia `main.tsx`**: se exporta `createRoot` en vez de montar
-  directamente, y las rutas se declaran como array de objetos.
+- **Tailwind v4 no trae modo oscuro por clase.** Hay que declararlo a mano:
+  `@custom-variant dark (&:where(.dark, .dark *));`. Sin esa línea, `dark:` no
+  responde a la clase que pone el script anti-flash y el tema oscuro no existe.
+- **React Router en framework mode no usa `main.tsx` ni `index.html`.** Manda
+  `root.tsx` (que renderiza el `<html>` entero) y `routes.ts`. `appDirectory: "src"`
+  conserva el árbol de abajo en vez del `app/` por defecto.
+- **`@react-router/node` tiene que estar en `dependencies`, no en `devDependencies`.**
+  El build lee literalmente `pkg.dependencies` para decidir el runtime de servidor;
+  con `-D` falla con «Could not determine server runtime» aunque el paquete esté
+  instalado. Lo mismo con `isbot`.
+- **El typegen necesita un solo `tsconfig.json`.** Requiere
+  `rootDirs: [".", "./.react-router/types"]` y el `include` de
+  `.react-router/types/**/*`; con project references (`tsconfig.app.json` +
+  `tsconfig.node.json`) no se resuelve. Por eso hay un único tsconfig.
+- **Con `ssr: false` el build renderiza en Node.** Tocar `window`, `document`,
+  `localStorage` o `matchMedia` en el cuerpo de un componente rompe el build:
+  siempre dentro de `useEffect`.
+- **Las rutas dinámicas hay que enumerarlas una a una** en `prerender`. Y `action`
+  y `headers` no están disponibles.
+- **`lucide-react` v1 ya no trae iconos de marca.** GitHub y LinkedIn van como SVG
+  inline en `components/ui/BrandIcon.tsx`.
 - **Oxlint es linter, no formateador.** No sustituye a Prettier.
 
 ---
@@ -53,18 +72,22 @@ SPA por capas con **el contenido como fuente de verdad**. Sin state manager:
 es señal de que se complicó de más.
 
 ```
+react-router.config.ts   ssr:false · prerender · appDirectory:"src" · buildDirectory:"dist"
 src/
+  root.tsx       el <html>, script anti-flash del tema, ErrorBoundary
+  routes.ts      rutas explícitas; un mismo módulo sirve los dos idiomas vía `id`
   components/
-    ui/          Button, Badge, Card, Container  → primitivos, sin lógica de negocio
-    layout/      Navbar, Footer, ThemeToggle
-  sections/      Hero, About, Projects, Stack, Experience, Contact
-  pages/         Home, ProjectDetail, NotFound
+    ui/          Button, Badge, Card, Container, SectionHeading, BrandIcon
+    layout/      Navbar, Footer, ThemeToggle, LocaleSwitch, SkipLink
+  sections/      Hero, Projects, ProjectCard, About, Stack, Experience, Contact
+  pages/         Home, ProjectDetail, NotFound   ← `export default` obligatorio
   content/
     types.ts     tipos compartidos por ambos idiomas
+    index.ts     resuelve locale → bundle; featuredProjects(), projectBySlug()
     es/          projects.ts, experience.ts, skills.ts, ui.ts
     en/          projects.ts, experience.ts, skills.ts, ui.ts
   hooks/         useTheme, useLocale, useScrollSpy, useMediaQuery
-  lib/           cn.ts, seo.ts, constants.ts
+  lib/           cn.ts, seo.ts, constants.ts, paths.ts, nav.ts
   styles/        index.css  ← tokens @theme
   assets/
 public/          cv.pdf, og-image.png, favicon
@@ -96,7 +119,7 @@ export type Project = {
   role: string;         // mi contribución concreta, separada del equipo
   outcome?: string;     // qué cambió (números si los hay)
   stack: string[];
-  cover: string;
+  cover?: string;       // opcional: sin capturas, la tarjeta se sostiene con tipografía
   links: { live?: string; repo?: string };
   visibility: Visibility;
   featured: boolean;
@@ -144,31 +167,68 @@ si el layout aguanta con el texto largo, aguanta con el corto. Al revés no.
 - **Texto:** Schibsted Grotesk — neutro pero vivo, aguanta párrafos largos.
 - **Mono:** JetBrains Mono — código, etiquetas, metadatos.
 
-Las tres son variable fonts y están en Google Fonts.
+**Solo dos de las tres son variable fonts.** Schibsted Grotesk y JetBrains Mono sí
+(400–900). **Instrument Serif no**: es estática y tiene un único peso, el 400, más
+su cursiva. No existe `@fontsource-variable/instrument-serif`, solo
+`@fontsource/instrument-serif`. Consecuencia práctica: **en el display no hay
+`font-weight` como recurso de jerarquía** — sale del tamaño y, si hace falta, de
+la cursiva.
+
+Y un segundo efecto que sí muerde al maquetar: Instrument Serif tiene una **altura
+de x bastante menor** que Schibsted Grotesk, así que a igual tamaño en px el serif
+se lee más pequeño. Por eso `--text-card` tiene un suelo de `1.5rem`: con `1.25rem`
+el título de la tarjeta quedaba visualmente por debajo de su propio tagline en móvil.
+
+Las fuentes se **autohospedan** con Fontsource (solo subsets latinos), no se enlazan
+desde Google Fonts: quita una conexión a un tercero.
+
 Máximo dos familias + la mono. Escala tipográfica definida **antes** de maquetar.
 
+Los tokens vivos están en `src/styles/index.css`. Resumen de lo que hay:
+
 ```css
-/* src/styles/index.css */
-@import "tailwindcss";
+/* Los colores se declaran en :root y .dark, y se exponen con `@theme inline`
+   (no `@theme`): así Tailwind referencia la variable en vez de copiar su valor,
+   que es lo único que permite que .dark la sobreescriba. */
+:root { --paper:#faf9f6; --surface:#f2f0eb; --line:#e0ddd6;
+        --muted:#6e6a62; --ink:#17150f;   --accent:#9e3b22; }
+.dark { --paper:#12110f; --surface:#1b1a17; --line:#2b2925;
+        --muted:#9a958c; --ink:#f5f3ee;   --accent:#e0755a; }
 
-@theme {
-  --font-display: "Instrument Serif", ui-serif, serif;
-  --font-sans: "Schibsted Grotesk", ui-sans-serif, system-ui;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-
-  --text-hero: clamp(2.75rem, 8vw, 6rem);
-  --text-section: clamp(1.75rem, 4vw, 3rem);
-
-  /* TODO: paleta — 4 a 6 valores nombrados */
-}
+--text-hero:    clamp(2.75rem, 8vw, 6rem)
+--text-section: clamp(1.75rem, 4vw, 3rem)
+--text-card:    clamp(1.5rem, 1.5vw + 0.5rem, 1.875rem)
+--text-lead:    clamp(1.125rem, 1.2vw + 0.9rem, 1.375rem)
+--text-meta:    0.8125rem
 ```
+
+Escala resultante — 96 / 48 / 30 / 22 / 13 px en escritorio y 44 / 28 / 24 / 19 / 13
+en móvil. Verificada en el navegador, no a ojo.
+
+**Contraste:** los doce pares de texto pasan AA en ambos modos (el más justo es
+`muted` sobre `surface` en claro, 4.73:1). `line` está en 1.29:1 **a propósito**:
+es decorativo. Cualquier borde que signifique algo usa `muted` o `ink`, nunca `line`.
+
+### Los tres adjetivos
+
+**Preciso · sobrio · seguro de sí mismo.** De ahí sale todo lo demás:
+
+- **Preciso** → una sola escala de espaciado, retícula de *hairlines* visible,
+  metadatos en mono con versalitas, secciones y proyectos numerados.
+- **Sobrio** → seis colores y nada más. Cero gradientes, cero sombras decorativas.
+  El acento aparece una vez por pantalla.
+- **Seguro de sí mismo** → display grande, mucho aire, frases cortas, **un** CTA.
 
 ### Principios
 
 - **Mobile-first**, siempre.
-- **Una sola apuesta visual.** Un elemento memorable, todo lo demás disciplinado
-  y en silencio. La animación dispersa por toda la página es lo que hace que un
-  portafolio se vea genérico.
+- **Una sola apuesta visual: el `<h1>` del Hero en Instrument Serif a 6rem.**
+  La retícula de hairlines no es la apuesta — es el sistema, y va en silencio.
+- **Una sola animación**, y solo en el Hero: `fade + translateY(8px)`, en CSS.
+  La animación repartida por toda la página es lo que hace que un portafolio se
+  vea genérico. Ojo al anular `prefers-reduced-motion`: hay que poner a cero
+  `animation-delay` **además** de `animation-duration`, o con `fill-mode: both`
+  el elemento se queda invisible durante todo el retardo.
 - **Suelo de calidad no negociable:** foco de teclado visible, contraste AA,
   `prefers-reduced-motion` respetado, navegable sin ratón.
 - **Sin barras de porcentaje** en la sección de stack. Nadie sabe qué significa
@@ -222,6 +282,10 @@ de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
 ## 6. Convenciones
 
 - Componentes en `PascalCase.tsx`, uno por archivo, export nombrado.
+  **Excepción:** los módulos de ruta de `pages/` usan `export default` — lo exige
+  React Router en framework mode. `.oxlintrc.json` desactiva ahí
+  `react/only-export-components`, y en `hooks/` también `react/set-state-in-effect`
+  (leer el DOM en un efecto es el patrón correcto cuando el build renderiza en Node).
 - Hooks y utilidades en `camelCase.ts`.
 - Alias `@/` → `src/`, configurado en `vite.config.ts` y `tsconfig.json`.
 - Sin `any`. Sin `// @ts-ignore` sin comentario que lo justifique.
@@ -233,13 +297,24 @@ de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
 
 ## 7. Orden de trabajo
 
-- [ ] **Contenido primero** — textos y proyectos escritos antes de diseñar.
-- [ ] **Diseño** — tokens → wireframe en gris → alta fidelidad. Mobile primero.
-- [ ] **Setup** — Vite, Tailwind con los tokens ya traducidos, deploy vacío a
-      producción. Que la tubería funcione desde el día uno.
-- [ ] **Maquetado** — con datos reales, sección por sección.
-- [ ] **Pulido** — animación, accesibilidad, imágenes optimizadas, Lighthouse.
+- [~] **Contenido** — estructura y tipos hechos; los textos siguen en `TODO`.
+- [x] **Diseño** — tokens, paleta y escala definidos y verificados.
+- [x] **Setup** — Vite, Tailwind v4, React Router con prerender. Falta el deploy.
+- [~] **Maquetado** — Home en español completa. Faltan `ProjectDetail` y el inglés.
+- [~] **Pulido** — accesibilidad y animación hechas. Faltan imágenes y Lighthouse.
 - [ ] **Lanzamiento** — dominio propio, OG image, analytics ligero.
+
+### Cómo comprobar que el prerender sigue vivo
+
+Es la comprobación que no se puede saltar: el HTML tiene que traer el contenido.
+
+```bash
+npm run build
+grep -oE "<h1[^>]*>[^<]*" dist/client/index.html
+```
+
+Si sale el titular, funciona. Si sale un `<div>` vacío, el prerender está roto y
+todo el motivo de usar framework mode se ha perdido.
 
 ---
 
@@ -247,13 +322,26 @@ de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
 
 Esto bloquea el diseño. Rellenar antes de escribir componentes:
 
-- [ ] Nombre, rol y una frase de posicionamiento.
+- [x] Tres adjetivos: **preciso · sobrio · seguro de sí mismo**.
+- [x] Paleta — 6 tokens nombrados, contraste AA verificado.
+- [x] Instrument Serif encaja en la dirección. Se queda.
+- [ ] **Nombre, rol y frase de posicionamiento.** Bloquea el Hero, el `<title>`,
+      la `description` y el footer. Van en `lib/constants.ts` (`SITE.name`) y en
+      `content/{es,en}/ui.ts` (`hero.eyebrow`, `hero.headline`, `seo.*`).
+- [ ] **Email público, GitHub, LinkedIn y `public/cv.pdf`.** Bloquean Contacto.
 - [ ] Los 3–4 proyectos: problema / qué construí / mi rol / resultado.
 - [ ] Nivel de `visibility` de cada uno — preguntar al cliente o ex-jefe si hay duda.
       Suele ser que sí y tarda dos días; hacerlo ya para no rehacer tarjetas después.
-- [ ] Tres adjetivos que definan la página. De ahí sale todo lo demás.
 - [ ] Referencias: 15–20 piezas, y no solo portafolios — portadas, señalética,
       packaging, revistas. Lo que se repita es la dirección.
-- [ ] Paleta — 4 a 6 hex nombrados.
-- [ ] Confirmar que Instrument Serif sigue encajando una vez definida la dirección.
-- [ ] Dominio.
+- [ ] Dominio. Mientras no esté, `SITE.url` es `https://example.com` y **las
+      canónicas y los hreflang apuntan a un sitio que no es el tuyo**. Hay que
+      cambiarlo antes de que Google indexe nada.
+
+### Nota de entorno
+
+React Router está fijado en la 7 y no en la 8 porque la 8 exige **Node ≥ 22.22.0**
+y la máquina de desarrollo tiene la 22.13.1. Todo lo que se usa aquí
+(`appDirectory`, `ssr: false`, `prerender`, `route()` con `id`, `meta` con
+`tagName`) existe igual en la 7. Si se actualiza Node, el salto a la 8 es
+`npm install react-router@8 @react-router/dev@8 @react-router/node@8`.
