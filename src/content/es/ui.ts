@@ -13,15 +13,22 @@ export const ui: UIStrings = {
     skipToContent: 'Saltar al contenido',
   },
   hero: {
-    eyebrow: 'TODO: Rol · Ciudad',
-    headline: 'TODO: la frase de posicionamiento, en una afirmación corta.',
+    eyebrow: 'Ingeniero de software · Caracas',
+    headline: 'Construyo interfaces que aguantan producción.',
     cta: 'Ver proyectos',
     scrollHint: 'Sigue bajando',
   },
   seo: {
-    titleSuffix: 'TODO: Rol',
+    titleSuffix: 'Ingeniero de software',
     description:
-      'TODO: 150–160 caracteres. Qué construyo, para quién y con qué. Es el texto que se lee en Google, no un eslogan.',
+      'Ingeniero de software en Caracas. Construyo aplicaciones web y móviles con React, Angular, Flutter y Node.js. Casos de estudio de trabajo real, no demos.',
+  },
+  about: {
+    paragraphs: [
+      'Trabajo en aplicaciones web y móviles: React y Angular en el navegador, Flutter y React Native en el teléfono, Node.js detrás. Casi todo lo que he construido es para clientes y empleadores, así que buena parte no se puede enseñar por dentro — de ahí que esta página sean casos y no capturas.',
+      'Lo que me interesa de verdad es lo que pasa cuando el proyecto ya está en producción y hay que cambiarlo: migrar sin parar las ventas, meter mano en un formulario que nadie toca desde hace años, dejar el código de forma que el siguiente no tenga que adivinar. En una revisión de código miro primero los nombres y los límites entre módulos.',
+      'TODO(personal): una línea que no sea de trabajo. Es la que hace que quien lee se acuerde de que hay una persona detrás — y es la única parte de esta sección que no puedo escribir yo.',
+    ],
   },
   sections: {
     projects: {

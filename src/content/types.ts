@@ -84,6 +84,11 @@ export type UIStrings = {
     /** 150–160 caracteres. Es lo que se lee en el resultado de búsqueda. */
     description: string
   }
+  /**
+   * Los párrafos de Sobre mí. Estaban incrustados en el JSX de About.tsx, que
+   * rompe la regla 2 del CLAUDE.md §3: nada de datos hardcodeados en JSX.
+   */
+  about: { paragraphs: string[] }
   sections: {
     projects: { title: string; lead: string }
     about: { title: string }

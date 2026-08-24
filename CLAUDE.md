@@ -331,10 +331,18 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
 - [x] Tres adjetivos: **preciso · sobrio · seguro de sí mismo**.
 - [x] Paleta — 6 tokens nombrados, contraste AA verificado.
 - [x] Instrument Serif encaja en la dirección. Se queda.
-- [ ] **Nombre, rol y frase de posicionamiento.** Bloquea el Hero, el `<title>`,
-      la `description` y el footer. Van en `lib/constants.ts` (`SITE.name`) y en
-      `content/{es,en}/ui.ts` (`hero.eyebrow`, `hero.headline`, `seo.*`).
-- [ ] **Email público, GitHub, LinkedIn y `public/cv.pdf`.** Bloquean Contacto.
+- [x] **Nombre, rol y frase de posicionamiento.** Johnny Bohorquez · Caracas.
+      El rol es **distinto por idioma a propósito**: «Ingeniero de software» en
+      español y «Software Engineer» en inglés. En español «Ingeniero» arrastra
+      el título universitario; en inglés «Engineer» es el término de industria
+      y no implica nada académico. Por eso el rol vive en
+      `content/{es,en}/ui.ts` (`hero.eyebrow`) y **no** en `lib/constants.ts`.
+- [x] **Email público, GitHub y LinkedIn.** En `lib/constants.ts`.
+- [ ] **`public/cv.pdf`.** El fichero no existe todavía; el enlace de Contacto
+      apunta a un 404.
+- [ ] **Limpiar el GitHub público.** `github.com/HrHrM` fija repos de práctica
+      (`*_practice001`, `*_practice006`, `ReactN-Tesis`) y la bio dice «currently
+      learning». Enlazado desde el portafolio, resta en vez de sumar.
 - [ ] Los 3–4 proyectos: problema / qué construí / mi rol / resultado.
 - [ ] Nivel de `visibility` de cada uno — preguntar al cliente o ex-jefe si hay duda.
       Suele ser que sí y tarda dos días; hacerlo ya para no rehacer tarjetas después.
