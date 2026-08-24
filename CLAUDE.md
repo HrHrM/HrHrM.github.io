@@ -149,7 +149,10 @@ no justifica el peso ni la indirección.
 - Un archivo por idioma en `content/{es,en}/`, tipos compartidos en `content/types.ts`.
 - `useLocale()` lee el prefijo de la URL y devuelve el bundle correcto.
 - Cada versión se **escribe**, no se traduce. Traducción literal siempre suena a traducción.
-- `vite-react-ssg` prerenderiza ambos idiomas → Google los indexa por separado.
+- `prerender` en `react-router.config.ts` genera ambos idiomas → Google los indexa
+  por separado. `/` y `/en` ya salen como HTML estático; al añadir `ProjectDetail`
+  hay que pasar `prerender` a función async que enumere los slugs de los dos
+  bundles, porque con `ssr: false` las rutas dinámicas no se descubren solas.
 - Obligatorio `<link rel="alternate" hreflang="es|en|x-default">` en cada página,
   o el SEO multiidioma no sirve de nada.
 - Selector de idioma visible en la Navbar, que conserva la ruta actual al cambiar.
