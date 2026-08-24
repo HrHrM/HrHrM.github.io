@@ -13,15 +13,15 @@ export const ui: UIStrings = {
     skipToContent: 'Saltar al contenido',
   },
   hero: {
-    eyebrow: 'Ingeniero de software · Caracas',
+    eyebrow: 'Ingeniero en Informática · Caracas',
     headline: 'Construyo interfaces que aguantan producción.',
     cta: 'Ver proyectos',
     scrollHint: 'Sigue bajando',
   },
   seo: {
-    titleSuffix: 'Ingeniero de software',
+    titleSuffix: 'Ingeniero en Informática',
     description:
-      'Ingeniero de software en Caracas. Construyo aplicaciones web y móviles con React, Angular, Flutter y Node.js. Casos de estudio de trabajo real, no demos.',
+      'Ingeniero en Informática en Caracas. Construyo aplicaciones web y móviles con React, Angular, Flutter y Node.js. Casos de estudio de trabajo real, no demos.',
   },
   about: {
     paragraphs: [

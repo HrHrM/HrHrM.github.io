@@ -332,11 +332,15 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
 - [x] Paleta — 6 tokens nombrados, contraste AA verificado.
 - [x] Instrument Serif encaja en la dirección. Se queda.
 - [x] **Nombre, rol y frase de posicionamiento.** Johnny Bohorquez · Caracas.
-      El rol es **distinto por idioma a propósito**: «Ingeniero de software» en
-      español y «Software Engineer» en inglés. En español «Ingeniero» arrastra
-      el título universitario; en inglés «Engineer» es el término de industria
-      y no implica nada académico. Por eso el rol vive en
-      `content/{es,en}/ui.ts` (`hero.eyebrow`) y **no** en `lib/constants.ts`.
+      El rol es **distinto por idioma a propósito**, y no es una traducción
+      floja: en español va la credencial real, «Ingeniero en Informática»
+      —título protegido en Venezuela y trato profesional habitual—, y en inglés
+      el término de industria, «Software Engineer». La razón de no traducir es
+      que **«Informatics Engineer» no existe en inglés**: suena a calco y ningún
+      reclutador lo busca. A cambio, el título académico se menciona en el
+      Sobre mí inglés, que es donde el lector angloparlante espera una credencial.
+      Por eso el rol vive en `content/{es,en}/ui.ts` (`hero.eyebrow`) y **no**
+      en `lib/constants.ts`.
 - [x] **Email público, GitHub y LinkedIn.** En `lib/constants.ts`.
 - [ ] **`public/cv.pdf`.** El fichero no existe todavía; el enlace de Contacto
       apunta a un 404.

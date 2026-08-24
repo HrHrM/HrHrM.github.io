@@ -25,7 +25,7 @@ export const ui: UIStrings = {
   },
   about: {
     paragraphs: [
-      'I work on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, Node.js behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page is case studies rather than screenshots.',
+      'I am a computer engineering graduate working on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, Node.js behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page is case studies rather than screenshots.',
       'What actually interests me is what happens after something ships and has to change: migrating without stopping sales, touching a form nobody has opened in years, leaving code the next person will not have to guess at. In a code review I look at naming and module boundaries first.',
       'TODO(personal): one line that is not about work. It is what makes a reader remember there is a person here — and the only part of this section I cannot write for you.',
     ],
