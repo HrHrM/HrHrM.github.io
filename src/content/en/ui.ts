@@ -13,19 +13,19 @@ export const ui: UIStrings = {
     skipToContent: 'Skip to content',
   },
   hero: {
-    eyebrow: 'Software Engineer · Caracas',
+    eyebrow: 'Software Developer · Caracas',
     headline: 'I build interfaces that hold up in production.',
     cta: 'See the work',
     scrollHint: 'Keep scrolling',
   },
   seo: {
-    titleSuffix: 'Software Engineer',
+    titleSuffix: 'Software Developer',
     description:
-      'Software engineer in Caracas. I build web and mobile apps with React, Angular, Flutter and Node.js. Case studies from real client work, not tutorials.',
+      'Software developer in Caracas. I build web and mobile apps with React, Angular, Flutter and Node.js. Case studies from real client work, not tutorials.',
   },
   about: {
     paragraphs: [
-      'I am a computer engineering graduate working on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, and the REST APIs and Firebase behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page is case studies rather than screenshots.',
+      'I work on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, and the REST APIs and Firebase behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page is case studies rather than screenshots.',
       'What actually interests me is what happens after something ships and has to change: migrating without stopping sales, touching a form nobody has opened in years, leaving code the next person will not have to guess at. In a code review I look at naming and module boundaries first.',
       'TODO(personal): one line that is not about work. It is what makes a reader remember there is a person here — and the only part of this section I cannot write for you.',
     ],
