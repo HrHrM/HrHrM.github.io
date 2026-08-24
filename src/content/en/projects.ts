@@ -1,75 +1,77 @@
 import type { Project } from '../types'
 
 /**
- * TODO(content): placeholders. These are written in English on purpose — the
- * Spanish version is not the source to translate from. Each locale gets its
- * own wording (CLAUDE.md §3).
+ * Metadata (year, stack, visibility) comes from the CV and is firm. What stays
+ * TODO is the prose.
  *
- * Keep `slug` identical across locales: the language switcher relies on it to
- * stay on the same project when you change language.
+ * Keep `slug` identical to the Spanish bundle: the language switcher relies on
+ * it to stay on the same project when you change language.
+ *
+ * The first three are `nda`: the employer is named in Experience — it is on the
+ * CV and on LinkedIn — but nothing here shows architecture, business numbers,
+ * internal dashboards or code. Hence descriptive titles rather than the
+ * client's product name.
  */
 export const projects: Project[] = [
   {
-    slug: 'plataforma-pedidos',
-    title: 'TODO: Ordering platform',
-    tagline: 'Rebuilding a retail checkout without losing a day of sales.',
-    context: 'Retail · TODO: scale',
-    problem:
-      'Checkout lived inside an eight-year-old monolith. Changing the payment form meant redeploying everything, so in practice nobody touched it.',
+    slug: 'proyectos-web-y-movil',
+    title: 'TODO: one specific project',
+    tagline: 'TODO: one line. What it was and why it mattered.',
+    context: 'TODO: sector · scale',
+    problem: 'TODO: what was broken or missing before you arrived.',
     solution:
-      'I pulled checkout out into its own app against the existing API, served behind the same domain through a reverse proxy so traffic could move over gradually.',
-    role: 'I designed the form component system and migrated the address, shipping and payment steps. The platform team owned the API and infrastructure.',
-    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+      'TODO: what you built, and which technical decision could have gone the other way.',
+    role: 'TODO: what you did, first person. What the team did, third person.',
+    stack: ['React', 'React Native', 'TypeScript'],
     links: {},
-    visibility: 'private',
+    visibility: 'nda',
     featured: true,
     year: 2025,
   },
   {
-    slug: 'panel-logistica',
-    title: 'TODO: Operations dashboard',
-    tagline: 'An operations board that replaced a shared spreadsheet.',
-    context: 'Logistics · TODO: scale',
-    problem:
-      'Daily operations ran on a spreadsheet twelve people had open at once. Edits overwrote each other and nobody knew which copy was current.',
-    solution:
-      'I built a dashboard with server state as the single source of truth, live updates across every desk, and an audit trail of who changed what.',
-    role: 'End to end: data model, API and frontend. The operations team defined the workflow.',
-    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Supabase'],
+    slug: 'plataforma-multicliente',
+    title: 'Multi-client admin platform',
+    tagline:
+      'TODO: one line. A system that had to fit several clients without being forked.',
+    context: 'TODO: sector · how many clients',
+    problem: 'TODO: what hurt, and why nobody had fixed it already.',
+    solution: 'TODO: how you handled modularity, and what you ruled out.',
+    role: 'TODO: your contribution, separated from the team.',
+    stack: ['Angular', 'TypeScript', 'REST APIs'],
     links: {},
     visibility: 'nda',
     featured: true,
     year: 2024,
   },
   {
-    slug: 'sitio-corporativo',
-    title: 'TODO: Corporate site',
-    tagline: 'Real performance and SEO on a site that used to take nine seconds to paint.',
-    context: 'Professional services · TODO: scale',
+    slug: 'app-gama-baja',
+    title: 'Data app for low-end devices',
+    tagline: 'TODO: one line. Live data on phones that cannot spare much.',
+    context: 'TODO: sector · how many users · which device tier',
     problem:
-      'The site ran on a plugin-heavy CMS. Multiple megabytes on first load, invisible for the search terms that mattered, and every edit went through an outside vendor.',
-    solution:
-      'I rebuilt it as a static site generated at build time, content in version control, images optimised in the pipeline. Marketing publishes without a middleman.',
-    role: 'I did the architecture, the build and the content migration. The client supplied copy and identity.',
-    outcome: 'TODO: real metric',
-    stack: ['Vite', 'React', 'TypeScript', 'Tailwind CSS'],
+      'TODO: what "low-resource" meant concretely. What broke on those phones.',
+    solution: 'TODO: what made it work there, and what you traded away.',
+    role: 'TODO: your contribution, separated from the team.',
+    stack: ['Flutter', 'Dart', 'Firebase'],
     links: {},
-    visibility: 'public',
+    visibility: 'nda',
     featured: true,
-    year: 2024,
+    year: 2023,
   },
   {
-    slug: 'herramienta-open-source',
-    title: 'TODO: Own tool',
-    tagline: 'What I built to stop doing the same thing by hand.',
-    context: 'Personal project · open source',
-    problem: 'TODO: which repetitive task hurt enough to justify a tool.',
-    solution: 'TODO: what it does and how it is used.',
+    slug: 'lector-texto-a-voz',
+    title: 'Text-to-speech reader',
+    tagline: 'TODO: one line. Who it was for and what it solved.',
+    context: 'Thesis project · Universidad Alejandro de Humboldt',
+    problem: 'TODO: why text-to-speech. Who it helped.',
+    solution: 'TODO: how you built it and what was hard.',
     role: 'Personal project, end to end.',
-    stack: ['TypeScript', 'Node.js'],
-    links: { repo: 'https://github.com/TODO/TODO' },
+    stack: ['React Native', 'JavaScript', 'Text-to-Speech'],
+    links: {
+      repo: undefined,
+    },
     visibility: 'public',
-    featured: false,
-    year: 2023,
+    featured: true,
+    year: 2022,
   },
 ]
