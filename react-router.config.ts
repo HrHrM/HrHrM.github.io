@@ -11,5 +11,5 @@ export default {
   // Con ssr:false las rutas dinámicas hay que enumerarlas una a una.
   // Al entrar ProjectDetail esto pasa a una función async que lee los slugs
   // de src/content/{es,en}/projects.ts.
-  prerender: ['/'],
+  prerender: ['/', '/en'],
 } satisfies Config

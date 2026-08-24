@@ -8,7 +8,6 @@ export const SITE = {
   /** Sin barra final. Se usa para las URL canónicas y los hreflang. */
   url: 'https://example.com', // TODO(dominio): pendiente en CLAUDE.md §8
   name: 'TODO: Nombre',
-  role: 'TODO: Rol en una línea',
   location: 'TODO: Ciudad, País',
   email: 'TODO@example.com',
 } as const

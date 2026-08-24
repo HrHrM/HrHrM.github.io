@@ -25,3 +25,6 @@ dist-ssr
 
 # React Router typegen
 .react-router/
+
+# Playwright MCP
+.playwright-mcp/
