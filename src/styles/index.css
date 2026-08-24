@@ -1,0 +1,118 @@
+@import 'tailwindcss';
+
+/* Tailwind v4 no trae modo oscuro por clase de serie: hay que declararlo.
+   Sin esto, `dark:` no responde a la clase que pone el script anti-flash. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─────────────────────────────────────────────────────────────
+   Paleta — preciso · sobrio · seguro de sí mismo
+   Seis valores y nada más. Contraste AA verificado en ambos modos.
+   `line` es decorativo (1.29:1): cualquier borde que signifique algo
+   usa `muted` o `ink`, nunca `line`.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --paper: #faf9f6;
+  --surface: #f2f0eb;
+  --line: #e0ddd6;
+  --muted: #6e6a62;
+  --ink: #17150f;
+  --accent: #9e3b22;
+}
+
+.dark {
+  --paper: #12110f;
+  --surface: #1b1a17;
+  --line: #2b2925;
+  --muted: #9a958c;
+  --ink: #f5f3ee;
+  --accent: #e0755a;
+}
+
+/* `@theme inline` en vez de `@theme`: hace que Tailwind referencie la variable
+   en vez de copiar su valor, que es lo que permite que .dark la sobreescriba. */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  /* Una sola escala. Sin valores sueltos en el JSX. */
+  --text-hero: clamp(2.75rem, 8vw, 6rem);
+  --text-section: clamp(1.75rem, 4vw, 3rem);
+  --text-lead: clamp(1.125rem, 1.2vw + 0.9rem, 1.375rem);
+  --text-meta: 0.8125rem;
+
+  --spacing-section: clamp(4.5rem, 10vw, 9rem);
+  --spacing-gutter: clamp(1.25rem, 5vw, 2.5rem);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Evita que el ancla quede pegada al borde con la navbar fija. */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-ink);
+    /* Instrument Serif es estática: peso 400 y nada más.
+       La jerarquía sale del tamaño y de la cursiva, no del peso. */
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Foco de teclado, definido una vez para todo el sitio. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Solo para quien no navega con teclado; nunca se quita el de arriba. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+}
+
+/* Suelo no negociable del CLAUDE.md §4. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
