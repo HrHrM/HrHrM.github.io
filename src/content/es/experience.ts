@@ -1,32 +1,60 @@
-import type { ExperienceItem } from '../types'
+import type { EducationItem, ExperienceItem } from '../types'
 
-/** TODO(contenido): puestos y fechas reales. */
+/**
+ * Fechas en ISO parcial: las formatea `lib/dates.ts` según el idioma, para que
+ * las dos versiones no puedan desincronizarse.
+ *
+ * El aporte propio va en primera persona; el contexto de la empresa, en tercera
+ * (CLAUDE.md §5).
+ */
 export const experience: ExperienceItem[] = [
   {
-    company: 'TODO: Empresa actual',
-    role: 'TODO: Cargo',
-    start: '2023',
+    company: 'Galilei Smart Solutions',
+    role: 'Desarrollador Frontend · React',
+    start: '2025-04',
     end: null,
     summary:
-      'TODO: una o dos frases sobre el ámbito del puesto. Qué producto, qué tamaño de equipo, de qué eras responsable.',
+      'Soporte y evolución del proyecto principal de la empresa, y desarrollo de proyectos web y móviles de principio a fin.',
     highlights: [
-      'TODO: una contribución concreta, en primera persona.',
-      'TODO: otra, preferiblemente con un resultado verificable.',
+      'Refactoricé código e implementé funcionalidades nuevas para mejorar el rendimiento y la escalabilidad del proyecto principal.',
+      'Participé en el desarrollo end-to-end de proyectos web y móviles con React y React Native: diseño, implementación y puesta en producción.',
+      'Integré herramientas de IA en mi flujo de trabajo para acelerar la escritura de código, la depuración y la resolución de problemas.',
     ],
   },
   {
-    company: 'TODO: Empresa anterior',
-    role: 'TODO: Cargo',
-    start: '2021',
-    end: '2023',
+    company: 'Pegaso Consulting',
+    role: 'Desarrollador Frontend · Angular',
+    start: '2023-11',
+    end: '2024-11',
     summary:
-      'TODO: una o dos frases sobre el ámbito del puesto y lo que se construyó.',
+      'Funcionalidades administrativas del proyecto web principal, un sistema que había que adaptar a varios clientes sin duplicarlo.',
+    highlights: [
+      'Desarrollé funcionalidades administrativas con Angular, mejorando la modularidad y facilitando la adaptación del sistema a múltiples clientes.',
+      'Diseñé e integré APIs REST en el ecosistema web principal, para un intercambio de datos más ágil y fiable entre frontend y backend.',
+      'Optimicé el rendimiento refactorizando el código: menos complejidad por componente, y más legibilidad y reutilización.',
+    ],
   },
   {
-    company: 'TODO: Primer puesto',
-    role: 'TODO: Cargo',
-    start: '2020',
-    end: '2021',
-    summary: 'TODO: una frase. Los puestos antiguos no necesitan detalle.',
+    company: 'APPS2GO',
+    role: 'Desarrollador Frontend · Flutter',
+    start: '2022-03',
+    end: '2023-06',
+    summary:
+      'La base de una aplicación móvil pensada para funcionar en dispositivos de bajos recursos, con datos en tiempo real.',
+    highlights: [
+      'Desarrollé la base de la aplicación en Flutter, optimizada para gestionar información en dispositivos de bajos recursos con respuesta en tiempo real.',
+      'Implementé Firebase como backend: autenticación, almacenamiento y datos de usuario.',
+      'Transformé los diseños de Figma en interfaces funcionales con la suite completa de widgets de Flutter.',
+    ],
+  },
+]
+
+export const education: EducationItem[] = [
+  {
+    institution: 'Universidad Alejandro de Humboldt',
+    degree: 'Ingeniero en Informática',
+    start: '2016-09',
+    end: '2022-02',
+    note: 'Tesis: aplicación móvil en React Native con funcionalidad de texto a voz.',
   },
 ]

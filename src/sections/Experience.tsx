@@ -1,9 +1,13 @@
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { useLocale } from '@/hooks/useLocale'
+import { formatMonthYear } from '@/lib/dates'
 
 export function Experience() {
-  const { ui, experience } = useLocale()
+  const { ui, experience, education, locale } = useLocale()
+
+  const range = (start: string, end: string | null) =>
+    `${formatMonthYear(start, locale)} — ${end ? formatMonthYear(end, locale) : ui.project.present}`
 
   return (
     <section
@@ -21,15 +25,15 @@ export function Experience() {
           {experience.map((item) => (
             <li
               key={`${item.company}-${item.start}`}
-              className="grid gap-3 border-b border-line py-8 last:border-0 md:grid-cols-12 md:gap-8"
+              className="grid gap-3 border-b border-line py-8 md:grid-cols-12 md:gap-8"
             >
               <p className="font-mono text-meta text-muted tabular-nums md:col-span-3">
-                {item.start} — {item.end ?? ui.project.present}
+                {range(item.start, item.end)}
               </p>
               <div className="md:col-span-9">
                 <h3 className="text-lead text-ink">
-                  {item.role}
-                  <span className="text-muted"> · {item.company}</span>
+                  {item.company}
+                  <span className="text-muted"> · {item.role}</span>
                 </h3>
                 <p className="mt-2 max-w-prose">{item.summary}</p>
                 {item.highlights?.length ? (
@@ -48,6 +52,34 @@ export function Experience() {
             </li>
           ))}
         </ol>
+
+        {/* La formación va dentro de Experiencia y no en una sección propia:
+            §5 del CLAUDE.md fija seis secciones, y una carrera no compite en
+            importancia con tres puestos. */}
+        <h3 className="mt-16 border-b border-line pb-3 font-mono text-meta tracking-widest text-muted uppercase">
+          {ui.sections.experience.education}
+        </h3>
+        <ul>
+          {education.map((item) => (
+            <li
+              key={`${item.institution}-${item.start}`}
+              className="grid gap-3 border-b border-line py-8 last:border-0 md:grid-cols-12 md:gap-8"
+            >
+              <p className="font-mono text-meta text-muted tabular-nums md:col-span-3">
+                {range(item.start, item.end)}
+              </p>
+              <div className="md:col-span-9">
+                <p className="text-lead text-ink">
+                  {item.degree}
+                  <span className="text-muted"> · {item.institution}</span>
+                </p>
+                {item.note ? (
+                  <p className="mt-2 max-w-prose">{item.note}</p>
+                ) : null}
+              </div>
+            </li>
+          ))}
+        </ul>
       </Container>
     </section>
   )

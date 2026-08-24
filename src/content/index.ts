@@ -1,12 +1,12 @@
 import type { ContentBundle } from './types'
 
 import { projects as projectsEs } from './es/projects'
-import { experience as experienceEs } from './es/experience'
+import { education as educationEs, experience as experienceEs } from './es/experience'
 import { skills as skillsEs } from './es/skills'
 import { ui as uiEs } from './es/ui'
 
 import { projects as projectsEn } from './en/projects'
-import { experience as experienceEn } from './en/experience'
+import { education as educationEn, experience as experienceEn } from './en/experience'
 import { skills as skillsEn } from './en/skills'
 import { ui as uiEn } from './en/ui'
 
@@ -16,12 +16,14 @@ export const content: Record<Locale, ContentBundle> = {
   es: {
     projects: projectsEs,
     experience: experienceEs,
+    education: educationEs,
     skills: skillsEs,
     ui: uiEs,
   },
   en: {
     projects: projectsEn,
     experience: experienceEn,
+    education: educationEn,
     skills: skillsEn,
     ui: uiEn,
   },

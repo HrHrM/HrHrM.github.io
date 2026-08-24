@@ -1,8 +1,8 @@
 import type { SkillGroup } from '../types'
 
 /**
+ * Solo lo que está en el CV y se sostendría en una entrevista técnica.
  * Agrupado, sin niveles ni barras de porcentaje (CLAUDE.md §4).
- * TODO(contenido): dejar solo lo que se sostendría en una entrevista técnica.
  */
 export const skills: SkillGroup[] = [
   {
@@ -10,21 +10,24 @@ export const skills: SkillGroup[] = [
     label: 'Frontend',
     items: [
       'React',
+      'React Native',
+      'Angular',
+      'Flutter',
       'TypeScript',
-      'Tailwind CSS',
-      'React Router',
-      'Vite',
-      'Accesibilidad (WCAG AA)',
+      'JavaScript',
+      'Dart',
+      'HTML',
+      'CSS / SASS',
     ],
   },
   {
     id: 'backend',
-    label: 'Backend',
-    items: ['Node.js', 'PostgreSQL', 'REST', 'Supabase', 'Autenticación'],
+    label: 'Backend e integración',
+    items: ['Node.js', 'APIs REST', 'Firebase'],
   },
   {
     id: 'tooling',
     label: 'Herramientas',
-    items: ['Git', 'Docker', 'CI/CD', 'Vitest', 'Playwright', 'Figma'],
+    items: ['Git', 'JIRA', 'Slack', 'SCRUM', 'Figma'],
   },
 ]

@@ -12,7 +12,7 @@ import { LINKS, SITE } from '@/lib/constants'
  * y no hay nada que pueda fallar en silencio.
  */
 export function Contact() {
-  const { ui } = useLocale()
+  const { ui, locale } = useLocale()
 
   const items = [
     {
@@ -43,7 +43,7 @@ export function Contact() {
       key: 'cv',
       label: ui.contact.cv,
       value: 'PDF',
-      href: LINKS.cv,
+      href: LINKS.cv[locale],
       icon: Download,
       external: false,
     },

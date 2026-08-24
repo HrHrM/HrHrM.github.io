@@ -43,6 +43,15 @@ export type ExperienceItem = {
   highlights?: string[]
 }
 
+export type EducationItem = {
+  institution: string
+  degree: string
+  start: string
+  end: string
+  /** El proyecto de tesis, si aporta algo técnico. */
+  note?: string
+}
+
 export type SkillGroupId = 'frontend' | 'backend' | 'tooling'
 
 export type SkillGroup = {
@@ -93,7 +102,7 @@ export type UIStrings = {
     projects: { title: string; lead: string }
     about: { title: string }
     stack: { title: string; lead: string }
-    experience: { title: string }
+    experience: { title: string; education: string }
     contact: { title: string; lead: string }
   }
   project: {
@@ -143,6 +152,7 @@ export type UIStrings = {
 export type ContentBundle = {
   projects: Project[]
   experience: ExperienceItem[]
+  education: EducationItem[]
   skills: SkillGroup[]
   ui: UIStrings
 }
