@@ -1,25 +1,29 @@
 import type { Project } from '../types'
 
 /**
- * Los metadatos (año, stack, visibility) salen del CV y son firmes.
- * Lo que queda en TODO es la prosa: contexto, problema, solución, rol, resultado.
+ * Orden: se ordena por año descendente, y el desempate lo da el orden de este
+ * array (Array.sort es estable). La suite de Galilei va primera a propósito.
  *
- * Los tres primeros van en `nda`: la empresa se nombra en Experiencia —está en
- * el CV y en LinkedIn—, pero aquí no se enseña arquitectura, números de negocio,
- * capturas de paneles internos ni código. Por eso el título es descriptivo y no
- * el nombre del producto del cliente.
+ * Los tres proyectos de cliente van en `nda`: la empresa se nombra en
+ * Experiencia —está en el CV y en LinkedIn—, pero aquí no hay arquitectura
+ * interna, números de negocio, capturas de paneles ni código. Los sectores de
+ * los clientes finales se dan sin nombrarlos, que es lo que pide el §5.
  */
 export const projects: Project[] = [
   {
-    slug: 'proyectos-web-y-movil',
-    // TODO(título): elegir UN proyecto concreto de Galilei. "Proyectos web y
-    // móviles" es un puesto, no un caso de estudio.
-    title: 'TODO: un proyecto concreto',
-    tagline: 'TODO: una línea. Qué era y por qué importaba.',
-    context: 'TODO: sector · escala',
-    problem: 'TODO: qué estaba roto o faltaba antes de que llegaras.',
-    solution: 'TODO: qué construiste, y qué decisión técnica tomaste que pudo haber sido otra.',
-    role: 'TODO: qué hiciste tú, en primera persona. Qué hizo el resto del equipo, en tercera.',
+    slug: 'suite-administrativa',
+    title: 'Suite administrativa multi-cliente',
+    tagline:
+      'Rehacer los recorridos de una suite empresarial en vez de seguir estirando el flujo que ya traía.',
+    context: 'Suite empresarial · ~20 usuarios internos y varios clientes',
+    problem:
+      'La suite reúne herramientas que no se parecen entre sí: información de pagos, facturación, rastreo en mapa, productos y pedidos. Cada una había crecido por su lado y arrastraba decisiones de interfaz de hace años, así que tareas corrientes pedían recorrer varias pantallas y bastantes clics. A eso se sumaban vistas antiguas con errores y con código que costaba tocar.',
+    solution:
+      'En vez de extender el flujo existente, rehíce los recorridos partiendo de cómo se resuelve esto hoy: menos pantallas por tarea y menos clics para llegar al mismo resultado. Fue una decisión discutible y la tomé a conciencia — seguir el patrón que ya estaba habría sido más rápido de entregar — pero cada pantalla nueva que se añadiera sobre el flujo viejo heredaba el problema. Las vistas antiguas se fueron pasando al diseño y al flujo nuevo de forma progresiva, no de golpe.',
+    role: 'Soy el único frontend del equipo. Trabajo contra tres desarrolladores de backend y mi parte es que todo lo que ellos exponen llegue al usuario con la mejor interfaz posible. En los proyectos recientes hay un diseñador general, pero el detalle —los estados, los casos límite, el comportamiento real de cada pantalla— cae de mi lado.',
+    // TODO(resultado): si puedes contar los clics o las pantallas de UN flujo
+    // concreto antes y después, ese es el número más convincente que tienes.
+    // Ejemplo: "registrar un pedido pasó de 4 pantallas y 11 clics a 2 y 5".
     stack: ['React', 'React Native', 'TypeScript'],
     links: {},
     visibility: 'nda',
@@ -27,15 +31,35 @@ export const projects: Project[] = [
     year: 2025,
   },
   {
-    slug: 'plataforma-multicliente',
-    title: 'Plataforma administrativa multi-cliente',
-    tagline:
-      'TODO: una línea. Un sistema que había que adaptar a varios clientes sin duplicarlo.',
-    context: 'TODO: sector · cuántos clientes',
-    problem: 'TODO: qué dolía. Por qué no se había resuelto antes.',
+    slug: 'sitio-corporativo-galilei',
+    title: 'Sitio corporativo',
+    tagline: 'El sitio público de la empresa, programado de principio a fin.',
+    context: 'Sitio corporativo · público',
+    problem:
+      'La empresa necesitaba su sitio público construido a partir de un diseño ya definido, funcionando en móvil y sin depender de un proveedor externo para cada cambio.',
     solution:
-      'TODO: cómo resolviste la modularidad, y qué alternativa descartaste.',
-    role: 'TODO: tu aporte concreto, separado del equipo.',
+      'Lo programé completo siguiendo el diseño entregado, resolviendo el paso de la maqueta al comportamiento real: estados, adaptación a móvil y los detalles que un diseño estático no especifica.',
+    role: 'La programación es mía, de principio a fin. El diseño no lo es: lo recibí ya definido y mi trabajo fue implementarlo con fidelidad. Lo digo claro porque atribuirme un diseño ajeno sería el tipo de cosa que se descubre en la primera entrevista.',
+    stack: ['React', 'TypeScript'],
+    links: { live: 'https://galilei.com.ve/' },
+    visibility: 'public',
+    featured: true,
+    year: 2025,
+  },
+  {
+    slug: 'plataforma-multicliente',
+    title: 'Plataforma web con permisos modulares',
+    tagline:
+      'Un menú multi-rol que dejó que cada cliente tuviera su propia instancia sin duplicar el proyecto.',
+    context:
+      'Consultoría de software · 4 clientes corporativos (telecomunicaciones, banca, cine y entretenimiento)',
+    problem:
+      'El proyecto web principal servía a cuatro clientes corporativos a la vez, y cada uno llegaba con requisitos propios: funciones de cine, de restaurantes, de sectores que no se parecían en nada. Casi nada fallaba, pero el código no estaba preparado para absorber esa suma sin repetirse, y cada requisito nuevo empujaba hacia tener una versión por cliente.',
+    solution:
+      'Implementé un menú multi-rol con permisos modulares: cada cliente pasó a tener su propia instancia de menús sobre el mismo proyecto, sin bifurcar el código. En paralelo saqué a funciones universales las piezas que se repetían, para que el siguiente requisito no obligara a escribirlas otra vez.',
+    role: 'Éramos dos en frontend. Las APIs REST las integré yo, y antes me reunía con el equipo de backend para acordar qué necesitábamos que expusieran: el contrato salía de esas reuniones, no me llegaba cerrado.',
+    outcome:
+      'Programar se volvió más ágil: muchas piezas quedaron reutilizables y eso subió la productividad del equipo de frontend en general, no solo la mía.',
     stack: ['Angular', 'TypeScript', 'APIs REST'],
     links: {},
     visibility: 'nda',
@@ -43,16 +67,18 @@ export const projects: Project[] = [
     year: 2024,
   },
   {
-    slug: 'app-gama-baja',
-    title: 'App de gestión para dispositivos de gama baja',
+    slug: 'app-punto-de-venta',
+    title: 'App de gestión para terminales POS',
     tagline:
-      'TODO: una línea. Datos en tiempo real en teléfonos que no dan para mucho.',
-    context: 'TODO: sector · cuántos usuarios · qué gama de dispositivo',
+      'Datos en tiempo real en equipos POS Android, donde el margen de recursos es mínimo.',
+    context: 'Terminales POS Android de gama baja',
     problem:
-      'TODO: qué significaba "bajos recursos" en concreto. Qué fallaba en esos teléfonos.',
+      'La aplicación tenía que correr en equipos POS Android, no en teléfonos: hardware con muy poco margen de memoria y proceso. No es que algo estuviera roto — la restricción era el punto de partida. Cualquier patrón que asumiera un dispositivo normal (cargar una lista completa, imágenes sin tratar, estado que crece sin límite) sobrecargaba el equipo.',
     solution:
-      'TODO: qué hiciste para que funcionara ahí, y qué sacrificaste a cambio.',
-    role: 'TODO: tu aporte concreto, separado del equipo.',
+      'Levanté la base de la app en Flutter con carga paginada contra Firebase, para no sostener en memoria más de lo que hiciera falta en cada pantalla, y con las imágenes optimizadas antes de llegar al dispositivo. La sincronización en tiempo real la resolvía Firebase en sus propias consultas.',
+    role: 'Arranqué el proyecto desde cero y construí la base sobre la que siguió creciendo. Más adelante la aplicación pasó a manos de otra persona.',
+    outcome:
+      'El compromiso fue explícito: sacrifiqué acabado visual para que la app se sostuviera en el equipo. En un POS eso es el intercambio correcto, y preferí decidirlo de entrada antes que descubrirlo en producción.',
     stack: ['Flutter', 'Dart', 'Firebase'],
     links: {},
     visibility: 'nda',
@@ -60,21 +86,18 @@ export const projects: Project[] = [
     year: 2023,
   },
   {
-    // El único que puede tener link y repo: es tuyo. Carga el peso de demostrar
-    // que el código existe, así que conviene que esté publicado y limpio.
-    slug: 'lector-texto-a-voz',
-    title: 'Lector de texto a voz',
-    tagline: 'TODO: una línea. Para quién era y qué problema resolvía.',
+    slug: 'comunicador-caa',
+    title: 'Comunicador para personas sin habla',
+    tagline:
+      'Iconos y texto que se convierten en voz, para quien no puede producirla.',
     context: 'Proyecto de tesis · Universidad Alejandro de Humboldt',
-    problem: 'TODO: por qué elegiste texto a voz. A quién le servía.',
-    solution: 'TODO: cómo lo construiste y qué fue lo difícil.',
-    role: 'Proyecto propio, de principio a fin.',
+    problem:
+      'Una persona con discapacidad del habla necesita algo que hable por ella, y necesita que sea lo que ya lleva encima: el teléfono. La barrera no es solo técnica, es de acceso — un dispositivo dedicado de comunicación asistida es caro y no todo el mundo puede tenerlo.',
+    solution:
+      'Una aplicación móvil en React Native donde se pulsa un icono o se escribe un texto y el teléfono lo reproduce en voz alta mediante síntesis de voz. Los iconos permiten construir frases sin escribir, que es lo que hace la diferencia cuando escribir cada palabra es demasiado lento para una conversación.',
+    role: 'Proyecto propio, de principio a fin: fue mi trabajo de tesis.',
     stack: ['React Native', 'JavaScript', 'Text-to-Speech'],
-    links: {
-      // TODO(repo): publicar el repo y poner la URL. Sin esto, el único
-      // proyecto que puede demostrar código no demuestra nada.
-      repo: undefined,
-    },
+    links: { repo: 'https://github.com/HrHrM/ReactN-Tesis' },
     visibility: 'public',
     featured: true,
     year: 2022,
