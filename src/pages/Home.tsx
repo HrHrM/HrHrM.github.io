@@ -34,10 +34,10 @@ export default function Home() {
   return (
     <main id="main">
       <Hero />
-      <Projects />
+      <Experience />
       <About />
       <Stack />
-      <Experience />
+      <Projects />
       <Contact />
     </main>
   )

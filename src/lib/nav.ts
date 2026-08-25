@@ -3,10 +3,10 @@
  * distinta por idioma rompería cualquier enlace compartido al cambiar de lengua.
  */
 export const SECTION_IDS = [
-  'projects',
+  'experience',
   'about',
   'stack',
-  'experience',
+  'projects',
   'contact',
 ] as const
 

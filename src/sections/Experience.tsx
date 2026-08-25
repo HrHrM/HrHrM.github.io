@@ -13,11 +13,11 @@ export function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-title"
-      className="border-t border-line py-section"
+      className="py-section"
     >
       <SectionHeading
         id="experience"
-        index="04"
+        index="01"
         title={ui.sections.experience.title}
       />
       <Container>

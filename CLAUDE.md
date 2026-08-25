@@ -243,14 +243,28 @@ es decorativo. Cualquier borde que signifique algo usa `muted` o `ink`, nunca `l
 
 ## 5. Contenido de la página
 
-En este orden, porque así es como se escanea:
-
 1. **Hero** — quién soy, qué hago, **una** llamada a la acción.
-2. **Proyectos destacados** — 3 o 4, no doce. Problema → solución → stack → resultado.
+2. **Experiencia** — timeline simple.
 3. **Sobre mí** — corto, humano. Prohibido "apasionado por la tecnología".
 4. **Stack** — agrupado: frontend / backend / tooling.
-5. **Experiencia** — timeline simple.
+5. **Proyectos** — 3 o 5, no doce. Problema → solución → mi rol → resultado.
 6. **Contacto** — email + GitHub + LinkedIn + CV descargable.
+
+**Experiencia va antes que Proyectos, y es una desviación consciente.** El orden
+original ponía Proyectos en el puesto 2, coherente con el objetivo del §1: que
+los proyectos se entiendan sin leer el CV. Se cambió porque tres de los cinco
+proyectos están bajo NDA y no llevan enlace ni repo, mientras que Experiencia
+nombra tres empresas reales con fechas verificables. Ante un lector escéptico,
+lo comprobable entra antes que lo abstracto.
+
+Si algún día los proyectos ganan enlaces, capturas o métricas propias, **este
+orden hay que revisarlo**: la razón de la desviación desaparece con ella.
+
+El orden vive en dos sitios que tienen que coincidir: el ensamblado de
+`pages/Home.tsx` y el array `SECTION_IDS` de `lib/nav.ts`, que gobierna la
+Navbar y el scroll spy. Y la numeración de las secciones (`index` de
+`SectionHeading`) va a mano: si se reordena, hay que renumerar, porque una
+retícula numerada que salta rompe justo lo que la hace "precisa".
 
 ### Proyectos de empresa
 

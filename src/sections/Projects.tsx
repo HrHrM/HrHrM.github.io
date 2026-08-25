@@ -10,10 +10,10 @@ export function Projects() {
     .sort((a, b) => b.year - a.year)
 
   return (
-    <section id="projects" aria-labelledby="projects-title" className="py-section">
+    <section id="projects" aria-labelledby="projects-title" className="border-t border-line py-section">
       <SectionHeading
         id="projects"
-        index="01"
+        index="04"
         title={ui.sections.projects.title}
         lead={ui.sections.projects.lead}
       />
