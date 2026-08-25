@@ -30,6 +30,25 @@
 
 /* `@theme inline` en vez de `@theme`: hace que Tailwind referencie la variable
    en vez de copiar su valor, que es lo que permite que .dark la sobreescriba. */
+/**
+ * Reserva con métricas ajustadas para el display.
+ *
+ * Medido en el navegador: Georgia es un 30% más ancha que Instrument Serif al
+ * mismo `font-size` (1535px contra 1177px para la misma cadena a 100px). Con
+ * `font-display: swap`, eso significa que el titular se pinta primero con otro
+ * reparto de líneas y salta al cargar la fuente real.
+ *
+ * `size-adjust: 76.7%` es el ratio exacto entre las dos, así que la reserva
+ * ocupa lo mismo y el cambio deja de reflowear el texto. En conexión normal las
+ * fuentes ya llegan antes del primer paint gracias al `preload` de `root.tsx`;
+ * esto es el seguro para quien entre con mala conexión.
+ */
+@font-face {
+  font-family: 'Instrument Serif Fallback';
+  src: local('Georgia');
+  size-adjust: 76.7%;
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-surface: var(--surface);
@@ -38,7 +57,8 @@
   --color-ink: var(--ink);
   --color-accent: var(--accent);
 
-  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-display:
+    'Instrument Serif', 'Instrument Serif Fallback', ui-serif, Georgia, serif;
   --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
 
