@@ -31,6 +31,13 @@ export function seoMeta({
   const urlEn = absoluteUrl(SITE.url, pathEn)
   const canonical = locale === 'es' ? urlEs : urlEn
 
+  /**
+   * `og:image` tiene que ser una URL absoluta: con una ruta relativa, ni
+   * WhatsApp ni LinkedIn resuelven la imagen. Sale de `SITE.url`, así que se
+   * corrige sola en cuanto haya dominio — igual que las canónicas.
+   */
+  const ogImage = absoluteUrl(SITE.url, `/og-${locale}.png`)
+
   return [
     { title },
     { name: 'description', content: description },
@@ -47,10 +54,15 @@ export function seoMeta({
     { property: 'og:title', content: title },
     { property: 'og:description', content: description },
     { property: 'og:url', content: canonical },
-    // TODO(og): añadir og:image cuando exista public/og-image.png (1200×630).
+    { property: 'og:image', content: ogImage },
+    { property: 'og:image:width', content: '1200' },
+    { property: 'og:image:height', content: '630' },
+    // La imagen es una tarjeta tipográfica: el alt describe lo que se lee en ella.
+    { property: 'og:image:alt', content: title },
 
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: title },
     { name: 'twitter:description', content: description },
+    { name: 'twitter:image', content: ogImage },
   ]
 }

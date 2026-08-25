@@ -306,8 +306,8 @@ de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
 - [x] **Diseño** — tokens, paleta y escala definidos y verificados.
 - [x] **Setup** — Vite, Tailwind v4, React Router con prerender. Falta el deploy.
 - [~] **Maquetado** — Home y `ProjectDetail` completas en español. Falta escribir el inglés.
-- [~] **Pulido** — accesibilidad, animación, sitemap y robots hechos. Faltan imágenes,
-      la OG image y pasar Lighthouse.
+- [~] **Pulido** — accesibilidad, animación, sitemap, robots y OG image hechos.
+      Falta pasar Lighthouse.
 - [ ] **Lanzamiento** — dominio propio, OG image, analytics ligero.
 
 ### Cómo comprobar que el prerender sigue vivo
@@ -356,6 +356,29 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
 - [ ] Dominio. Mientras no esté, `SITE.url` es `https://example.com` y **las
       canónicas y los hreflang apuntan a un sitio que no es el tuyo**. Hay que
       cambiarlo antes de que Google indexe nada.
+
+### Qué va en `public/` y qué en `src/assets/`
+
+No es lo mismo y confundirlo cuesta tiempo:
+
+- **`public/`** — se sirve tal cual, en una URL fija y sin procesar. Va aquí todo
+  lo que necesita una ruta predecible porque lo consume algo de fuera:
+  `cv-es.pdf`, `cv-en.pdf`, `og-es.png`, `og-en.png`, `favicon.svg`.
+  Sin hash en el nombre, así que al reemplazar un fichero hay que contar con la
+  caché del navegador.
+- **`src/assets/`** — se importa desde el código y lo procesa Vite: optimiza,
+  comprime y añade hash al nombre. Va aquí cualquier imagen que se pinte dentro
+  de un componente, como el `cover` de un proyecto.
+
+Regla corta: si la URL aparece en un `href`, un `<meta>` o la escribe un tercero,
+va en `public/`. Si la escribe un `import`, va en `src/assets/`.
+
+**Las OG image se generan**, no se dibujan a mano: `scratchpad/og.html` usa los
+mismos tokens y las mismas fuentes que el sitio, y se rasteriza a 1200×630 con
+Playwright. Si cambia el titular o la paleta, se regenera desde ahí.
+`og:image` **tiene que ser URL absoluta** — con ruta relativa, WhatsApp y
+LinkedIn no la resuelven. Sale de `SITE.url`, así que se corrige sola con el
+dominio.
 
 ### Nota de entorno
 
