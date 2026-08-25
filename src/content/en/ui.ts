@@ -14,7 +14,7 @@ export const ui: UIStrings = {
   },
   hero: {
     eyebrow: 'Software Developer · Caracas',
-    headline: 'I build interfaces that hold up in production.',
+    headline: 'I develop software solutions for web and mobile.',
     cta: 'See the work',
     scrollHint: 'Keep scrolling',
   },

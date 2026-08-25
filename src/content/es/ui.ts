@@ -14,7 +14,7 @@ export const ui: UIStrings = {
   },
   hero: {
     eyebrow: 'Desarrollador de software · Caracas',
-    headline: 'Construyo interfaces que aguantan producción.',
+    headline: 'Desarrollo soluciones de software para web y móvil.',
     cta: 'Ver proyectos',
     scrollHint: 'Sigue bajando',
   },
