@@ -289,9 +289,26 @@ diagramas propios de arquitectura o flujo · mockups recreados con datos falsos 
 sin branding · fragmentos de código propio (el patrón es tuyo aunque el repo no) ·
 métricas de rendimiento, que no son confidenciales y son lo más convincente.
 
-**Separar la contribución.** Contexto en tercera persona, aporte propio en primera:
-"el equipo migró la plataforma a React" / "yo diseñé el sistema de componentes y
-migré los 30 formularios del checkout". El "nosotros" solo genera dudas.
+**Separar la contribución, pero en registro impersonal.** El campo `role` de cada
+proyecto describe **ámbito de responsabilidad**, no narración: frases nominales
+("Responsable único del frontend. Implementación de las interfaces sobre las APIs
+disponibles…"), no primera persona coloquial ("mi parte es que…", "cae de mi
+lado", "éramos dos en frontend").
+
+La separación se sigue cumpliendo —se sabe exactamente qué es suyo— pero por
+precisión del alcance, no por contar la dinámica del equipo. Los recuentos de
+plantilla son ruido: lo que informa es si cargaba una capa entera o una parte.
+Cuando hubo trabajo compartido se dice sin ambigüedad ("los contratos de datos
+acordada con el equipo de backend"), y el "nosotros" a secas sigue prohibido
+porque solo genera dudas.
+
+**Excepción deliberada:** los `highlights` de `experience.ts` sí usan primera
+persona con verbo en pasado ("Refactoricé…", "Integré…"). Es el registro estándar
+de un CV y ahí funciona; el `role` de un caso de estudio es otra cosa.
+
+Y la atribución negativa también va explícita cuando toca: si el diseño no es
+suyo, se dice ("El diseño es de terceros"). Atribuirse un diseño ajeno es lo que
+se descubre en la primera entrevista.
 
 **Nunca:** subir código de la empresa a GitHub personal · capturas con datos reales
 de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
