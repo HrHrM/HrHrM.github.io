@@ -76,9 +76,9 @@ export const projects: Project[] = [
       'The app had to run on Android POS terminals, not phones: hardware with very little memory and compute headroom. Nothing was broken — the constraint was the starting point. Any pattern that assumed a normal device (loading a full list, untreated images, state that grows without bound) would overload the terminal.',
     solution:
       'I built the app foundation in Flutter with paginated loading against Firebase, so no screen held more in memory than it needed, and with images optimised before they reached the device. Firebase handled real-time sync on its own queries.',
-    role: 'I started the project from scratch and built the foundation it kept growing on. Later the app passed to someone else.',
+    role: 'I started the project from scratch and built the foundation it kept growing on: the screen structure, the data layer, and the patterns the rest of the work carried forward.',
     outcome:
-      'Giving something up was the deliberate part: I traded visual polish so the app would hold on the hardware. On a POS that is the right exchange, and I would rather decide it up front than discover it in production.',
+      'The trade-off was deliberate: I gave up visual polish so the app would hold on the hardware. On a POS that is the right exchange, and I would rather decide it up front than discover it in production.',
     stack: ['Flutter', 'Dart', 'Firebase'],
     links: {},
     visibility: 'nda',

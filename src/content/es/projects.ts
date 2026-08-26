@@ -76,9 +76,9 @@ export const projects: Project[] = [
       'La aplicación tenía que correr en equipos POS Android, no en teléfonos: hardware con muy poco margen de memoria y de cómputo. No es que algo estuviera roto — la restricción era el punto de partida. Cualquier patrón que diera por sentado un dispositivo normal (cargar una lista completa, imágenes sin tratar, estado que crece sin límite) sobrecargaba el equipo.',
     solution:
       'Levanté la base de la app en Flutter con carga paginada contra Firebase, para no sostener en memoria más de lo que hiciera falta en cada pantalla, y con las imágenes optimizadas antes de llegar al dispositivo. La sincronización en tiempo real la resolvía Firebase en sus propias consultas.',
-    role: 'Arranqué el proyecto desde cero y construí la base sobre la que siguió creciendo. Más adelante la aplicación pasó a manos de otra persona.',
+    role: 'Arranqué el proyecto desde cero y construí la base sobre la que siguió creciendo: la estructura de pantallas, la capa de datos y los patrones que el resto del desarrollo siguió usando.',
     outcome:
-      'La renuncia fue deliberada: sacrifiqué acabado visual para que la app se sostuviera en el equipo. En un POS ese es el intercambio correcto, y preferí decidirlo de entrada antes que descubrirlo en producción.',
+      'El intercambio fue deliberado: cedí acabado visual para que la app se sostuviera en el equipo. En un POS ese es el cambio correcto, y preferí decidirlo de entrada antes que descubrirlo en producción.',
     stack: ['Flutter', 'Dart', 'Firebase'],
     links: {},
     visibility: 'nda',
