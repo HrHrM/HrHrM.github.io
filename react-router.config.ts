@@ -32,6 +32,23 @@ export default {
   // Sin servidor en runtime: el build emite un .html por ruta y el cliente hidrata.
   ssr: false,
 
+  /**
+   * Los cinco cambios de comportamiento que React Router 7 anuncia para la 8.
+   * Se activan ya por dos razones: silencian los avisos de consola y, sobre
+   * todo, dejan el proyecto probado contra el comportamiento nuevo, así que el
+   * salto a la 8 (cuando Node llegue a 22.22) no traerá sorpresas.
+   *
+   * Verificado tras activarlos: typecheck y lint limpios, las 11 rutas siguen
+   * prerenderizando y el HTML sigue trayendo el contenido.
+   */
+  future: {
+    v8_middleware: true,
+    v8_splitRouteModules: true,
+    v8_viteEnvironmentApi: true,
+    v8_passThroughRequests: true,
+    v8_trailingSlashAwareDataRequests: true,
+  },
+
   // Con `ssr: false` las rutas dinámicas NO se descubren solas: hay que enumerarlas.
   prerender: routePaths,
 
