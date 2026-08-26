@@ -1,8 +1,10 @@
 import type { EducationItem, ExperienceItem } from '../types'
 
 /**
- * Written, not translated — tighter and more direct than the Spanish, which is
- * how English reads naturally here.
+ * Written, not translated — tighter and more direct than the Spanish.
+ *
+ * What this says has to match what the project pages say: if one section reads
+ * "designed" and the other "integrated", the contradiction shows.
  */
 export const experience: ExperienceItem[] = [
   {
@@ -27,7 +29,7 @@ export const experience: ExperienceItem[] = [
       'Admin features for the main web product — a system that had to fit several clients without being forked for each one.',
     highlights: [
       'Built admin features in Angular, improving modularity so the system could be adapted per client.',
-      'Designed and integrated REST APIs across the main web ecosystem for faster, more reliable data exchange.',
+      'Integrated the REST APIs across the main web ecosystem, agreeing with the backend team in meetings on what they needed to expose.',
       'Cut component complexity through refactoring, which made the code more readable and more reusable.',
     ],
   },
@@ -37,9 +39,9 @@ export const experience: ExperienceItem[] = [
     start: '2022-03',
     end: '2023-06',
     summary:
-      'The foundation of a mobile app built to run on low-resource devices with live data.',
+      'The foundation of a mobile app for Android POS terminals, with live data and very little resource headroom.',
     highlights: [
-      'Built the app foundation in Flutter, tuned for handling data on low-resource devices with real-time response.',
+      'Built the app foundation in Flutter, tuned for handling data on low-end POS hardware with real-time response.',
       'Set up Firebase as the backend: authentication, storage and user data.',
       "Turned Figma designs into working interfaces using Flutter's widget set.",
     ],
@@ -52,6 +54,6 @@ export const education: EducationItem[] = [
     degree: 'Computer Engineering',
     start: '2016-09',
     end: '2022-02',
-    note: 'Thesis: a React Native mobile app with text-to-speech functionality.',
+    note: 'Thesis: a React Native communication aid for people with speech disabilities, turning icons or typed text into speech.',
   },
 ]

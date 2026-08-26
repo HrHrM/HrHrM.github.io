@@ -1,6 +1,6 @@
 import type { UIStrings } from '../types'
 
-/** Written, not translated. Keep it shorter and blunter than the Spanish. */
+/** Written, not translated. Tighter and blunter than the Spanish. */
 export const ui: UIStrings = {
   nav: {
     projects: 'Work',
@@ -25,25 +25,25 @@ export const ui: UIStrings = {
   },
   about: {
     paragraphs: [
-      'I work on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, and the REST APIs and Firebase behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page is case studies rather than screenshots.',
-      'What actually interests me is what happens after something ships and has to change: migrating without stopping sales, touching a form nobody has opened in years, leaving code the next person will not have to guess at. In a code review I look at naming and module boundaries first.',
-      'Outside work I am much the same, only more stubborn about it. I learn slowly and by repetition, and I do not mind it taking a while — what bothers me is ending a month where I started it.',
+      'I work on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, and the REST APIs and Firebase behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page has case studies rather than screenshots.',
+      'What actually interests me is what happens after something ships and has to change: reordering a flow people use every day without breaking their habits, pulling duplicated logic into pieces worth reusing, getting an app to hold on hardware with nothing left to give. In a code review I look at naming and module boundaries first.',
+      'Outside work I am fairly stubborn. I learn slowly, by repetition, and I do not mind taking a while — what bothers me is ending a month where I started it.',
     ],
   },
   sections: {
     projects: {
       title: 'Work',
-      lead: 'Four cases. The problem, what I built, what changed.',
+      lead: 'Five cases. The problem, what I built, what changed.',
     },
     about: { title: 'About' },
     stack: {
       title: 'Stack',
-      lead: "What I use daily and would defend in a code review.",
+      lead: 'What I use daily and would defend in a code review.',
     },
     experience: { title: 'Experience', education: 'Education' },
     contact: {
       title: 'Contact',
-      lead: 'If any of this fits what you need, get in touch.',
+      lead: 'If any of this fits what you need, get in touch. I reply same day.',
     },
   },
   project: {

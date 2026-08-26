@@ -25,15 +25,15 @@ export const ui: UIStrings = {
   },
   about: {
     paragraphs: [
-      'Trabajo en aplicaciones web y móviles: React y Angular en el navegador, Flutter y React Native en el teléfono, y las APIs REST y Firebase que las alimentan. Casi todo lo que he construido es para clientes y empleadores, así que buena parte no se puede enseñar por dentro — de ahí que esta página sean casos y no capturas.',
-      'Lo que me interesa de verdad es lo que pasa cuando el proyecto ya está en producción y hay que cambiarlo: migrar sin parar las ventas, meter mano en un formulario que nadie toca desde hace años, dejar el código de forma que el siguiente no tenga que adivinar. En una revisión de código miro primero los nombres y los límites entre módulos.',
-      'Fuera del trabajo soy igual de terco. Aprendo despacio y a base de repetir, y no me molesta tardar: lo que me incomoda es acabar un mes donde lo empecé.',
+      'Trabajo en aplicaciones web y móviles: React y Angular en el navegador, Flutter y React Native en el teléfono, y las APIs REST y Firebase que las alimentan. Casi todo lo que he construido pertenece a clientes o empleadores, así que buena parte no se puede enseñar por dentro — de ahí que aquí haya casos de estudio y no capturas de pantalla.',
+      'Lo que me interesa de verdad es lo que pasa cuando algo ya está en producción y hay que cambiarlo: reordenar un flujo que la gente usa todos los días sin romperle la costumbre, sacar a piezas reutilizables lo que estaba repetido en cinco sitios, conseguir que una aplicación se sostenga en un equipo que no da para más. En una revisión de código miro primero los nombres y los límites entre módulos.',
+      'Fuera del trabajo soy bastante terco. Aprendo despacio y a base de repetir, y no me molesta tardar: lo que me incomoda es acabar un mes donde lo empecé.',
     ],
   },
   sections: {
     projects: {
       title: 'Proyectos',
-      lead: 'Cuatro casos. El problema que había, qué construí y qué cambió.',
+      lead: 'Cinco casos. El problema que había, qué construí y qué cambió.',
     },
     about: { title: 'Sobre mí' },
     stack: {
