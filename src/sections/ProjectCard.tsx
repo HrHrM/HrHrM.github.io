@@ -1,4 +1,4 @@
-import { ArrowUpRight, Lock } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router'
 
 import { Badge } from '@/components/ui/Badge'
@@ -85,14 +85,6 @@ export function ProjectCard({
         </ul>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Link
-            to={projectPath(project.slug)}
-            className="inline-flex items-center gap-1.5 font-mono text-meta tracking-wide text-ink uppercase underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-          >
-            {ui.project.readCase}
-            <ArrowUpRight aria-hidden="true" className="size-3.5" />
-          </Link>
-
           {hasLive ? (
             <a
               href={links.live}
@@ -117,15 +109,15 @@ export function ProjectCard({
             </a>
           ) : null}
 
-          {visibility === 'private' ? (
-            <span className="inline-flex items-center gap-1.5 font-mono text-meta tracking-wide text-muted uppercase">
-              <Lock aria-hidden="true" className="size-3.5" />
-              {ui.project.codePrivate}
-            </span>
-          ) : null}
-
+          {/* Los dos estados van como etiquetas iguales. En un proyecto bajo
+              NDA se muestran ambas: "Bajo NDA" dice por qué no hay detalle
+              interno, y "Código privado" por qué no hay repositorio. */}
           {visibility === 'nda' ? (
             <Badge tone="accent">{ui.project.underNda}</Badge>
+          ) : null}
+
+          {visibility === 'nda' || visibility === 'private' ? (
+            <Badge>{ui.project.codePrivate}</Badge>
           ) : null}
         </div>
       </div>

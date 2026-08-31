@@ -63,6 +63,13 @@ Todo lo demás en la página está al servicio de eso.
   del mismo listado para que no puedan desincronizarse.
 - **`lucide-react` v1 ya no trae iconos de marca.** GitHub y LinkedIn van como SVG
   inline en `components/ui/BrandIcon.tsx`.
+- **El parpadeo de HTML sin estilo al recargar solo pasa en `npm run dev`.**
+  El dev server de Vite inyecta el CSS por JS para poder hacer HMR, así que el
+  HTML se pinta antes de que existan los estilos. En el build el CSS es un
+  `<link>` bloqueante en el `<head>`, y el primer fotograma pintado ya sale
+  con estilos — verificado capturando fotogramas con red a 300 kbps. No hay
+  nada que arreglar: si se quiere comprobar cómo lo ve un visitante, hay que
+  mirar `npm run build` servido, no el dev server.
 - **Oxlint es linter, no formateador.** No sustituye a Prettier.
 
 ---

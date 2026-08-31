@@ -27,7 +27,7 @@ export const ui: UIStrings = {
     paragraphs: [
       'I work on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, and the REST APIs and Firebase behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page has case studies rather than screenshots.',
       'What actually interests me is what happens after something ships and has to change: reordering a flow people use every day without breaking their habits, pulling duplicated logic into pieces worth reusing, getting an app to hold on hardware with nothing left to give. In a code review I look at naming and module boundaries first.',
-      'Outside work I am fairly stubborn. I learn slowly, by repetition, and I do not mind taking a while — what bothers me is ending a month where I started it.',
+      'I learn by repetition and with patience; I do not mind something taking a while. What I do mind is closing a month at the same point where it opened.',
     ],
   },
   sections: {

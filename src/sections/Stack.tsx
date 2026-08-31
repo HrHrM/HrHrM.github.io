@@ -1,8 +1,15 @@
+import { Badge } from '@/components/ui/Badge'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { useLocale } from '@/hooks/useLocale'
 
-/** Agrupado y en listas. Sin barras de porcentaje (CLAUDE.md §4). */
+/**
+ * Misma retícula que Experiencia y las fichas: etiqueta en mono a la izquierda,
+ * contenido a la derecha. Escala a cualquier número de grupos, al contrario que
+ * una rejilla de tres columnas — con cinco grupos dejaba un 3+2 descompensado.
+ *
+ * Sin niveles ni barras de porcentaje (CLAUDE.md §4).
+ */
 export function Stack() {
   const { ui, skills } = useLocale()
 
@@ -19,22 +26,27 @@ export function Stack() {
         lead={ui.sections.stack.lead}
       />
       <Container>
-        <div className="grid gap-10 md:grid-cols-3 md:gap-8">
+        <dl>
           {skills.map((group) => (
-            <div key={group.id}>
-              <h3 className="border-b border-line pb-3 font-mono text-meta tracking-widest text-muted uppercase">
+            <div
+              key={group.id}
+              className="grid gap-3 border-b border-line py-8 last:border-0 md:grid-cols-12 md:gap-8"
+            >
+              <dt className="font-mono text-meta tracking-widest text-muted uppercase md:col-span-3">
                 {group.label}
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {group.items.map((item) => (
-                  <li key={item} className="text-ink">
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              </dt>
+              <dd className="md:col-span-9">
+                <ul className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <li key={item}>
+                      <Badge>{item}</Badge>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
             </div>
           ))}
-        </div>
+        </dl>
       </Container>
     </section>
   )

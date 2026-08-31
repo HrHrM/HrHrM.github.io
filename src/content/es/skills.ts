@@ -2,32 +2,36 @@ import type { SkillGroup } from '../types'
 
 /**
  * Solo lo que está en el CV y se sostendría en una entrevista técnica.
- * Agrupado, sin niveles ni barras de porcentaje (CLAUDE.md §4).
+ * Sin niveles ni barras de porcentaje (CLAUDE.md §4).
+ *
+ * Los grupos separan categorías reales: los lenguajes no van con los
+ * frameworks, y Firebase —que es un servicio gestionado, no una librería—
+ * tampoco va con React.
  */
 export const skills: SkillGroup[] = [
   {
-    id: 'frontend',
-    label: 'Frontend',
-    items: [
-      'React',
-      'React Native',
-      'Angular',
-      'Flutter',
-      'TypeScript',
-      'JavaScript',
-      'Dart',
-      'HTML',
-      'CSS / SASS',
-    ],
+    id: 'languages',
+    label: 'Lenguajes',
+    items: ['TypeScript', 'JavaScript', 'Dart', 'HTML', 'CSS / SASS'],
   },
   {
-    id: 'backend',
-    label: 'Backend e integración',
-    items: ['Node.js', 'APIs REST', 'Firebase'],
+    id: 'frameworks',
+    label: 'Frameworks y librerías',
+    items: ['React', 'React Native', 'Angular', 'Flutter', 'Node.js'],
+  },
+  {
+    id: 'services',
+    label: 'Servicios e integración',
+    items: ['Firebase', 'APIs REST'],
   },
   {
     id: 'tooling',
-    label: 'Herramientas',
-    items: ['Git', 'JIRA', 'Slack', 'SCRUM', 'Figma'],
+    label: 'Herramientas y metodología',
+    items: ['Git', 'Figma', 'JIRA', 'Slack', 'SCRUM'],
+  },
+  {
+    id: 'spoken',
+    label: 'Idiomas',
+    items: ['Español — nativo', 'Inglés — B2 profesional'],
   },
 ]

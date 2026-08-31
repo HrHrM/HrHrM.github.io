@@ -52,7 +52,18 @@ export type EducationItem = {
   note?: string
 }
 
-export type SkillGroupId = 'frontend' | 'backend' | 'tooling'
+/**
+ * Los grupos siguen la estructura del CV, que separa lo que son cosas distintas:
+ * un lenguaje no es un framework, y un servicio gestionado no es una librería.
+ * Mezclarlos —"Frontend: React, TypeScript, HTML"— es lo que delata un stack
+ * escrito de memoria.
+ */
+export type SkillGroupId =
+  | 'languages'
+  | 'frameworks'
+  | 'services'
+  | 'tooling'
+  | 'spoken'
 
 export type SkillGroup = {
   id: SkillGroupId
