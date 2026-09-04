@@ -30,7 +30,8 @@ import { Footer } from './components/layout/Footer'
 import { Navbar } from './components/layout/Navbar'
 import { SkipLink } from './components/layout/SkipLink'
 import { ThemeProvider } from './hooks/useTheme'
-import { localeFromPath } from './lib/paths'
+import { content } from './content'
+import { homePath, localeFromPath } from './lib/paths'
 
 /**
  * El HTML es estático (ssr: false + prerender), así que el tema tiene que
@@ -92,12 +93,22 @@ export default function Root() {
   return <Outlet />
 }
 
+/**
+ * Se pinta cuando la ruta revienta antes de llegar a una página, así que no
+ * puede usar `useLocale()`: ese hook resuelve el bundle desde el contenido de
+ * una página que aquí no existe. El idioma sale del pathname, igual que en
+ * `Layout`, y el texto de `content[locale]` — nada incrustado aquí.
+ *
+ * `error.statusText` se descarta a propósito: lo escribe el router siempre en
+ * inglés ("Not Found"), y mezclarlo dejaba la versión española a medias.
+ */
 export function ErrorBoundary({ error }: { error: unknown }) {
+  const { pathname } = useLocation()
+  const strings = content[localeFromPath(pathname)].ui.error
+
   const isResponse = isRouteErrorResponse(error)
   const title = isResponse ? String(error.status) : 'Error'
-  const detail = isResponse
-    ? error.statusText || 'La página no existe.'
-    : 'Un error inesperado. Vuelve a intentarlo.'
+  const detail = isResponse ? strings.notFound : strings.unexpected
 
   return (
     <main id="main" className="py-section">
@@ -107,10 +118,10 @@ export function ErrorBoundary({ error }: { error: unknown }) {
         </p>
         <h1 className="mt-4 font-display text-section">{detail}</h1>
         <a
-          href="/"
+          href={homePath(localeFromPath(pathname))}
           className="mt-8 inline-block font-mono text-meta tracking-wide text-accent uppercase underline underline-offset-4"
         >
-          Volver al inicio
+          {strings.backHome}
         </a>
       </div>
     </main>

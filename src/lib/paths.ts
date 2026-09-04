@@ -1,28 +1,15 @@
 import { DEFAULT_LOCALE, type Locale } from './constants'
 
-/**
- * El segmento de la ficha de proyecto cambia con el idioma:
- * /proyectos/:slug  ↔  /en/projects/:slug
- */
-const PROJECT_SEGMENT: Record<Locale, string> = {
-  es: 'proyectos',
-  en: 'projects',
-}
-
 /** Lee el idioma del prefijo del pathname. Sin prefijo = español. */
 export function localeFromPath(pathname: string): Locale {
-  return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : DEFAULT_LOCALE
+  return pathname === '/en' || pathname.startsWith('/en/')
+    ? 'en'
+    : DEFAULT_LOCALE
 }
 
-/** Ruta de la Home en un idioma. */
+/** Ruta de la Home en un idioma. Con una sola página por idioma, es la ruta. */
 export function homePath(locale: Locale): string {
   return locale === DEFAULT_LOCALE ? '/' : '/en'
-}
-
-/** Ruta de una ficha de proyecto en un idioma. */
-export function projectPath(locale: Locale, slug: string): string {
-  const segment = PROJECT_SEGMENT[locale]
-  return locale === DEFAULT_LOCALE ? `/${segment}/${slug}` : `/en/${segment}/${slug}`
 }
 
 /**
@@ -35,12 +22,8 @@ export function swapLocalePath(pathname: string, target: Locale): string {
   if (current === target) return pathname
 
   // Quita el prefijo de idioma para quedarnos con la ruta "desnuda".
-  const bare = current === 'en' ? pathname.replace(/^\/en/, '') || '/' : pathname
-
-  const projectMatch = bare.match(
-    new RegExp(`^/${PROJECT_SEGMENT[current]}/([^/]+)/?$`),
-  )
-  if (projectMatch) return projectPath(target, projectMatch[1])
+  const bare =
+    current === 'en' ? pathname.replace(/^\/en/, '') || '/' : pathname
 
   if (bare === '/') return homePath(target)
 

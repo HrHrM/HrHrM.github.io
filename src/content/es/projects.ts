@@ -14,13 +14,14 @@ export const projects: Project[] = [
     slug: 'suite-administrativa',
     title: 'Suite administrativa multi-cliente',
     tagline:
-      'Rehacer los recorridos de una suite de herramientas en vez de seguir estirando el flujo heredado.',
-    context: 'Suite empresarial · ~20 usuarios internos y varios clientes',
+      'Reestructuración de flujos de trabajo administrativos fragmentados en un flujo consolidado y unificado.',
+    context:
+      'Suite empresarial · ~20 operadores internos y múltiples cuentas corporativas',
     problem:
-      'La suite reúne herramientas que no se parecen entre sí: información de pagos, facturación, rastreo en mapa, productos y pedidos. Cada una había crecido por su lado y arrastraba decisiones de interfaz de hace años, así que tareas corrientes pedían recorrer varias pantallas y bastantes clics. A eso se sumaban vistas antiguas con errores y con código que costaba tocar.',
+      'La suite agrupaba pagos, facturación, rastreo y gestión de pedidos en módulos aislados. Los patrones de interfaz heredados forzaban a los operadores a navegar por jerarquías profundas de pantallas y flujos repetitivos, multiplicando los clics y los errores.',
     solution:
-      'En vez de extender el flujo que ya existía, rehíce los recorridos partiendo de cómo se resuelve hoy este tipo de tarea: menos pantallas por tarea y menos clics para llegar al mismo resultado. Fue una decisión discutible y la tomé a conciencia — seguir el patrón que ya estaba habría sido más rápido de entregar — pero cada pantalla nueva que se añadiera sobre el flujo viejo heredaba el problema. Las vistas antiguas fueron pasando al diseño y al flujo nuevo de forma progresiva, no de golpe.',
-    role: 'Responsable único del frontend. Implementación de las interfaces sobre las APIs disponibles y definición del comportamiento de cada pantalla: estados, casos límite y validaciones. Sobre los diseños base, resolución del detalle de interacción que una maqueta estática no especifica.',
+      'Reconstrucción de la navegación central en torno a rutas orientadas a tareas, reduciendo la profundidad de interacción por transacción. Migración iterativa de módulos heredados para proteger las operaciones diarias mientras se establecían convenciones de interfaz modernas.',
+    role: 'Responsabilidad exclusiva en frontend. Implementación de interfaces para clientes, integración con APIs REST y definición de estados de UI, validación de datos y lógica de diseño sobre maquetas base.',
     // TODO(resultado): si puedes contar los clics o las pantallas de UN flujo
     // concreto antes y después, ese es el número más convincente que tienes.
     // Ejemplo: "registrar un pedido pasó de 4 pantallas y 11 clics a 2 y 5".
@@ -32,14 +33,15 @@ export const projects: Project[] = [
   },
   {
     slug: 'sitio-corporativo-galilei',
-    title: 'Sitio corporativo',
-    tagline: 'El sitio público de la empresa, programado de principio a fin.',
-    context: 'Sitio corporativo · público',
+    title: 'Sitio corporativo de Galilei',
+    tagline:
+      'Portal corporativo y de servicios entregado desde el diseño hasta producción.',
+    context: 'Plataforma web corporativa · Público',
     problem:
-      'La empresa necesitaba su sitio público construido a partir de un diseño ya definido, funcionando en móvil y sin depender de un proveedor externo para cada cambio.',
+      'La empresa requería una presencia web robusta y totalmente responsiva construida a partir de diseños aprobados, eliminando la dependencia técnica de proveedores externos para cada actualización.',
     solution:
-      'Lo programé completo siguiendo el diseño entregado, resolviendo el paso de la maqueta al comportamiento real: estados, adaptación a móvil y los detalles que un diseño estático no especifica.',
-    role: 'Desarrollo completo del sitio a partir del diseño entregado. El diseño es de terceros; la implementación, la maquetación y el comportamiento responsivo son propios.',
+      'Construcción del cliente web completo en React y TypeScript, resolviendo puntos de quiebre responsivos, comportamientos en dispositivos móviles y estados de interfaz ausentes directamente durante el desarrollo.',
+    role: 'Desarrollo frontend de extremo a extremo. El diseño fue provisto por una agencia de terceros; la arquitectura, estructura de componentes, marcado y comportamiento responsivo se implementaron de forma independiente.',
     stack: ['React', 'TypeScript'],
     links: { live: 'https://galilei.com.ve/' },
     visibility: 'public',
@@ -50,16 +52,16 @@ export const projects: Project[] = [
     slug: 'plataforma-multicliente',
     title: 'Plataforma web con permisos modulares',
     tagline:
-      'Un menú multi-rol que dio a cada cliente su propia instancia sin duplicar el proyecto.',
+      'Arquitectura de permisos basada en roles que soporta múltiples clientes corporativos en un solo proyecto.',
     context:
-      'Consultoría de software · 4 clientes corporativos (telecomunicaciones, banca, cine y entretenimiento)',
+      'Consultoría de software · 4 clientes corporativos (Telecomunicaciones, Banca, Cine y Ocio)',
     problem:
-      'El proyecto web principal servía a cuatro clientes corporativos a la vez, y cada uno llegaba con requisitos propios: funciones de cine, de restaurantes, de sectores que no se parecían en nada. Casi nada fallaba, pero el código no estaba preparado para absorber esa suma sin repetirse, y cada requisito nuevo empujaba hacia mantener una versión por cliente.',
+      'El producto web principal atendía a cuatro clientes empresariales con requisitos operativos completamente distintos. El código base corría el riesgo de bifurcarse permanentemente en versiones separadas para cada cliente, multiplicando la carga de mantenimiento.',
     solution:
-      'Implementé un menú multi-rol con permisos modulares: cada cliente pasó a tener su propia instancia de menús sobre el mismo proyecto, sin bifurcar el código. En paralelo saqué a funciones reutilizables las piezas que se repetían, para que el siguiente requisito no obligara a escribirlas otra vez.',
-    role: 'Desarrollo de las funcionalidades administrativas y del sistema de permisos modulares. Integración de las APIs REST del ecosistema web, incluida la definición de los contratos de datos acordada con el equipo de backend.',
+      'Implementación de un sistema dinámico de permisos basado en roles y un menú modular que renderizaba suites personalizadas por cliente desde una misma instancia. Extracción de la lógica repetida en funciones compartidas.',
+    role: 'Desarrollo de módulos administrativos y motor de permisos. Integración de APIs REST del ecosistema y definición técnica de contratos de datos acordados con el equipo de backend.',
     outcome:
-      'Programar se volvió más ágil: muchas piezas quedaron reutilizables y eso subió la productividad de todo el equipo de frontend, no solo la mía.',
+      'Eliminación de la necesidad de bifurcar el código, acelerando el desarrollo general y mejorando la reutilización de componentes en todo el equipo frontend.',
     stack: ['Angular', 'TypeScript', 'APIs REST'],
     links: {},
     visibility: 'nda',
@@ -70,15 +72,15 @@ export const projects: Project[] = [
     slug: 'app-punto-de-venta',
     title: 'App de gestión para terminales POS',
     tagline:
-      'Datos en tiempo real en equipos POS Android, donde el margen de recursos es mínimo.',
-    context: 'Terminales POS Android de gama baja',
+      'Cliente operativo de baja latencia diseñado para terminales POS Android con recursos muy limitados.',
+    context: 'Hardware POS Android de bajas especificaciones',
     problem:
-      'La aplicación tenía que correr en equipos POS Android, no en teléfonos: hardware con muy poco margen de memoria y de cómputo. No es que algo estuviera roto — la restricción era el punto de partida. Cualquier patrón que diera por sentado un dispositivo normal (cargar una lista completa, imágenes sin tratar, estado que crece sin límite) sobrecargaba el equipo.',
+      'Los patrones de desarrollo móvil convencionales sobrecargaban el hardware objetivo debido a techos severos de memoria. El volumen de estado y las imágenes debían gestionarse estrictamente para evitar que la aplicación fallara durante su uso.',
     solution:
-      'Levanté la base de la app en Flutter con carga paginada contra Firebase, para no sostener en memoria más de lo que hiciera falta en cada pantalla, y con las imágenes optimizadas antes de llegar al dispositivo. La sincronización en tiempo real la resolvía Firebase en sus propias consultas.',
-    role: 'Desarrollo inicial del proyecto: estructura de pantallas, capa de datos e integración con Firebase. La base establecida definió los patrones que siguió el resto del desarrollo.',
+      'Arquitectura de la base de la aplicación en Flutter con cargas estrictamente paginadas y límites de memoria del lado del cliente. Sincronización en tiempo real gestionada a través de Firebase, optimizando las imágenes y los datos antes de llegar al dispositivo.',
+    role: 'Arquitectura inicial del proyecto: estructura de pantallas, capa de datos e integración con Firebase. La base estableció los patrones para el resto del desarrollo.',
     outcome:
-      'El intercambio fue deliberado: cedí acabado visual para que la app se sostuviera en el equipo. En un POS ese es el cambio correcto, y preferí decidirlo de entrada antes que descubrirlo en producción.',
+      'Priorización deliberada de la eficiencia de memoria sobre los detalles visuales, logrando una operación confiable en hardware de baja potencia, indispensable en un entorno POS.',
     stack: ['Flutter', 'Dart', 'Firebase'],
     links: {},
     visibility: 'nda',
@@ -87,15 +89,15 @@ export const projects: Project[] = [
   },
   {
     slug: 'comunicador-caa',
-    title: 'Comunicador para personas sin habla',
+    title: 'Comunicador móvil para usuarios no verbales',
     tagline:
-      'Iconos y texto que se convierten en voz, para quien no puede producirla.',
-    context: 'Proyecto de tesis · Universidad Alejandro de Humboldt',
+      'Iconos y texto convertidos en voz para personas que no pueden producirla por sí mismas.',
+    context: 'Proyecto de Tesis · Universidad Alejandro de Humboldt',
     problem:
-      'Una persona con discapacidad del habla necesita algo que hable por ella, y necesita que sea lo que ya lleva encima: el teléfono. La barrera no es solo técnica, también es de acceso — un dispositivo dedicado de comunicación asistida es caro y no todo el mundo puede tenerlo.',
+      'Los dispositivos dedicados de Comunicación Aumentativa y Alternativa (CAA) tienen costos prohibitivos, creando una fuerte barrera de acceso técnico y económico para personas con discapacidades del habla.',
     solution:
-      'Una aplicación móvil en React Native donde se pulsa un icono o se escribe un texto y el teléfono lo reproduce en voz alta mediante síntesis de voz. Los iconos permiten construir frases sin escribir, que es lo que marca la diferencia cuando teclear cada palabra resulta demasiado lento para una conversación.',
-    role: 'Proyecto académico individual: análisis, desarrollo y documentación completos.',
+      'Desarrollo de una aplicación en React Native que permite tocar íconos o escribir texto para que el teléfono lo vocalice mediante síntesis de voz, facilitando la construcción rápida de oraciones para una conversación fluida.',
+    role: 'Proyecto académico individual: análisis de requisitos, desarrollo móvil y documentación técnica.',
     stack: ['React Native', 'JavaScript', 'Text-to-Speech'],
     links: { repo: 'https://github.com/HrHrM/ReactN-Tesis' },
     visibility: 'public',

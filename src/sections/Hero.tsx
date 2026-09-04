@@ -23,7 +23,7 @@ export function Hero() {
         </h1>
 
         <div className="mt-10 flex animate-reveal flex-wrap items-center gap-x-8 gap-y-4 [animation-delay:180ms]">
-          <ButtonLink to="#projects" variant="solid">
+          <ButtonLink to="#experience" variant="solid">
             {ui.hero.cta}
           </ButtonLink>
 

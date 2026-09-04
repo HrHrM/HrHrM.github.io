@@ -13,11 +13,11 @@ export const experience: ExperienceItem[] = [
     start: '2025-04',
     end: null,
     summary:
-      "Maintaining and extending the company's main product, plus web and mobile projects taken end to end.",
+      'Core web platform engineering and end-to-end delivery of multi-client web and mobile applications.',
     highlights: [
-      'Refactored existing code and shipped new features to improve the performance and scalability of the main product.',
-      'Worked end to end on web and mobile projects in React and React Native — design, implementation, production release.',
-      'Folded AI tooling into my own workflow to move faster on writing, debugging and problem-solving.',
+      'Engineered code refactors across the core web platform to improve system scalability and performance.',
+      'Delivered web and mobile applications end to end using React and React Native, driving features through production rollout.',
+      'Integrated Claude Code and spec-kit workflows to accelerate development cycles, utilizing Playwright and Maestro for reliable cross-platform automated testing.',
     ],
   },
   {
@@ -26,11 +26,11 @@ export const experience: ExperienceItem[] = [
     start: '2023-11',
     end: '2024-11',
     summary:
-      'Admin features for the main web product — a system that had to fit several clients without being forked for each one.',
+      'Admin architectures for enterprise systems serving multiple corporate tenants without code forks.',
     highlights: [
-      'Built admin features in Angular, improving modularity so the system could be adapted per client.',
-      'Integrated the REST APIs across the main web ecosystem, agreeing with the backend team in meetings on what they needed to expose.',
-      'Cut component complexity through refactoring, which made the code more readable and more reusable.',
+      'Built modular admin features in Angular, enabling multi-tenant adaptation across distinct clients from a single codebase.',
+      'Integrated REST APIs across frontend views, defining clear data contracts alongside backend teams.',
+      'Refactored legacy modules to decrease component complexity, improving testability and code reuse.',
     ],
   },
   {
@@ -39,11 +39,11 @@ export const experience: ExperienceItem[] = [
     start: '2022-03',
     end: '2023-06',
     summary:
-      'The foundation of a mobile app for Android POS terminals, with live data and very little resource headroom.',
+      'Mobile architectural foundation for resource-constrained Android POS terminals handling live transaction data.',
     highlights: [
-      'Built the app foundation in Flutter, tuned for handling data on low-end POS hardware with real-time response.',
-      'Set up Firebase as the backend: authentication, storage and user data.',
-      "Turned Figma designs into working interfaces using Flutter's widget set.",
+      'Architected the core Flutter application, tuned for reliable data processing on low-spec POS hardware.',
+      'Integrated Firebase services for authentication, secure storage, and real-time database synchronization.',
+      "Translated Figma design systems into responsive mobile interfaces using Flutter's widget architecture.",
     ],
   },
 ]
@@ -51,9 +51,9 @@ export const experience: ExperienceItem[] = [
 export const education: EducationItem[] = [
   {
     institution: 'Universidad Alejandro de Humboldt',
-    degree: 'Computer Engineering',
+    degree: 'B.Sc. in Computer Engineering',
     start: '2016-09',
     end: '2022-02',
-    note: 'Thesis: a React Native communication aid for people with speech disabilities, turning icons or typed text into speech.',
+    note: 'Thesis: Developed a cross-platform React Native AAC application converting text and iconography into synthesized speech.',
   },
 ]

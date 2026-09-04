@@ -8,7 +8,7 @@ export type Visibility = 'public' | 'private' | 'nda'
 export type Project = {
   slug: string
   title: string
-  /** Una línea. Lo que se lee en la tarjeta antes de decidir si entrar. */
+  /** Una línea. El titular del caso, debajo del título de la tarjeta. */
   tagline: string
   /** Sector y escala: "Retail · ~80k pedidos/mes". */
   context: string
@@ -59,11 +59,7 @@ export type EducationItem = {
  * escrito de memoria.
  */
 export type SkillGroupId =
-  | 'languages'
-  | 'frameworks'
-  | 'services'
-  | 'tooling'
-  | 'spoken'
+  'languages' | 'frameworks' | 'services' | 'tooling' | 'spoken'
 
 export type SkillGroup = {
   id: SkillGroupId
@@ -94,7 +90,7 @@ export type UIStrings = {
      * El <h1>: la frase de posicionamiento. Vive aquí y no en `constants.ts`
      * porque cambia con el idioma — es el texto más importante de la página.
      */
-     headline: string
+    headline: string
     cta: string
     scrollHint: string
   }
@@ -117,19 +113,20 @@ export type UIStrings = {
     contact: { title: string; lead: string }
   }
   project: {
-    /** Etiquetas de los bloques de la ficha. */
-    context: string
+    /**
+     * Etiquetas de los tres bloques de la tarjeta. `context` no tiene
+     * etiqueta: va en la columna de metadatos, sin rótulo.
+     */
     problem: string
     solution: string
     role: string
     outcome: string
-    stack: string
     /** Estados de `visibility`. */
     codePrivate: string
     underNda: string
     viewLive: string
     viewRepo: string
-    readCase: string
+    /** Puesto actual, en el rango de fechas de Experiencia. */
     present: string
   }
   contact: {
@@ -156,6 +153,16 @@ export type UIStrings = {
     title: string
     body: string
     back: string
+  }
+  /**
+   * El `ErrorBoundary` de `root.tsx`, que se pinta cuando la ruta revienta
+   * antes de llegar a una página. Está separado de `notFound` porque cubre
+   * dos casos distintos: un 404 del router y un error inesperado.
+   */
+  error: {
+    notFound: string
+    unexpected: string
+    backHome: string
   }
 }
 

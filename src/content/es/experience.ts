@@ -4,10 +4,10 @@ import type { EducationItem, ExperienceItem } from '../types'
  * Fechas en ISO parcial: las formatea `lib/dates.ts` según el idioma, para que
  * las dos versiones no puedan desincronizarse.
  *
- * El aporte propio va en primera persona; el contexto de la empresa, en tercera
- * (CLAUDE.md §5). Y lo que se dice aquí tiene que coincidir con lo que dicen
- * las fichas de proyecto: si una sección dice «diseñé» y la otra «integré»,
- * la contradicción se nota.
+ * Registro nominal, igual que el `role` de las fichas de proyecto: describe
+ * ámbito de responsabilidad, no narración. Y lo que se dice aquí tiene que
+ * coincidir con lo que dicen las fichas: si una sección dice «diseñé» y la
+ * otra «integré», la contradicción se nota.
  */
 export const experience: ExperienceItem[] = [
   {
@@ -16,11 +16,11 @@ export const experience: ExperienceItem[] = [
     start: '2025-04',
     end: null,
     summary:
-      'Soporte y evolución del proyecto principal de la empresa, y desarrollo de proyectos web y móviles de principio a fin.',
+      'Desarrollo de la plataforma web principal y entrega de extremo a extremo de aplicaciones web y móviles multi-cliente.',
     highlights: [
-      'Refactoricé código e implementé funcionalidades nuevas para mejorar el rendimiento y la escalabilidad del proyecto principal.',
-      'Participé en proyectos web y móviles con React y React Native de principio a fin: diseño, implementación y puesta en producción.',
-      'Integré herramientas de IA en mi flujo de trabajo para acelerar la escritura de código, la depuración y la resolución de problemas.',
+      'Ejecución de refactorización de código en la plataforma web central para mejorar significativamente la escalabilidad y el rendimiento general del sistema.',
+      'Gestión del desarrollo de extremo a extremo de aplicaciones web y móviles utilizando React y React Native, impulsando funcionalidades hasta su despliegue en producción.',
+      'Integración de Claude Code y flujos basados en spec-kit para acelerar ciclos de desarrollo, utilizando Playwright y Maestro en pruebas automatizadas multiplataforma.',
     ],
   },
   {
@@ -29,11 +29,11 @@ export const experience: ExperienceItem[] = [
     start: '2023-11',
     end: '2024-11',
     summary:
-      'Funcionalidades administrativas del proyecto web principal, un sistema que había que adaptar a varios clientes sin duplicarlo.',
+      'Arquitectura de características administrativas para sistemas empresariales que atienden a múltiples clientes corporativos sin bifurcar el código.',
     highlights: [
-      'Desarrollé funcionalidades administrativas con Angular, mejorando la modularidad y facilitando la adaptación del sistema a múltiples clientes.',
-      'Integré las APIs REST del ecosistema web principal, acordando en reuniones con el equipo de backend qué necesitábamos que expusieran.',
-      'Optimicé el rendimiento refactorizando el código: menos complejidad por componente, y más legibilidad y reutilización.',
+      'Desarrollo de características administrativas modulares en Angular, permitiendo una adaptación multi-inquilino (multi-tenant) eficiente para diversos clientes desde un solo código base.',
+      'Arquitectura e integración de APIs REST robustas en las vistas del frontend, garantizando contratos de datos claros y confiables con los equipos de backend.',
+      'Optimización del rendimiento del sistema refactorizando bases de código heredadas, reduciendo la complejidad de los componentes y mejorando la reutilización del código.',
     ],
   },
   {
@@ -42,11 +42,11 @@ export const experience: ExperienceItem[] = [
     start: '2022-03',
     end: '2023-06',
     summary:
-      'La base de una aplicación móvil para terminales POS Android, con datos en tiempo real y muy poco margen de recursos.',
+      'Base arquitectónica móvil para terminales POS Android de bajos recursos, gestionando datos de transacciones con respuesta en tiempo real.',
     highlights: [
-      'Desarrollé la base de la aplicación en Flutter, optimizada para gestionar información en equipos POS de gama baja con respuesta en tiempo real.',
-      'Implementé Firebase como backend: autenticación, almacenamiento y datos de usuario.',
-      'Transformé los diseños de Figma en interfaces funcionales con la suite completa de widgets de Flutter.',
+      'Construcción de la base de la aplicación en Flutter, optimizada específicamente para el procesamiento confiable de datos en hardware POS de bajas especificaciones.',
+      'Integración de servicios de Firebase como arquitectura de backend para autenticación, almacenamiento seguro y sincronización de base de datos en tiempo real.',
+      'Traducción de prototipos complejos de Figma en interfaces móviles receptivas e intuitivas utilizando el conjunto completo de widgets de Flutter.',
     ],
   },
 ]
@@ -54,9 +54,9 @@ export const experience: ExperienceItem[] = [
 export const education: EducationItem[] = [
   {
     institution: 'Universidad Alejandro de Humboldt',
-    degree: 'Ingeniero en Informática',
+    degree: 'Ing. en Informática',
     start: '2016-09',
     end: '2022-02',
-    note: 'Tesis: comunicador móvil en React Native para personas con discapacidad del habla, con síntesis de voz a partir de iconos o texto.',
+    note: 'Proyecto de Tesis: Desarrollo de una aplicación móvil multiplataforma en React Native con funcionalidad avanzada de Texto a Voz (Text-to-Speech).',
   },
 ]

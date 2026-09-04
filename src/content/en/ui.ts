@@ -14,50 +14,47 @@ export const ui: UIStrings = {
   },
   hero: {
     eyebrow: 'Software Developer · Caracas',
-    headline: 'I develop software solutions for web and mobile.',
-    cta: 'See the work',
-    scrollHint: 'Keep scrolling',
+    headline: 'Engineering scalable web and mobile architecture.',
+    cta: 'View experience',
+    scrollHint: 'Scroll down',
   },
   seo: {
     titleSuffix: 'Software Developer',
     description:
-      'Software developer in Caracas. I build web and mobile apps with React, Angular, Flutter and Node.js. Case studies from real client work, not tutorials.',
+      'Software developer building scalable web and mobile apps with React, Angular, and Flutter. Case studies focused on architecture, trade-offs, and performance.',
   },
   about: {
     paragraphs: [
-      'I work on web and mobile apps: React and Angular in the browser, Flutter and React Native on the phone, and the REST APIs and Firebase behind them. Most of what I have built belongs to clients or employers, so a lot of it cannot be shown from the inside — which is why this page has case studies rather than screenshots.',
-      'What actually interests me is what happens after something ships and has to change: reordering a flow people use every day without breaking their habits, pulling duplicated logic into pieces worth reusing, getting an app to hold on hardware with nothing left to give. In a code review I look at naming and module boundaries first.',
-      'I learn by repetition and with patience; I do not mind something taking a while. What I do mind is closing a month at the same point where it opened.',
+      'I build web and mobile interfaces: React and Angular in the browser, Flutter and React Native on devices, backed by REST APIs and Firebase. Because most of my work belongs to private clients, this site documents architecture and trade-offs rather than production screenshots.',
+      'My focus centers on maintainability after launch: redesigning active workflows without breaking user habits, decoupling shared business logic, and stabilizing apps on constrained hardware. In code reviews, I prioritize explicit naming and clean module boundaries.',
+      'I work iteratively and value systematic progress. My measure of growth is steady architectural discipline over short-term shortcuts.',
     ],
   },
   sections: {
     projects: {
       title: 'Work',
-      lead: 'Five cases. The problem, what I built, what changed.',
+      lead: 'Five engineering case studies: constraints, architecture, and outcomes.',
     },
     about: { title: 'About' },
     stack: {
       title: 'Stack',
-      lead: 'What I use daily and would defend in a code review.',
+      lead: 'Core technologies used in production and defended in code reviews.',
     },
     experience: { title: 'Experience', education: 'Education' },
     contact: {
       title: 'Contact',
-      lead: 'If any of this fits what you need, get in touch. I reply same day.',
+      lead: 'Available for full-time frontend roles. Reach out directly below.',
     },
   },
   project: {
-    context: 'Context',
     problem: 'Problem',
     solution: 'Solution',
     role: 'My role',
     outcome: 'Outcome',
-    stack: 'Stack',
     codePrivate: 'Private code',
     underNda: 'Under NDA',
     viewLive: 'View live',
     viewRepo: 'View repo',
-    readCase: 'Read the case',
     present: 'Present',
   },
   contact: {
@@ -67,7 +64,7 @@ export const ui: UIStrings = {
     cv: 'Download CV',
   },
   footer: {
-    builtWith: 'Built with React, Tailwind and static prerendering.',
+    builtWith: 'Built with React, Tailwind, and static prerendering.',
     rights: 'All rights reserved.',
   },
   theme: {
@@ -80,8 +77,13 @@ export const ui: UIStrings = {
     en: 'EN',
   },
   notFound: {
-    title: 'This page does not exist',
-    body: 'The link may be wrong, or the page moved.',
+    title: 'This page does not exist.',
+    body: 'The link might be broken, or the page has moved.',
     back: 'Back to home',
+  },
+  error: {
+    notFound: 'This page does not exist.',
+    unexpected: 'An unexpected error occurred. Please try again.',
+    backHome: 'Back to home',
   },
 }

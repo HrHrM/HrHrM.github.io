@@ -25,7 +25,14 @@ export const skills: SkillGroup[] = [
   {
     id: 'tooling',
     label: 'Tooling & methodology',
-    items: ['Git', 'Figma', 'JIRA', 'Slack', 'SCRUM'],
+    items: [
+      'Git',
+      'Claude Code',
+      'Playwright',
+      'Maestro',
+      'Figma',
+      'Agile/SCRUM',
+    ],
   },
   {
     id: 'spoken',

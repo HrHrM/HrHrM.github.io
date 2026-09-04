@@ -37,8 +37,10 @@ npm run build
 grep -o "<h1[^>]*>[^<]*</h1>" dist/client/index.html
 ```
 
-Con `ssr: false` las rutas dinámicas **hay que enumerarlas una a una** en
-`prerender`, y `action` y `headers` no están disponibles.
+Hay dos rutas, `/` y `/en`, y el `buildEnd` deja además `sitemap.xml`,
+`robots.txt`, `404.html` y `.nojekyll` en `dist/client`. Con `ssr: false` no
+existen `action` ni `headers`, y si algún día vuelven las rutas dinámicas hay
+que **enumerarlas una a una** en `prerender`: no se descubren solas.
 
 ## Estructura
 
@@ -47,16 +49,26 @@ src/
   root.tsx        <html>, tema anti-flash, ErrorBoundary
   routes.ts       rutas explícitas, ambos idiomas
   components/     ui/ (primitivos) · layout/
-  sections/       Hero, Projects, About, Stack, Experience, Contact
-  pages/          Home, ProjectDetail, NotFound   ← export default (lo exige el framework)
+  sections/       Hero, Experience, About, Stack, Projects, Contact
+  pages/          Home, NotFound                  ← export default (lo exige el framework)
   content/        es/ · en/ · types.ts            ← fuente de verdad del contenido
   hooks/  lib/  styles/  assets/
 ```
 
-Añadir un proyecto es empujar un objeto a `src/content/es/projects.ts`.
-Ningún componente se toca.
+Una sola página por idioma: el caso de estudio completo se lee en la tarjeta
+de la Home, así que no hay ficha de proyecto.
+
+Añadir un proyecto es empujar un objeto a `src/content/es/projects.ts` y otro a
+`en/projects.ts`. Ningún componente se toca.
 
 ## Deploy
 
 `vercel.json` apunta a `dist/client` con fallback SPA. Cambiar a Netlify o
 Cloudflare Pages es sustituir ese único fichero.
+
+Para GitHub Pages no hace falta configuración: el build ya emite `404.html`
+(copia del `__spa-fallback.html`, para que un refresco en una ruta desconocida
+no dé el 404 del host) y `.nojekyll` (sin él, Jekyll descarta todo lo que
+empieza por `_`). **Si se publica como _project page_**
+(`usuario.github.io/mi-portafolio/`) hacen falta además `base` en Vite y
+`basename` en el router, porque todas las rutas son absolutas.

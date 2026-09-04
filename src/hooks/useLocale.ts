@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router'
 
 import { content } from '@/content'
-import { localeFromPath, homePath, projectPath, swapLocalePath } from '@/lib/paths'
+import { localeFromPath, homePath, swapLocalePath } from '@/lib/paths'
 
 /**
  * Único punto de entrada al contenido desde los componentes.
@@ -16,7 +16,6 @@ export function useLocale() {
     locale,
     ...content[locale],
     home: homePath(locale),
-    project: (slug: string) => projectPath(locale, slug),
     swapTo: (target: Parameters<typeof swapLocalePath>[1]) =>
       swapLocalePath(pathname, target),
   }

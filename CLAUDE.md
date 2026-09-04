@@ -19,19 +19,19 @@ Todo lo demás en la página está al servicio de eso.
 
 ## 2. Stack
 
-| Capa | Elección | Nota |
-|---|---|---|
-| Build | Vite + React + TypeScript | |
-| Estilos | Tailwind CSS v4 | plugin `@tailwindcss/vite` |
-| Rutas | React Router 7 | `routes.ts`, rutas explícitas. **No** v8: exige Node ≥ 22.22.0 |
-| Prerender | React Router framework mode | `@react-router/dev`, `ssr: false` + `prerender` → un `.html` por ruta |
-| Animación | CSS (`@keyframes`) | una sola, en el Hero. `motion` **no** está instalado |
-| Iconos | `lucide-react` | |
-| Formulario | `react-hook-form` + `zod` | envío vía Formspree / Web3Forms |
-| Lint | Oxlint | `.oxlintrc.json`, sin ESLint |
-| Formato | Prettier (o `oxfmt`) | |
-| Utilidades | `clsx` + `tailwind-merge` → helper `cn()` | |
-| Deploy | Vercel / Netlify / Cloudflare Pages | |
+| Capa       | Elección                                  | Nota                                                                  |
+| ---------- | ----------------------------------------- | --------------------------------------------------------------------- |
+| Build      | Vite + React + TypeScript                 |                                                                       |
+| Estilos    | Tailwind CSS v4                           | plugin `@tailwindcss/vite`                                            |
+| Rutas      | React Router 7                            | `routes.ts`, rutas explícitas. **No** v8: exige Node ≥ 22.22.0        |
+| Prerender  | React Router framework mode               | `@react-router/dev`, `ssr: false` + `prerender` → un `.html` por ruta |
+| Animación  | CSS (`@keyframes`)                        | una sola, en el Hero. `motion` **no** está instalado                  |
+| Iconos     | `lucide-react`                            |                                                                       |
+| Formulario | `react-hook-form` + `zod`                 | envío vía Formspree / Web3Forms                                       |
+| Lint       | Oxlint                                    | `.oxlintrc.json`, sin ESLint                                          |
+| Formato    | Prettier (o `oxfmt`)                      |                                                                       |
+| Utilidades | `clsx` + `tailwind-merge` → helper `cn()` |                                                                       |
+| Deploy     | GitHub Pages / Vercel / Netlify           | el `buildEnd` deja `404.html` y `.nojekyll`                           |
 
 ### Gotchas que cuestan tiempo
 
@@ -57,10 +57,23 @@ Todo lo demás en la página está al servicio de eso.
 - **Con `ssr: false` el build renderiza en Node.** Tocar `window`, `document`,
   `localStorage` o `matchMedia` en el cuerpo de un componente rompe el build:
   siempre dentro de `useEffect`.
-- **Las rutas dinámicas hay que enumerarlas una a una** en `prerender`. Y `action`
-  y `headers` no están disponibles. `react-router.config.ts` las deriva de
-  `content/{es,en}/projects.ts`, y el `buildEnd` genera `sitemap.xml` y `robots.txt`
-  del mismo listado para que no puedan desincronizarse.
+- **No hay rutas dinámicas.** `prerender` enumera dos rutas, `/` y `/en`, y del
+  mismo listado salen `sitemap.xml` y `robots.txt` en el `buildEnd`. Si algún día
+  vuelven las fichas de proyecto hay que enumerar cada slug a mano: con
+  `ssr: false` las rutas dinámicas no se descubren solas. `action` y `headers`
+  tampoco están disponibles.
+- **`viteConfig.build.outDir` en `buildEnd` es `dist`, no `dist/client`.** Es el
+  directorio raíz del build; lo servible está un nivel más abajo. Escribir ahí
+  deja el fichero fuera de lo que publica el host, y sin error: `sitemap.xml` y
+  `robots.txt` estuvieron meses en `dist/` sin que se notara. La ruta correcta es
+  `path.join(viteConfig.build.outDir, 'client')`.
+- **En GitHub Pages hacen falta dos ficheros más**, y los escribe el `buildEnd`:
+  `404.html` (copia del `__spa-fallback.html`, para que un refresco en una ruta
+  desconocida no dé un 404 del host) y `.nojekyll` (sin él, Jekyll descarta todo
+  lo que empieza por `_`, incluido ese fallback). **Ojo si se publica como
+  _project page_** (`usuario.github.io/mi-portafolio/`): todas las rutas
+  absolutas se rompen y haría falta `base` en Vite y `basename` en el router.
+  Con dominio propio o _user page_ no hay nada que hacer.
 - **`lucide-react` v1 ya no trae iconos de marca.** GitHub y LinkedIn van como SVG
   inline en `components/ui/BrandIcon.tsx`.
 - **El parpadeo de HTML sin estilo al recargar solo pasa en `npm run dev`.**
@@ -89,7 +102,7 @@ src/
     ui/          Button, Badge, Card, Container, SectionHeading, BrandIcon
     layout/      Navbar, Footer, ThemeToggle, LocaleSwitch, SkipLink
   sections/      Hero, Projects, ProjectCard, About, Stack, Experience, Contact
-  pages/         Home, ProjectDetail, NotFound   ← `export default` obligatorio
+  pages/         Home, NotFound   ← `export default` obligatorio
   content/
     types.ts     tipos compartidos por ambos idiomas
     index.ts     resuelve locale → bundle; featuredProjects(), projectBySlug()
@@ -116,24 +129,24 @@ public/          cv.pdf, og-image.png, favicon
 
 ```ts
 // content/types.ts
-export type Visibility = "public" | "private" | "nda";
+export type Visibility = 'public' | 'private' | 'nda'
 
 export type Project = {
-  slug: string;
-  title: string;
-  tagline: string;
-  context: string;      // sector y escala: "Retail · ~80k pedidos/mes"
-  problem: string;      // qué dolía
-  solution: string;     // qué construí
-  role: string;         // mi contribución concreta, separada del equipo
-  outcome?: string;     // qué cambió (números si los hay)
-  stack: string[];
-  cover?: string;       // opcional: sin capturas, la tarjeta se sostiene con tipografía
-  links: { live?: string; repo?: string };
-  visibility: Visibility;
-  featured: boolean;
-  year: number;
-};
+  slug: string
+  title: string
+  tagline: string
+  context: string // sector y escala: "Retail · ~80k pedidos/mes"
+  problem: string // qué dolía
+  solution: string // qué construí
+  role: string // mi contribución concreta, separada del equipo
+  outcome?: string // qué cambió (números si los hay)
+  stack: string[]
+  cover?: string // opcional: sin capturas, la tarjeta se sostiene con tipografía
+  links: { live?: string; repo?: string }
+  visibility: Visibility
+  featured: boolean
+  year: number
+}
 ```
 
 `visibility` decide qué pinta la tarjeta: `public` muestra los links,
@@ -144,11 +157,16 @@ El componente nunca asume que hay links.
 
 ```
 /                      Home            (español, sin prefijo)
-/proyectos/:slug       ProjectDetail
 /en                    Home            (inglés)
-/en/projects/:slug     ProjectDetail
 /*                     NotFound
 ```
+
+**Una sola página por idioma, y es una decisión.** Los casos de estudio se leen
+completos en la Home: problema, solución y rol en la propia tarjeta. Se borró
+`ProjectDetail` porque una ficha por proyecto añadía un salto de navegación para
+enseñar un texto que cabe donde ya estaba mirando el lector. Consecuencia: la
+tarjeta **no** es un enlace y no lleva hover que insinúe que se puede entrar; los
+únicos enlaces son los de salida (producto en vivo, repositorio).
 
 ### Internacionalización
 
@@ -159,9 +177,7 @@ no justifica el peso ni la indirección.
 - `useLocale()` lee el prefijo de la URL y devuelve el bundle correcto.
 - Cada versión se **escribe**, no se traduce. Traducción literal siempre suena a traducción.
 - `prerender` en `react-router.config.ts` genera ambos idiomas → Google los indexa
-  por separado. `/` y `/en` ya salen como HTML estático; al añadir `ProjectDetail`
-  hay que pasar `prerender` a función async que enumere los slugs de los dos
-  bundles, porque con `ssr: false` las rutas dinámicas no se descubren solas.
+  por separado. Las dos rutas salen como HTML estático.
 - Obligatorio `<link rel="alternate" hreflang="es|en|x-default">` en cada página,
   o el SEO multiidioma no sirve de nada.
 - Selector de idioma visible en la Navbar, que conserva la ruta actual al cambiar.
@@ -202,16 +218,26 @@ Los tokens vivos están en `src/styles/index.css`. Resumen de lo que hay:
 /* Los colores se declaran en :root y .dark, y se exponen con `@theme inline`
    (no `@theme`): así Tailwind referencia la variable en vez de copiar su valor,
    que es lo único que permite que .dark la sobreescriba. */
-:root { --paper:#faf9f6; --surface:#f2f0eb; --line:#e0ddd6;
-        --muted:#6e6a62; --ink:#17150f;   --accent:#9e3b22; }
-.dark { --paper:#12110f; --surface:#1b1a17; --line:#2b2925;
-        --muted:#9a958c; --ink:#f5f3ee;   --accent:#e0755a; }
+:root {
+  --paper: #faf9f6;
+  --surface: #f2f0eb;
+  --line: #e0ddd6;
+  --muted: #6e6a62;
+  --ink: #17150f;
+  --accent: #9e3b22;
+}
+.dark {
+  --paper: #12110f;
+  --surface: #1b1a17;
+  --line: #2b2925;
+  --muted: #9a958c;
+  --ink: #f5f3ee;
+  --accent: #e0755a;
+}
 
---text-hero:    clamp(2.75rem, 8vw, 6rem)
---text-section: clamp(1.75rem, 4vw, 3rem)
---text-card:    clamp(1.5rem, 1.5vw + 0.5rem, 1.875rem)
---text-lead:    clamp(1.125rem, 1.2vw + 0.9rem, 1.375rem)
---text-meta:    0.8125rem
+--text-hero: clamp(2.75rem, 8vw, 6rem) --text-section: clamp(1.75rem, 4vw, 3rem)
+  --text-card: clamp(1.5rem, 1.5vw + 0.5rem, 1.875rem)
+  --text-lead: clamp(1.125rem, 1.2vw + 0.9rem, 1.375rem) --text-meta: 0.8125rem;
 ```
 
 Escala resultante — 96 / 48 / 30 / 22 / 13 px en escritorio y 44 / 28 / 24 / 19 / 13
@@ -225,7 +251,7 @@ es decorativo. Cualquier borde que signifique algo usa `muted` o `ink`, nunca `l
 
 **Preciso · sobrio · seguro de sí mismo.** De ahí sale todo lo demás:
 
-- **Preciso** → una sola escala de espaciado, retícula de *hairlines* visible,
+- **Preciso** → una sola escala de espaciado, retícula de _hairlines_ visible,
   metadatos en mono con versalitas, secciones y proyectos numerados.
 - **Sobrio** → seis colores y nada más. Cero gradientes, cero sombras decorativas.
   El acento aparece una vez por pantalla.
@@ -254,7 +280,8 @@ es decorativo. Cualquier borde que signifique algo usa `muted` o `ink`, nunca `l
 2. **Experiencia** — timeline simple.
 3. **Sobre mí** — corto, humano. Prohibido "apasionado por la tecnología".
 4. **Stack** — agrupado: frontend / backend / tooling.
-5. **Proyectos** — 3 o 5, no doce. Problema → solución → mi rol → resultado.
+5. **Proyectos** — 3 o 5, no doce. Problema → solución → mi rol → resultado,
+   los cuatro **en la tarjeta**: no hay ficha detrás.
 6. **Contacto** — email + GitHub + LinkedIn + CV descargable.
 
 **Experiencia va antes que Proyectos, y es una desviación consciente.** El orden
@@ -280,12 +307,12 @@ apps de tutorial — pero cambia el formato: **caso de estudio, no demo.**
 
 Cuánto se puede decir, por nivel de permiso:
 
-| Nivel | Qué se muestra |
-|---|---|
-| Producto público | Nombre, capturas, link en vivo |
-| Con permiso del cliente | Nombre y descripción, sin código |
-| Sin permiso explícito | Sector y escala: "plataforma logística · ~40k usuarios/mes" |
-| NDA estricto | Solo el problema técnico, abstraído |
+| Nivel                   | Qué se muestra                                              |
+| ----------------------- | ----------------------------------------------------------- |
+| Producto público        | Nombre, capturas, link en vivo                              |
+| Con permiso del cliente | Nombre y descripción, sin código                            |
+| Sin permiso explícito   | Sector y escala: "plataforma logística · ~40k usuarios/mes" |
+| NDA estricto            | Solo el problema técnico, abstraído                         |
 
 El riesgo no está en el nombre de la empresa si el producto es público y aparece
 en LinkedIn. Está en el detalle interno: arquitectura no pública, números de negocio,
@@ -343,9 +370,9 @@ de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
 - [~] **Contenido** — estructura y tipos hechos; los textos siguen en `TODO`.
 - [x] **Diseño** — tokens, paleta y escala definidos y verificados.
 - [x] **Setup** — Vite, Tailwind v4, React Router con prerender. Falta el deploy.
-- [~] **Maquetado** — Home y `ProjectDetail` completas en español. Falta escribir el inglés.
+- [x] **Maquetado** — una sola página por idioma, los dos idiomas escritos.
 - [~] **Pulido** — accesibilidad, animación, sitemap, robots y OG image hechos.
-      Falta pasar Lighthouse.
+  Falta pasar Lighthouse.
 - [ ] **Lanzamiento** — dominio propio, OG image, analytics ligero.
 
 ### Cómo comprobar que el prerender sigue vivo
@@ -379,7 +406,8 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
       porque sigue siendo texto traducible.
 
       Cuidado con «Ingeniero de software»: nombra una carrera que **no** es la
-      suya. La carrera es Informática.
+              suya. La carrera es Informática.
+
 - [x] **Email público, GitHub y LinkedIn.** En `lib/constants.ts`.
 - [ ] **`public/cv.pdf`.** El fichero no existe todavía; el enlace de Contacto
       apunta a un 404.

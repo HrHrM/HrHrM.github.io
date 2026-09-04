@@ -14,50 +14,47 @@ export const ui: UIStrings = {
   },
   hero: {
     eyebrow: 'Desarrollador de software · Caracas',
-    headline: 'Desarrollo soluciones de software para web y móvil.',
-    cta: 'Ver proyectos',
-    scrollHint: 'Sigue bajando',
+    headline: 'Ingeniería de arquitectura web y móvil escalable.',
+    cta: 'Ver experiencia',
+    scrollHint: 'Seguir bajando',
   },
   seo: {
     titleSuffix: 'Desarrollador de software',
     description:
-      'Desarrollador de software en Caracas. Construyo aplicaciones web y móviles con React, Angular, Flutter y Node.js. Casos de estudio de trabajo real, no demos.',
+      'Desarrollador de software construyendo aplicaciones web y móviles escalables con React, Angular y Flutter. Casos de estudio sobre arquitectura y rendimiento.',
   },
   about: {
     paragraphs: [
-      'Trabajo en aplicaciones web y móviles: React y Angular en el navegador, Flutter y React Native en el teléfono, y las APIs REST y Firebase que las alimentan. Casi todo lo que he construido pertenece a clientes o empleadores, así que buena parte no se puede enseñar por dentro — de ahí que aquí haya casos de estudio y no capturas de pantalla.',
-      'Lo que me interesa de verdad es lo que pasa cuando algo ya está en producción y hay que cambiarlo: reordenar un flujo que la gente usa todos los días sin romperle la costumbre, sacar a piezas reutilizables lo que estaba repetido en cinco sitios, conseguir que una aplicación se sostenga en un equipo que no da para más. En una revisión de código miro primero los nombres y los límites entre módulos.',
-      'Aprendo por repetición y con paciencia: no me incomoda que algo lleve tiempo. Lo que sí me incomoda es cerrar un mes en el mismo punto donde lo abrí.',
+      'Construyo interfaces web y móviles: React y Angular en el navegador, Flutter y React Native en dispositivos, respaldados por APIs REST y Firebase. Dado que la mayor parte de mi trabajo pertenece a clientes privados, este sitio documenta arquitectura y decisiones técnicas en lugar de capturas de pantalla de producción.',
+      'Mi interés central es la mantenibilidad después del lanzamiento: rediseñar flujos activos sin romper los hábitos del usuario, desacoplar lógica de negocio compartida y estabilizar aplicaciones en hardware limitado. En las revisiones de código, priorizo nombres explícitos y límites claros entre módulos.',
+      'Trabajo de forma iterativa y valoro el progreso sistemático. Mi medida de crecimiento es la disciplina arquitectónica constante por encima de los atajos a corto plazo.',
     ],
   },
   sections: {
     projects: {
       title: 'Proyectos',
-      lead: 'Cinco casos. El problema que había, qué construí y qué cambió.',
+      lead: 'Cinco casos de ingeniería: restricciones, arquitectura y resultados.',
     },
     about: { title: 'Sobre mí' },
     stack: {
       title: 'Stack',
-      lead: 'Lo que uso a diario y defendería en una revisión de código.',
+      lead: 'Tecnologías principales usadas en producción y defendidas en revisiones de código.',
     },
     experience: { title: 'Experiencia', education: 'Formación' },
     contact: {
       title: 'Contacto',
-      lead: 'Si algo de aquí te encaja, escríbeme. Respondo en el día.',
+      lead: 'Disponible para roles frontend a tiempo completo. Contáctame directamente a continuación.',
     },
   },
   project: {
-    context: 'Contexto',
     problem: 'Problema',
     solution: 'Solución',
     role: 'Mi rol',
     outcome: 'Resultado',
-    stack: 'Stack',
     codePrivate: 'Código privado',
     underNda: 'Bajo NDA',
     viewLive: 'Ver en vivo',
     viewRepo: 'Ver repositorio',
-    readCase: 'Leer el caso',
     present: 'Actualidad',
   },
   contact: {
@@ -67,7 +64,7 @@ export const ui: UIStrings = {
     cv: 'Descargar CV',
   },
   footer: {
-    builtWith: 'Hecho con React, Tailwind y prerender estático.',
+    builtWith: 'Creado con React, Tailwind y pre-renderizado estático.',
     rights: 'Todos los derechos reservados.',
   },
   theme: {
@@ -80,8 +77,13 @@ export const ui: UIStrings = {
     en: 'EN',
   },
   notFound: {
-    title: 'Esta página no existe',
-    body: 'El enlace puede estar mal o la página se movió.',
+    title: 'Esta página no existe.',
+    body: 'Es posible que el enlace sea incorrecto o que la página se haya movido.',
     back: 'Volver al inicio',
+  },
+  error: {
+    notFound: 'La página no existe.',
+    unexpected: 'Un error inesperado. Vuelve a intentarlo.',
+    backHome: 'Volver al inicio',
   },
 }

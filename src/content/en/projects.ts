@@ -15,15 +15,16 @@ import type { Project } from '../types'
 export const projects: Project[] = [
   {
     slug: 'suite-administrativa',
-    title: 'Multi-client admin suite',
+    title: 'Multi-Client Admin Suite',
     tagline:
-      'Rebuilding the paths through a tool suite instead of stretching the flow it inherited.',
-    context: 'Business suite · ~20 internal users and several clients',
+      'Restructuring fractured administrative workflows into a unified, consolidated flow.',
+    context:
+      'Enterprise suite · ~20 internal operators and external corporate accounts',
     problem:
-      'The suite gathers tools with little in common: payment records, invoicing, map tracking, products and orders. Each had grown on its own and carried interface decisions made years earlier, so ordinary tasks meant crossing several screens and a fair number of clicks. Older views also came with bugs and code that was hard to touch.',
+      'The suite aggregated payments, invoicing, fleet tracking, and order management into siloed modules. Legacy interface patterns forced operators through deep screen hierarchies and repetitive multi-click workflows, compounding navigation errors.',
     solution:
-      'Rather than extend the flow already in place, I rebuilt the paths from how this kind of task is solved today: fewer screens per task, fewer clicks to the same result. It was a debatable call and I made it deliberately — following the established pattern would have shipped faster — but every new screen added on top of the old flow would inherit the problem. Older views moved to the new design and flow gradually, not in one cut.',
-    role: 'Sole frontend responsibility. Implementation of the interfaces against the available APIs, and definition of how each screen behaves: states, edge cases and validation. Interaction detail resolved on top of the base designs.',
+      'Rebuilt core navigation around task-oriented paths rather than departmental silos, cutting total interaction depth per transaction. Migrated legacy modules iteratively to protect day-to-day operations while establishing modern interface conventions.',
+    role: 'Sole frontend responsibility. Implementation of client-facing interfaces, integration against REST APIs, and definition of UI states, input validation, and layout logic on top of base designs.',
     stack: ['React', 'React Native', 'TypeScript'],
     links: {},
     visibility: 'nda',
@@ -32,14 +33,15 @@ export const projects: Project[] = [
   },
   {
     slug: 'sitio-corporativo-galilei',
-    title: 'Corporate website',
-    tagline: "The company's public site, built end to end.",
-    context: 'Corporate site · public',
+    title: 'Galilei Corporate Website',
+    tagline:
+      'Production-ready marketing and services portal delivered from design to release.',
+    context: 'Corporate web platform · Public',
     problem:
-      'The company needed its public site built from an agreed design, working on mobile, without depending on an outside vendor for every change.',
+      'The company needed a robust, fully responsive corporate presence built against approved mockups, removing technical dependency on external web studios for updates.',
     solution:
-      'I built the whole thing against the design I was given, resolving what a static mockup never specifies: states, mobile behaviour, and the details that only surface once it runs.',
-    role: 'Full development of the site from the delivered design. The design is third-party; the implementation, markup and responsive behaviour are mine.',
+      'Built the full web client in React and TypeScript, resolving responsive breakpoints, fluid layout shifts, and missing UI states directly during development.',
+    role: 'End-to-end frontend development. UI design provided by external agency; architecture, component structure, markup, and responsive implementations delivered independently.',
     stack: ['React', 'TypeScript'],
     links: { live: 'https://galilei.com.ve/' },
     visibility: 'public',
@@ -48,18 +50,18 @@ export const projects: Project[] = [
   },
   {
     slug: 'plataforma-multicliente',
-    title: 'Web platform with modular permissions',
+    title: 'Enterprise Multi-Tenant Platform',
     tagline:
-      'A multi-role menu that gave each client its own instance without forking the project.',
+      'Role-based permission architecture supporting four corporate clients on a single codebase.',
     context:
-      'Software consultancy · 4 corporate clients (telecoms, banking, cinema and leisure)',
+      'Software consultancy · 4 corporate clients (Telecommunications, Banking, Entertainment, Hospitality)',
     problem:
-      'The main web product served four corporate clients at once, each arriving with its own requirements: cinema features, restaurant features, sectors with nothing in common. Very little was actually broken, but the code was not ready to absorb that without repeating itself, and every new requirement pushed towards keeping one version per client.',
+      'Four distinct enterprise clients required vastly different operational features inside the same core application. The existing codebase risked branching into hard client forks, multiplying maintenance overhead.',
     solution:
-      'I built a multi-role menu with modular permissions, so each client got its own menu instance on the same project instead of a fork. Alongside that I pulled the repeated pieces into shared functions, so the next requirement would not mean writing them again.',
-    role: 'Development of the admin features and the modular permissions system. Integration of the web ecosystem REST APIs, including the data contracts agreed with the backend team.',
+      'Implemented a dynamic, role-based permission system and modular navigation that rendered custom feature suites per client from a shared application core. Extracted common business logic into shared frontend services.',
+    role: 'Development of admin modules and permissions engine. Integration of ecosystem REST APIs and technical agreement on data payload contracts with backend engineers.',
     outcome:
-      'Development got faster: a lot of pieces became reusable, which lifted the whole frontend team, not just my own output.',
+      'Eliminated the need for code forks, standardizing cross-client feature delivery and improving release velocity across the frontend team.',
     stack: ['Angular', 'TypeScript', 'REST APIs'],
     links: {},
     visibility: 'nda',
@@ -68,17 +70,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'app-punto-de-venta',
-    title: 'Management app for POS terminals',
+    title: 'POS Hardware Operations App',
     tagline:
-      'Live data on Android POS hardware, where there is almost no headroom.',
-    context: 'Low-end Android POS terminals',
+      'Low-latency operational client engineered for resource-constrained Android POS terminals.',
+    context: 'Low-spec Android POS hardware',
     problem:
-      'The app had to run on Android POS terminals, not phones: hardware with very little memory and compute headroom. Nothing was broken — the constraint was the starting point. Any pattern that assumed a normal device (loading a full list, untreated images, state that grows without bound) would overload the terminal.',
+      'Standard mobile development patterns overloaded the target hardware due to severe memory ceilings. Data volume had to be tightly managed to prevent application dropouts during operations.',
     solution:
-      'I built the app foundation in Flutter with paginated loading against Firebase, so no screen held more in memory than it needed, and with images optimised before they reached the device. Firebase handled real-time sync on its own queries.',
-    role: 'Initial development of the project: screen structure, data layer and Firebase integration. The foundation set the patterns the rest of the development followed.',
+      'Architected the application foundation in Flutter with strictly paginated queries and client-side memory caps. Managed live state sync through targeted Firebase listeners, optimizing payload footprints before consumption.',
+    role: 'Initial project architecture: structural UI foundation, caching layers, and Firebase integration. Established code standards for downstream contributors.',
     outcome:
-      'The trade-off was deliberate: I gave up visual polish so the app would hold on the hardware. On a POS that is the right exchange, and I would rather decide it up front than discover it in production.',
+      'Prioritized memory efficiency and runtime stability over non-essential graphical overhead, achieving dependable operation on low-power hardware.',
     stack: ['Flutter', 'Dart', 'Firebase'],
     links: {},
     visibility: 'nda',
@@ -87,15 +89,14 @@ export const projects: Project[] = [
   },
   {
     slug: 'comunicador-caa',
-    title: 'Communication aid for non-speaking users',
-    tagline:
-      'Icons and text turned into speech, for people who cannot produce it.',
-    context: 'Thesis project · Universidad Alejandro de Humboldt',
+    title: 'AAC Mobile Communicator',
+    tagline: 'Accessible mobile speech synthesis for non-verbal individuals.',
+    context: 'Undergraduate Thesis · Universidad Alejandro de Humboldt',
     problem:
-      'Someone with a speech disability needs something to speak for them, and it needs to be the device they already carry: their phone. The barrier is not only technical but one of access — a dedicated AAC device is expensive and not everyone can have one.',
+      'Dedicated Augmentative and Alternative Communication (AAC) hardware carries prohibitive cost barriers, restricting access for individuals with speech and motor disabilities.',
     solution:
-      'A React Native app where you tap an icon or type text and the phone says it out loud through speech synthesis. The icons let someone build a sentence without typing, which is what matters when typing every word is far too slow for a conversation.',
-    role: 'Individual academic project: analysis, development and documentation.',
+      'Developed an accessible React Native client utilizing custom icon grids and text-to-speech engines, enabling rapid sentence construction and vocalization directly from standard smartphones.',
+    role: 'Individual engineering project: user requirements, mobile development, testing, and technical documentation.',
     stack: ['React Native', 'JavaScript', 'Text-to-Speech'],
     links: { repo: 'https://github.com/HrHrM/ReactN-Tesis' },
     visibility: 'public',

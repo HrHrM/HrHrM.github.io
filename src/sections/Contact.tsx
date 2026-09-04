@@ -8,6 +8,14 @@ import { useLocale } from '@/hooks/useLocale'
 import { LINKS, SITE } from '@/lib/constants'
 
 /**
+ * El dominio a la vista, sin el ruido: fuera el protocolo, el `www.` y la
+ * barra final. Deja "linkedin.com/in/johnnymlr" en vez de la URL entera, que
+ * es lo que desbordaba en móvil.
+ */
+const prettyUrl = (url: string) =>
+  url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
+
+/**
  * Email, GitHub, LinkedIn y CV. Sin formulario: cuatro enlaces convierten igual
  * y no hay nada que pueda fallar en silencio.
  */
@@ -26,7 +34,7 @@ export function Contact() {
     {
       key: 'github',
       label: ui.contact.github,
-      value: LINKS.github.replace(/^https?:\/\//, ''),
+      value: prettyUrl(LINKS.github),
       href: LINKS.github,
       icon: GithubIcon,
       external: true,
@@ -34,7 +42,7 @@ export function Contact() {
     {
       key: 'linkedin',
       label: ui.contact.linkedin,
-      value: LINKS.linkedin.replace(/^https?:\/\//, ''),
+      value: prettyUrl(LINKS.linkedin),
       href: LINKS.linkedin,
       icon: LinkedinIcon,
       external: true,
@@ -72,16 +80,18 @@ export function Contact() {
                   : {})}
                 className="group flex items-center justify-between gap-4 p-6 transition-colors hover:bg-surface"
               >
-                <span className="flex items-center gap-3">
+                <span className="flex min-w-0 items-center gap-3">
                   <Icon
                     aria-hidden="true"
                     className="size-4 text-muted transition-colors group-hover:text-accent"
                   />
-                  <span>
+                  <span className="min-w-0">
                     <span className="block font-mono text-meta tracking-wide text-muted uppercase">
                       {label}
                     </span>
-                    <span className="mt-0.5 block text-ink">{value}</span>
+                    <span className="mt-0.5 block wrap-break-word text-ink">
+                      {value}
+                    </span>
                   </span>
                 </span>
                 <ArrowUpRight
