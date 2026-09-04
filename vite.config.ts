@@ -12,4 +12,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  // Un solo puerto para todo el proyecto, en vez del 5173 por defecto de Vite.
+  // `dev` y `preview` comparten el 3000 a propósito: nunca hacen falta a la vez,
+  // y así la URL con la que se prueba es siempre la misma.
+  server: { port: 3000 },
+  preview: { port: 3000 },
 })
