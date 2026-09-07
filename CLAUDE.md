@@ -191,21 +191,36 @@ si el layout aguanta con el texto largo, aguanta con el corto. Al revés no.
 
 ### Tipografía
 
-- **Display:** Instrument Serif — elegancia editorial, mucho carácter en tamaños grandes.
-- **Texto:** Schibsted Grotesk — neutro pero vivo, aguanta párrafos largos.
+> **El display serif está descartado.** Lo que sigue describe el código de hoy,
+> que aún no se ha migrado. La decisión vigente está en `design/tokens.md` §1 y
+> la dirección visual que la aplica, en `design/direccion-visual.md`.
+
+- **Display:** Schibsted Grotesk **800** — la jerarquía sale del peso y del
+  tamaño, no del cambio de familia.
+- **Texto:** Schibsted Grotesk 400 — neutro pero vivo, aguanta párrafos largos.
 - **Mono:** JetBrains Mono — código, etiquetas, metadatos.
 
-**Solo dos de las tres son variable fonts.** Schibsted Grotesk y JetBrains Mono sí
-(400–900). **Instrument Serif no**: es estática y tiene un único peso, el 400, más
-su cursiva. No existe `@fontsource-variable/instrument-serif`, solo
-`@fontsource/instrument-serif`. Consecuencia práctica: **en el display no hay
-`font-weight` como recurso de jerarquía** — sale del tamaño y, si hace falta, de
-la cursiva.
+Display y texto son **la misma familia en dos pesos, a propósito**. Se mantienen
+`--font-display` y `--font-sans` como tokens distintos para poder volver a
+separarlos algún día sin tocar todos los componentes.
 
-Y un segundo efecto que sí muerde al maquetar: Instrument Serif tiene una **altura
-de x bastante menor** que Schibsted Grotesk, así que a igual tamaño en px el serif
-se lee más pequeño. Por eso `--text-card` tiene un suelo de `1.5rem`: con `1.25rem`
-el título de la tarjeta quedaba visualmente por debajo de su propio tagline en móvil.
+Las dos familias son variable fonts (400–900), así que **el peso sí es un recurso
+de jerarquía**. El display vive en 800 y necesita tracking negativo o las
+palabras se separan: `-2.4px` en el Hero, `-1` a `-1.2` en títulos de sección,
+`-0.5` a `-0.6` en títulos de tarjeta, y **`0` en el texto corrido** — aplicarlo
+al cuerpo lo hace ilegible.
+
+<details>
+<summary>Lo que valía con Instrument Serif (histórico)</summary>
+
+Instrument Serif no era variable: peso 400 y su cursiva, y nada más, así que en
+el display no había `font-weight` como recurso. Tenía además una altura de x
+bastante menor que Schibsted Grotesk, y por eso `--text-card` tiene un suelo de
+`1.5rem`: con `1.25rem` el título de la tarjeta quedaba por debajo de su propio
+tagline en móvil. **Con una sola familia ese desajuste desaparece y el suelo hay
+que revisarlo** (`tokens.md` §4).
+
+</details>
 
 Las fuentes se **autohospedan** con Fontsource (solo subsets latinos), no se enlazan
 desde Google Fonts: quita una conexión a un tercero.
@@ -252,7 +267,9 @@ es decorativo. Cualquier borde que signifique algo usa `muted` o `ink`, nunca `l
 **Preciso · sobrio · seguro de sí mismo.** De ahí sale todo lo demás:
 
 - **Preciso** → una sola escala de espaciado, retícula de _hairlines_ visible,
-  metadatos en mono con versalitas, secciones y proyectos numerados.
+  metadatos en mono con versalitas, **proyectos numerados**. Las secciones ya
+  no: dos secuencias `01`–`05` con el mismo estilo se confundían entre sí
+  (`design/direccion-visual.md` §3).
 - **Sobrio** → seis colores y nada más. Cero gradientes, cero sombras decorativas.
   El acento aparece una vez por pantalla.
 - **Seguro de sí mismo** → display grande, mucho aire, frases cortas, **un** CTA.
@@ -260,8 +277,11 @@ es decorativo. Cualquier borde que signifique algo usa `muted` o `ink`, nunca `l
 ### Principios
 
 - **Mobile-first**, siempre.
-- **Una sola apuesta visual: el `<h1>` del Hero en Instrument Serif a 6rem.**
-  La retícula de hairlines no es la apuesta — es el sistema, y va en silencio.
+- **La apuesta visual es el sistema, no una fuente.** Al caer el display serif,
+  un `<h1>` grande dejó de ser una apuesta: es un titular grande y ya. Ahora el
+  carácter lo da el **rail de metadatos de 120 px** con su hairline vertical
+  continuo, que recorre la página entera y pone cada dato en un sitio fijo y
+  visible. Deja de ir en silencio. Ver `design/direccion-visual.md` §2.
 - **Una sola animación**, y solo en el Hero: `fade + translateY(8px)`, en CSS.
   La animación repartida por toda la página es lo que hace que un portafolio se
   vea genérico. Ojo al anular `prefers-reduced-motion`: hay que poner a cero
@@ -296,9 +316,10 @@ orden hay que revisarlo**: la razón de la desviación desaparece con ella.
 
 El orden vive en dos sitios que tienen que coincidir: el ensamblado de
 `pages/Home.tsx` y el array `SECTION_IDS` de `lib/nav.ts`, que gobierna la
-Navbar y el scroll spy. Y la numeración de las secciones (`index` de
-`SectionHeading`) va a mano: si se reordena, hay que renumerar, porque una
-retícula numerada que salta rompe justo lo que la hace "precisa".
+Navbar y el scroll spy. **Reordenar ya no obliga a renumerar nada**: las
+secciones dejaron de ir numeradas, así que el `index` de `SectionHeading` no se
+pinta. Lo que sí sigue yendo a mano es el índice de las fichas de proyecto
+(`01`–`05`), y ahí un salto sí rompe lo que hace "precisa" a la retícula.
 
 ### Proyectos de empresa
 
@@ -395,7 +416,9 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
 
 - [x] Tres adjetivos: **preciso · sobrio · seguro de sí mismo**.
 - [x] Paleta — 6 tokens nombrados, contraste AA verificado.
-- [x] Instrument Serif encaja en la dirección. Se queda.
+- [x] ~~Instrument Serif encaja en la dirección. Se queda.~~ **Revertido el
+      2026-09-06.** Se descarta el display serif: una sola familia
+      (Schibsted Grotesk) en dos pesos. Ver `design/tokens.md` §1.
 - [x] **Nombre, rol y frase de posicionamiento.** Johnny Bohorquez · Caracas.
       El `eyebrow` dice el **puesto**, no la carrera: «Desarrollador de
       software» y «Software Developer». Es lo mismo que dice el CV, y el titular
@@ -405,8 +428,7 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
       El rol vive en `content/{es,en}/ui.ts` y **no** en `lib/constants.ts`
       porque sigue siendo texto traducible.
 
-      Cuidado con «Ingeniero de software»: nombra una carrera que **no** es la
-              suya. La carrera es Informática.
+      Cuidado con «Ingeniero de software»: nombra una carrera que **no** es la suya. La carrera es Informática.
 
 - [x] **Email público, GitHub y LinkedIn.** En `lib/constants.ts`.
 - [ ] **`public/cv.pdf`.** El fichero no existe todavía; el enlace de Contacto
