@@ -17,7 +17,7 @@ export const experience: ExperienceItem[] = [
     highlights: [
       'Engineered code refactors across the core web platform to improve system scalability and performance.',
       'Delivered web and mobile applications end to end using React and React Native, driving features through production rollout.',
-      'Integrated Claude Code and spec-kit workflows to accelerate development cycles, utilizing Playwright and Maestro for reliable cross-platform automated testing.',
+      'Orchestrated sub-agents through Claude Code and spec-kit, wiring MCP (Model Context Protocol) into the local development loop to accelerate architecture work, validated with Playwright and Maestro test suites.',
     ],
   },
   {

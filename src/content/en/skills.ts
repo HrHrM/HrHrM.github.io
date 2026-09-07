@@ -27,7 +27,7 @@ export const skills: SkillGroup[] = [
     label: 'Tooling & methodology',
     items: [
       'Git',
-      'Claude Code',
+      'Claude Code (MCP, sub-agents)',
       'Playwright',
       'Maestro',
       'Figma',

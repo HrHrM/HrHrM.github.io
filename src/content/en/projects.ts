@@ -41,7 +41,7 @@ export const projects: Project[] = [
       'The company needed a robust, fully responsive corporate presence built against approved mockups, removing technical dependency on external web studios for updates.',
     solution:
       'Built the full web client in React and TypeScript, resolving responsive breakpoints, fluid layout shifts, and missing UI states directly during development.',
-    role: 'End-to-end frontend development. UI design provided by external agency; architecture, component structure, markup, and responsive implementations delivered independently.',
+    role: 'End-to-end frontend development. UI design provided by external agency; architecture, component structure, markup, and responsive implementations delivered independently, with delivery accelerated by AI sub-agent and spec-kit workflows.',
     stack: ['React', 'TypeScript'],
     links: { live: 'https://galilei.com.ve/' },
     visibility: 'public',

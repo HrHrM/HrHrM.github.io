@@ -41,7 +41,7 @@ export const projects: Project[] = [
       'La empresa requería una presencia web robusta y totalmente responsiva construida a partir de diseños aprobados, eliminando la dependencia técnica de proveedores externos para cada actualización.',
     solution:
       'Construcción del cliente web completo en React y TypeScript, resolviendo puntos de quiebre responsivos, comportamientos en dispositivos móviles y estados de interfaz ausentes directamente durante el desarrollo.',
-    role: 'Desarrollo frontend de extremo a extremo. El diseño fue provisto por una agencia de terceros; la arquitectura, estructura de componentes, marcado y comportamiento responsivo se implementaron de forma independiente.',
+    role: 'Desarrollo frontend de extremo a extremo. El diseño fue provisto por una agencia de terceros; la arquitectura, estructura de componentes, marcado y comportamiento responsivo se implementaron de forma independiente, con flujos de trabajo acelerados por sub-agentes de IA y spec-kit.',
     stack: ['React', 'TypeScript'],
     links: { live: 'https://galilei.com.ve/' },
     visibility: 'public',

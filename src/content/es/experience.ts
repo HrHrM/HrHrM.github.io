@@ -20,7 +20,7 @@ export const experience: ExperienceItem[] = [
     highlights: [
       'Ejecución de refactorización de código en la plataforma web central para mejorar significativamente la escalabilidad y el rendimiento general del sistema.',
       'Gestión del desarrollo de extremo a extremo de aplicaciones web y móviles utilizando React y React Native, impulsando funcionalidades hasta su despliegue en producción.',
-      'Integración de Claude Code y flujos basados en spec-kit para acelerar ciclos de desarrollo, utilizando Playwright y Maestro en pruebas automatizadas multiplataforma.',
+      'Orquestación de sub-agentes mediante Claude Code y spec-kit, integrando MCP (Model Context Protocol) en el flujo de desarrollo local para acelerar la arquitectura, validado con pruebas de Playwright y Maestro.',
     ],
   },
   {
