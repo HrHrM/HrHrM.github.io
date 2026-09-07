@@ -91,8 +91,23 @@ export type UIStrings = {
      * porque cambia con el idioma — es el texto más importante de la página.
      */
     headline: string
+    /**
+     * El trozo de `headline` que va en color de acento: el único acento del
+     * primer viewport. Tiene que aparecer **literalmente** dentro de
+     * `headline`, o no se resalta nada y el titular se pinta entero en `ink`.
+     *
+     * Se declara por idioma en vez de deducirse como "última palabra" porque
+     * no cae en el mismo sitio: en español cierra la frase («escalable.») y en
+     * inglés va en medio («scalable»).
+     */
+    headlineAccent: string
     cta: string
-    scrollHint: string
+    /**
+     * El zócalo de datos duros bajo el CTA: tres celdas separadas por
+     * hairlines que aterrizan el titular con parámetros comprobables antes de
+     * que el visitante llegue a la primera sección.
+     */
+    facts: { label: string; value: string }[]
   }
   seo: {
     /** Se concatena al nombre: "Nombre — {titleSuffix}". */

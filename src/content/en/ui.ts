@@ -15,8 +15,13 @@ export const ui: UIStrings = {
   hero: {
     eyebrow: 'Software Developer · Caracas',
     headline: 'Engineering scalable web and mobile architecture.',
+    headlineAccent: 'scalable',
     cta: 'View experience',
-    scrollHint: 'Scroll down',
+    facts: [
+      { label: 'Experience', value: '4 years in production' },
+      { label: 'Companies', value: '3 · Enterprise and multi-client' },
+      { label: 'Core', value: 'React · Angular · Flutter' },
+    ],
   },
   seo: {
     titleSuffix: 'Software Developer',

@@ -9,19 +9,18 @@ import {
 } from 'react-router'
 
 /**
- * Los dos ficheros críticos, importados como URL para poder precargarlos.
+ * El fichero crítico, importado como URL para poder precargarlo.
  * Sin `preload` la cadena es HTML → CSS → fuente, y la fuente de reserva se ve
  * durante todo ese trayecto. Con `preload` la descarga arranca en paralelo al
  * CSS, que es lo que quita el salto de tipografía en el titular.
+ *
+ * Ahora es uno solo: display y texto son la misma familia variable, así que el
+ * titular y el cuerpo se pintan con el mismo fichero.
  */
-import instrumentSerifLatin from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url'
 import schibstedLatin from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url'
 
 // Solo los subsets latinos y solo el eje de peso en estilo normal:
 // `index.css` arrastraría además todas las cursivas variables.
-import '@fontsource/instrument-serif/latin-400.css'
-import '@fontsource/instrument-serif/latin-ext-400.css'
-import '@fontsource/instrument-serif/latin-400-italic.css'
 import '@fontsource-variable/schibsted-grotesk/wght.css'
 import '@fontsource-variable/jetbrains-mono/wght.css'
 import './styles/index.css'
@@ -46,13 +45,6 @@ const THEME_SCRIPT = `try{var t=localStorage.getItem('theme');if(t==='dark'||(!t
  * se piden siempre en modo CORS y el preload sin CORS no le sirve.
  */
 export const links = () => [
-  {
-    rel: 'preload',
-    href: instrumentSerifLatin,
-    as: 'font',
-    type: 'font/woff2',
-    crossOrigin: 'anonymous' as const,
-  },
   {
     rel: 'preload',
     href: schibstedLatin,

@@ -15,8 +15,16 @@ export const ui: UIStrings = {
   hero: {
     eyebrow: 'Desarrollador de software · Caracas',
     headline: 'Ingeniería de arquitectura web y móvil escalable.',
+    headlineAccent: 'escalable.',
     cta: 'Ver experiencia',
-    scrollHint: 'Seguir bajando',
+    // «Empresas» se encuadra por alcance y no por geografía: la ubicación ya
+    // la dice el eyebrow, y repetirla gastaría una de las tres celdas en un
+    // dato que no habla de capacidad.
+    facts: [
+      { label: 'Experiencia', value: '4 años en producción' },
+      { label: 'Empresas', value: '3 · Empresarial y multi-cliente' },
+      { label: 'Núcleo', value: 'React · Angular · Flutter' },
+    ],
   },
   seo: {
     titleSuffix: 'Desarrollador de software',

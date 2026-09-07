@@ -5,50 +5,42 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ─────────────────────────────────────────────────────────────
-   Paleta — preciso · sobrio · seguro de sí mismo
-   Seis valores y nada más. Contraste AA verificado en ambos modos.
-   `line` es decorativo (1.29:1): cualquier borde que signifique algo
-   usa `muted` o `ink`, nunca `line`.
+   Paleta — menta clínico · preciso · sobrio · seguro de sí mismo
+   Seis valores y nada más. Los diez pares de texto pasan AA en los
+   dos modos; los ratios están en `design/tokens.md` §5.
+   `line` es decorativo (1.23:1 claro / 1.33:1 oscuro): cualquier
+   borde que signifique algo usa `muted` o `ink`, nunca `line`.
    ───────────────────────────────────────────────────────────── */
 :root {
-  --paper: #faf9f6;
-  --surface: #f2f0eb;
-  --line: #e0ddd6;
-  --muted: #6e6a62;
-  --ink: #17150f;
-  --accent: #9e3b22;
+  --paper: #fbfdfc;
+  --surface: #eff6f3;
+  --line: #dbe8e2;
+  --muted: #5b6d66;
+  --ink: #0b1512;
+  --accent: #0f766e;
 }
 
+/* El acento oscuro NO es el mismo token aclarado a ojo: `#0f766e` sobre
+   `#16211e` da 4.41:1 y falla AA. Y aclararlo de más tampoco vale — los teal
+   obvios llegan a 9.9:1 y el acento pasa a brillar, rompiendo el "una vez por
+   pantalla" sin aparecer más veces. `#17a394` da 5.87:1, la misma presencia
+   relativa que el 5.36:1 del modo claro. */
 .dark {
-  --paper: #12110f;
-  --surface: #1b1a17;
-  --line: #2b2925;
-  --muted: #9a958c;
-  --ink: #f5f3ee;
-  --accent: #e0755a;
+  --paper: #0d1614;
+  --surface: #16211e;
+  --line: #232f2c;
+  --muted: #7d8f89;
+  --ink: #eef4f1;
+  --accent: #17a394;
 }
 
 /* `@theme inline` en vez de `@theme`: hace que Tailwind referencie la variable
-   en vez de copiar su valor, que es lo que permite que .dark la sobreescriba. */
-/**
- * Reserva con métricas ajustadas para el display.
- *
- * Medido en el navegador: Georgia es un 30% más ancha que Instrument Serif al
- * mismo `font-size` (1535px contra 1177px para la misma cadena a 100px). Con
- * `font-display: swap`, eso significa que el titular se pinta primero con otro
- * reparto de líneas y salta al cargar la fuente real.
- *
- * `size-adjust: 76.7%` es el ratio exacto entre las dos, así que la reserva
- * ocupa lo mismo y el cambio deja de reflowear el texto. En conexión normal las
- * fuentes ya llegan antes del primer paint gracias al `preload` de `root.tsx`;
- * esto es el seguro para quien entre con mala conexión.
- */
-@font-face {
-  font-family: 'Instrument Serif Fallback';
-  src: local('Georgia');
-  size-adjust: 76.7%;
-}
+   en vez de copiar su valor, que es lo que permite que .dark la sobreescriba.
 
+   Ya no hay `@font-face` de reserva: existía para Instrument Serif, porque
+   Georgia es un 30% más ancha y el titular reflowaba al cargar. Con una sola
+   familia sans, la reserva de `system-ui` es razonable y no hace falta
+   `size-adjust`. */
 @theme inline {
   --color-paper: var(--paper);
   --color-surface: var(--surface);
@@ -57,25 +49,50 @@
   --color-ink: var(--ink);
   --color-accent: var(--accent);
 
+  /* Display y sans son la misma familia a propósito (`design/tokens.md` §1).
+     Se mantienen como dos tokens para poder volver a separarlas algún día sin
+     tocar todos los componentes. */
   --font-display:
-    'Instrument Serif', 'Instrument Serif Fallback', ui-serif, Georgia, serif;
-  --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+    'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
 
-  /* Una sola escala. Sin valores sueltos en el JSX. */
-  --text-hero: clamp(2.75rem, 8vw, 6rem);
-  --text-section: clamp(1.75rem, 4vw, 3rem);
-  /* Un escalón por debajo de --text-section: con un display de un solo peso,
-     el tamaño es el único recurso de jerarquía que queda.
-     El suelo es 1.5rem y no 1.25rem porque Instrument Serif tiene una altura
-     de x mucho menor que Schibsted Grotesk: a igual tamaño en px el serif
-     parece más pequeño, y en móvil el título quedaba por debajo del tagline. */
-  --text-card: clamp(1.5rem, 1.5vw + 0.5rem, 1.875rem);
-  --text-lead: clamp(1.125rem, 1.2vw + 0.9rem, 1.375rem);
+  /* Una sola escala. Sin valores sueltos en el JSX.
+     Los topes y los suelos salen de medir el lienzo, no de redondear:
+     84/58/40 px en el hero, 44/36/30 en los títulos de sección. */
+
+  /* El suelo es 2.5rem (40px) y no 2.75: a 44px «arquitectura web» se
+     desborda de los 350px útiles de un viewport de 390. Verificado en el
+     lienzo, no estimado. */
+  --text-hero: clamp(2.5rem, 7.5vw, 5.25rem);
+  --text-section: clamp(1.875rem, 2.2vw + 1rem, 2.75rem);
+  /* Antes tenía suelo de 1.5rem porque Instrument Serif tiene la altura de x
+     mucho menor y en móvil el título de tarjeta quedaba por debajo de su
+     propio tagline. Con una sola familia ese desajuste ya no existe, así que
+     el suelo sube a 1.625rem por diseño y no por compensación. */
+  --text-card: clamp(1.625rem, 1.5vw + 0.6rem, 2rem);
+  --text-lead: clamp(1rem, 0.8vw + 0.75rem, 1.25rem);
   --text-meta: 0.8125rem;
+
+  /* Tracking del display. En `em` y no en `px` para que acompañe al `clamp()`:
+     a 84px hacen falta -2.4px y a 40px eso partiría las palabras.
+     Hero y sección coinciden en em (-0.0286 y -0.0273), así que comparten
+     token. En el texto corrido va a cero: aplicarlo al cuerpo lo hace
+     ilegible. */
+  --tracking-display: -0.028em;
+  --tracking-card: -0.02em;
 
   --spacing-section: clamp(4.5rem, 10vw, 9rem);
   --spacing-gutter: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* El rail: la columna de metadatos con su hairline vertical continuo, que es
+     lo que da carácter a la página (`design/direccion-visual.md` §2).
+     Son dos medidas y no una: a 768px el rail se estrecha, porque con 96px
+     «— Actualidad» se desborda. Debajo de `md` no existe — el metadato sube
+     sobre el contenido. */
+  --spacing-rail: 7.5rem;
+  --spacing-rail-md: 7rem;
 
   /* La única animación del sitio. Se usa solo en el Hero: repartir entradas
      por toda la página es lo que hace que un portafolio se vea genérico
@@ -115,10 +132,23 @@
   h2,
   h3 {
     color: var(--color-ink);
-    /* Instrument Serif es estática: peso 400 y nada más.
-       La jerarquía sale del tamaño y de la cursiva, no del peso. */
-    font-weight: 400;
+    /* Schibsted Grotesk es variable (400–900), así que el peso SÍ es un
+       recurso de jerarquía. El display vive en 800: es lo que sustituye al
+       cambio de familia que antes daba el serif. */
+    font-weight: 800;
     text-wrap: balance;
+  }
+
+  /* A peso 800 y tamaño grande, Schibsted Grotesk necesita apretarse o las
+     palabras se separan. Va aquí y no en cada componente porque es una
+     propiedad de la fuente al display, no una decisión por sección. */
+  h1,
+  h2 {
+    letter-spacing: var(--tracking-display);
+  }
+
+  h3 {
+    letter-spacing: var(--tracking-card);
   }
 
   p {
