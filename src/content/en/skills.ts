@@ -25,13 +25,17 @@ export const skills: SkillGroup[] = [
   {
     id: 'tooling',
     label: 'Tooling & methodology',
+    // Order matters: the grid lays these out in rows of five, so this decides
+    // which item lands in which column.
     items: [
       'Git',
       'Claude Code (MCP, sub-agents)',
+      'spec-kit',
       'Playwright',
       'Maestro',
       'Figma',
       'Agile/SCRUM',
+      'Pencil',
     ],
   },
   {
