@@ -5,6 +5,8 @@ import { cn } from '@/lib/cn'
 
 type ThemeToggleProps = {
   labels: { toLight: string; toDark: string }
+  /** `bar` dentro de la Navbar · `bare` suelto sobre el Hero, sin caja. */
+  variant?: 'bar' | 'bare'
   className?: string
 }
 
@@ -13,7 +15,11 @@ type ThemeToggleProps = {
  * icono dependiera del estado de React habría un salto visible entre el HTML
  * estático y la hidratación, justo lo que el script anti-flash evita.
  */
-export function ThemeToggle({ labels, className }: ThemeToggleProps) {
+export function ThemeToggle({
+  labels,
+  variant = 'bar',
+  className,
+}: ThemeToggleProps) {
   const { theme, toggle } = useTheme()
 
   return (
@@ -22,7 +28,12 @@ export function ThemeToggle({ labels, className }: ThemeToggleProps) {
       onClick={toggle}
       aria-label={theme === 'dark' ? labels.toLight : labels.toDark}
       className={cn(
-        'grid size-9 place-items-center border border-line text-muted transition-colors hover:border-ink hover:text-ink',
+        'grid size-9 place-items-center border text-muted transition-colors hover:text-ink',
+        // El borde transparente se queda puesto en `bare`: sin él el control
+        // encoge 2px y los dos estados no cuadran al cambiar.
+        variant === 'bar'
+          ? 'border-line hover:border-ink'
+          : 'border-transparent',
         className,
       )}
     >
