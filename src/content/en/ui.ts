@@ -13,12 +13,12 @@ export const ui: UIStrings = {
     skipToContent: 'Skip to content',
   },
   hero: {
-    eyebrow: 'Software Developer · Caracas',
-    headline: 'Engineering scalable web and mobile architecture.',
-    headlineAccent: 'scalable',
+    eyebrow: 'Software Developer · Caracas, Venezuela',
+    tagline: 'Developing scalable web and mobile applications.',
+    taglineAccent: 'scalable',
     cta: 'View experience',
     facts: [
-      { label: 'Experience', value: '4 years in production' },
+      { label: 'Experience', value: '+4 years in the industry' },
       { label: 'Companies', value: '3 · Enterprise and multi-client' },
       { label: 'Core', value: 'React · Angular · Flutter' },
     ],

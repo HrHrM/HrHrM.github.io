@@ -84,23 +84,27 @@ export type UIStrings = {
     skipToContent: string
   }
   hero: {
-    /** Rol y ubicación, en mono, encima del titular. */
+    /** Rol y ubicación, en mono, encima del nombre. */
     eyebrow: string
     /**
-     * El <h1>: la frase de posicionamiento. Vive aquí y no en `constants.ts`
-     * porque cambia con el idioma — es el texto más importante de la página.
+     * La frase de posicionamiento, debajo del nombre.
+     *
+     * **No es el `<h1>`.** El titular es el nombre, y sale de `SITE.name` en
+     * `constants.ts` porque un nombre propio no se traduce. Esto sí vive por
+     * idioma: es la frase que dice qué hace, y es el texto que más trabaja de
+     * la página después del nombre.
      */
-    headline: string
+    tagline: string
     /**
-     * El trozo de `headline` que va en color de acento: el único acento del
+     * El trozo de `tagline` que va en color de acento: el único acento del
      * primer viewport. Tiene que aparecer **literalmente** dentro de
-     * `headline`, o no se resalta nada y el titular se pinta entero en `ink`.
+     * `tagline`, o no se resalta nada y la frase se pinta entera en `muted`.
      *
      * Se declara por idioma en vez de deducirse como "última palabra" porque
-     * no cae en el mismo sitio: en español cierra la frase («escalable.») y en
-     * inglés va en medio («scalable»).
+     * no cae en el mismo sitio: en español cierra la frase («escalables.») y
+     * en inglés va en medio («scalable»).
      */
-    headlineAccent: string
+    taglineAccent: string
     cta: string
     /**
      * El zócalo de datos duros bajo el CTA: tres celdas separadas por

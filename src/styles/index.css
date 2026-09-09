@@ -86,6 +86,19 @@
   --spacing-section: clamp(4.5rem, 10vw, 9rem);
   --spacing-gutter: clamp(1.25rem, 5vw, 2.5rem);
 
+  /* El margen del contenido ancho, que hoy es solo el Hero. Ni la columna de
+     72rem del resto de la página —que en pantalla grande deja el hero como un
+     marco central— ni el sangrado completo, que dejaba el texto pegado al
+     borde. Pendiente más viva que `gutter` (6.5vw contra 5vw) y tope en 7rem.
+
+     El suelo es 2.5rem y no 1.25 a propósito: este token solo se aplica desde
+     `md`, y por debajo manda `gutter`. Si la pendiente arrancara en el suelo
+     de móvil, 6.5vw le comería 31px de los 350 útiles de un viewport de 390.
+
+     Va como token y no como valor suelto en el JSX porque la escala de
+     espaciado es una y vive aquí (CLAUDE.md §4). */
+  --spacing-gutter-wide: clamp(2.5rem, 6.5vw, 7rem);
+
   /* El rail: la columna de metadatos con su hairline vertical continuo, que es
      lo que da carácter a la página (`design/direccion-visual.md` §2).
      Son dos medidas y no una: a 768px el rail se estrecha, porque con 96px
