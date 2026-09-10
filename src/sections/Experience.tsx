@@ -15,8 +15,11 @@ import './Experience.css'
  * el `Container`, así que atándolo ahí el efecto se apagaba al pasar por los
  * márgenes laterales aunque siguieras a la altura de la misma entrada.
  *
- * Formación queda fuera a propósito: no es una lista que se recorra
- * comparando, es un dato único.
+ * Formación entra en el mismo efecto y con el **mismo hook**, continuando la
+ * numeración de índices detrás de los puestos. Son dos listas en el marcado
+ * pero una sola secuencia de filas para el puntero, así que nunca puede haber
+ * dos encendidas a la vez: la regla sigue siendo «la fila cuya banda vertical
+ * contiene el cursor».
  */
 export function Experience() {
   const { ui, experience, education, locale } = useLocale()
@@ -93,17 +96,19 @@ export function Experience() {
           {ui.sections.experience.education}
         </h3>
         <ul>
-          {education.map((item) => (
+          {education.map((item, index) => (
             <li
               key={`${item.institution}-${item.start}`}
-              className="grid gap-3 border-b border-line py-8 last:border-0 md:grid-cols-12 md:gap-8"
+              ref={itemRef(experience.length + index)}
+              className="xp-item grid gap-3 border-b border-line py-8 last:border-0 md:grid-cols-12 md:gap-8"
             >
-              <p className="font-mono text-meta text-muted tabular-nums md:col-span-3">
+              <p className="xp-date font-mono text-meta tabular-nums md:col-span-3">
+                <span aria-hidden="true" className="xp-marker" />
                 {range(item.start, item.end)}
               </p>
               <div className="md:col-span-9">
-                <p className="text-lead text-ink">
-                  {item.degree}
+                <p className="xp-heading text-lead">
+                  <span className="xp-company">{item.degree}</span>
                   <span className="text-muted"> · {item.institution}</span>
                 </p>
                 {item.note ? (
