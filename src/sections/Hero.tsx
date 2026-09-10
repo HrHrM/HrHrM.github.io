@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { ButtonLink } from '@/components/ui/Button'
+import { StarBorder } from '@/components/ui/StarBorder'
 import { Particles } from '@/components/ui/Particles'
 import { ParticlesStatic } from '@/components/ui/ParticlesStatic'
 import { WireframeBall } from '@/components/ui/WireframeBall'
@@ -204,9 +205,14 @@ export function Hero() {
             botones seguidos dejan de leerse como una jerarquía para leerse
             como un menú. */}
         <div className="mt-10 animate-reveal [animation-delay:180ms]">
-          <ButtonLink to="#experience" variant="solid">
-            {ui.hero.cta}
-          </ButtonLink>
+          {/* El destello envuelve al botón en vez de sustituirlo: la
+              apariencia del CTA sigue viviendo en `Button.tsx`, con su
+              variante y su hover, y aquí solo se le añade el borde animado. */}
+          <StarBorder speed="7s" thickness={3}>
+            <ButtonLink to="#experience" variant="solid">
+              {ui.hero.cta}
+            </ButtonLink>
+          </StarBorder>
         </div>
 
         {/* El zócalo: hechos comprobables, no adjetivos. Es el mismo argumento

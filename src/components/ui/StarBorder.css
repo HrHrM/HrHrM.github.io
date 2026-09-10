@@ -1,0 +1,100 @@
+/* StarBorder — React Bits (MIT + Commons Clause, © David Haz).
+   https://reactbits.dev
+
+   Dos destellos que recorren el borde superior e inferior. La mecánica es la
+   del original: un `radial-gradient` muy ancho que se desplaza con `transform`
+   y se desvanece, en bucle alterno.
+
+   Lo que cambia está marcado con «CAMBIO». */
+
+.star-border {
+  position: relative;
+  display: inline-block;
+  /* Solo en vertical, como el original: el destello asoma por arriba y por
+     abajo del contenido. */
+  padding: var(--star-thickness) 0;
+  overflow: hidden;
+  /* CAMBIO — el original redondea a 20px. En esta página no hay una sola
+     esquina redondeada, así que el destello recorre un canto recto. */
+  border-radius: 0;
+}
+
+.star-border__glow {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  border-radius: 50%;
+  opacity: 0.7;
+  z-index: 0;
+  pointer-events: none;
+  /* CAMBIO — el color sale del token y no de un hex suelto (CLAUDE.md §6).
+     `--star-color` lo fija quien lo usa; por defecto, el acento. */
+  background: radial-gradient(
+    circle,
+    var(--star-color, var(--accent)),
+    transparent 10%
+  );
+  animation-duration: var(--star-speed);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* CAMBIO — el original coloca el destello con un `-12px` fijo, que solo cuadra
+   con su botón de 56px de alto: ahí deja el centro del degradado justo sobre
+   la banda que asoma. Con otro alto, el punto brillante cae detrás del botón y
+   solo se ve el borde apagado del degradado —medido aquí, invisible—.
+   `calc(thickness - 25%)` con `height: 50%` deja el centro en `thickness` sea
+   cual sea el alto, que es la intención del original sin su número mágico. */
+.star-border__glow--top {
+  top: calc(var(--star-thickness) - 25%);
+  left: -250%;
+  animation-name: star-movement-top;
+}
+
+.star-border__glow--bottom {
+  bottom: calc(var(--star-thickness) - 25%);
+  right: -250%;
+  animation-name: star-movement-bottom;
+}
+
+/* El contenido va por encima de los destellos. No lleva ni fondo ni borde ni
+   tipografía: eso es cosa del botón que se meta dentro, que ya los tiene
+   (CLAUDE.md §3, el flujo de datos y estilos baja, no se duplica). */
+.star-border__content {
+  position: relative;
+  display: block;
+  z-index: 1;
+}
+
+@keyframes star-movement-top {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100%, 0%);
+    opacity: 0;
+  }
+}
+
+@keyframes star-movement-bottom {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100%, 0%);
+    opacity: 0;
+  }
+}
+
+/* CAMBIO — el original no contempla `prefers-reduced-motion`. Aquí los
+   destellos se paran y se ocultan: quietos y a media opacidad quedarían como
+   dos manchas asimétricas pegadas al botón, que es peor que no tenerlos. */
+@media (prefers-reduced-motion: reduce) {
+  .star-border__glow {
+    animation: none;
+    display: none;
+  }
+}
