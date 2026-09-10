@@ -41,27 +41,20 @@
   opacity: 1;
 }
 
-/* Color y alfa del degradado, por tema.
+/* **Cada tema tiene un efecto distinto, no el mismo con otro número.**
 
-   En oscuro es luz: el acento sobre un fondo casi negro, que es la situación
-   en la que un halo translúcido se lee como luz.
+   Oscuro: niebla de luz. El acento sobre un fondo casi negro, la única
+   situación en la que un halo translúcido se lee como luz.
 
-   En claro el acento **tal cual** no sirve. `#0f766e` es un teal oscuro: sobre
-   `paper` casi blanco no ilumina, oscurece, y a la alfa que hacía falta para
-   verse se leía como una mancha verde en el margen. Lo que sí funciona es el
-   mismo tono aclarado —un mint— porque su luminancia ya está cerca de la del
-   papel y solo tiñe.
-
-   Se deriva del token con `color-mix` en vez de escribir un hex nuevo: así el
-   margen sigue al acento si algún día cambia, y no entra un séptimo color en
-   una paleta de seis (CLAUDE.md §4).
-
-   Se descartó la sombra (`ink` al 9%): funcionaba, pero convertía el efecto en
-   profundidad neutra y perdía el color, que es lo que se quería. */
+   Claro: hairlines (más abajo). Sobre papel casi blanco no hay nada que
+   iluminar, y la niebla en `ink` —que también se probó— daba la mitad de
+   contraste: 22 niveles contra los 43 de las líneas, medidos contra el fondo.
+   Si algún día se prefiere la niebla en claro, estos son sus valores y basta
+   con borrar el bloque de `:root:not(.dark)`. */
 .edge-gradient {
-  --edge-color: color-mix(in oklab, var(--accent) 40%, white);
-  --edge-a1: 60%;
-  --edge-a2: 40%;
+  --edge-color: var(--ink);
+  --edge-a1: 16%;
+  --edge-a2: 11%;
 }
 
 .dark .edge-gradient {
@@ -132,5 +125,39 @@
   .edge-gradient::before {
     animation: none !important;
     background-position: 50% 50% !important;
+  }
+}
+
+/* Modo claro: hairlines que derivan hacia abajo, no niebla.
+
+   Es el lenguaje de la propia página —toda la retícula está hecha de líneas de
+   un pelo— y sobre papel da contraste donde una niebla solo da una mancha.
+   La máscara horizontal de arriba las desvanece antes de llegar al texto, así
+   que el borde denso queda pegado a la pantalla y el interior limpio.
+
+   `background-repeat: repeat` es obligatorio y no decorativo: el `::before`
+   hereda `no-repeat` del padre, y sin reponerlo el patrón se pinta una sola
+   vez arriba y el resto del margen queda vacío. */
+:root:not(.dark) .edge-gradient::before {
+  --edge-step: 20px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--ink) 26%, transparent) 0 1px,
+    transparent 1px var(--edge-step)
+  );
+  background-size: 100% var(--edge-step);
+  background-position: 0 0;
+  background-repeat: repeat;
+  /* Un paso completo por ciclo: al reiniciar, el patrón coincide consigo mismo
+     y la deriva no tiene costura. */
+  animation: edge-scan 14s linear infinite;
+}
+
+@keyframes edge-scan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 var(--edge-step);
   }
 }

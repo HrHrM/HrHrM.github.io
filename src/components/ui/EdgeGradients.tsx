@@ -11,6 +11,11 @@ import './EdgeGradients.css'
  * hero tiene su propia geodésica y su campo de partículas; encender esto
  * encima sería la tercera cosa moviéndose en el primer viewport.
  *
+ * **Cada tema tiene su efecto, no el mismo con otro número.** En oscuro es luz
+ * aditiva: el acento sobre un fondo casi negro. En claro la luz no traduce
+ * —sobre papel no hay nada que iluminar— así que es sombra: `ink` de la paleta,
+ * que es lo que da contraste sobre blanco.
+ *
  * Es puramente decorativo: `aria-hidden` y `pointer-events: none`. No hay aquí
  * ninguna información, y nada que se pueda pulsar.
  *
@@ -22,7 +27,6 @@ import './EdgeGradients.css'
  */
 export function EdgeGradients() {
   const past = useScrolledPast('hero')
-
   return (
     <div aria-hidden="true">
       <div className="edge-gradient edge-gradient--left" data-visible={past} />
