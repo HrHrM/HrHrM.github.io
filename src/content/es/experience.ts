@@ -16,11 +16,11 @@ export const experience: ExperienceItem[] = [
     start: '2025-04',
     end: null,
     summary:
-      'Desarrollo de la plataforma web principal y entrega de extremo a extremo de aplicaciones web y móviles multi-cliente.',
+      'Desarrollo de la plataforma web principal y un ecosistema de aplicaciones web y móviles corporativas.',
     highlights: [
-      'Ejecución de refactorización de código en la plataforma web central para mejorar significativamente la escalabilidad y el rendimiento general del sistema.',
-      'Gestión del desarrollo de extremo a extremo de aplicaciones web y móviles utilizando React y React Native, impulsando funcionalidades hasta su despliegue en producción.',
-      'Orquestación de sub-agentes mediante Claude Code y spec-kit, integrando MCP (Model Context Protocol) en el flujo de desarrollo local para acelerar la arquitectura, validado con pruebas de Playwright y Maestro.',
+      'Ecosistema multiplataforma: Construcción de aplicaciones en React y React Native orientadas a diferentes roles, incluyendo clientes móviles con geolocalización para ventas, módulos de supervisión en tiempo real y dashboards analíticos (BI) para directivos.',
+      'Optimización y escalabilidad: Ejecución de refactorizaciones críticas en la plataforma web central, eliminando deuda técnica y maximizando la reutilización de componentes y lógica de negocio entre los distintos productos.',
+      'Orquestación de IA y automatización: Integración de sub-agentes mediante Claude Code y spec-kit utilizando MCP (Model Context Protocol) en el flujo de desarrollo local para acelerar la arquitectura, con validación automatizada multiplataforma en Playwright y Maestro.',
     ],
     stack: [
       'React',
@@ -30,6 +30,8 @@ export const experience: ExperienceItem[] = [
       'MCP',
       'Playwright',
       'Maestro',
+      'pen.dev',
+      'Figma',
     ],
   },
   {

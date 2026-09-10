@@ -2671,6 +2671,52 @@
                                   "letterSpacing": 1.4
                                 }
                               ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "EUfBf",
+                              "name": "Badge pen.dev",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "xHxtl",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PEN.DEV",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hjQQ3",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "TQqNx",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
                             }
                           ]
                         }
@@ -8558,6 +8604,62 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "J7NQ3j",
+                      "name": "Fila 3",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "a956Ij",
+                          "name": "Badge pen.dev",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "V159gk",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "PEN.DEV",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "aiDak",
+                          "name": "Badge Figma",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "JaBCl",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "FIGMA",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -11386,6 +11488,52 @@
                                   "name": "Label",
                                   "fill": "$accent",
                                   "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "SsdJ8",
+                              "name": "Badge pen.dev",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "qLzZA",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PEN.DEV",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "krnnx",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "QKn5J",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
                                   "fontFamily": "$font-mono",
                                   "fontSize": 10,
                                   "fontWeight": "normal",
@@ -17289,6 +17437,52 @@
                                   "name": "Label",
                                   "fill": "$accent",
                                   "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "QrL8v",
+                              "name": "Badge pen.dev",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "FQMW6",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PEN.DEV",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "zHJow",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ow3yp",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
                                   "fontFamily": "$font-mono",
                                   "fontSize": 10,
                                   "fontWeight": "normal",
