@@ -36,11 +36,16 @@ export const FIELD = {
  * contra el fondo — en una pantalla de verdad no se ve nada. El modo oscuro,
  * a 0.45, ronda 2:1 y por eso sí funcionaba.
  *
- * Los dos valores buscan ahora la misma presencia percibida, no el mismo
- * número. Claro necesita más alfa porque parte de un fondo con mucha más
- * luminancia, y la caída relativa por unidad de alfa es menor.
+ * Los dos valores buscan la misma presencia percibida, no el mismo número.
+ * Claro necesita más alfa porque parte de un fondo con mucha más luminancia, y
+ * la caída relativa por unidad de alfa es menor.
+ *
+ * Subidos después desde 0.4 / 0.45, que ya se veían pero quedaban demasiado
+ * tímidos. Contra el fondo de cada tema, el punto pasa de ~1.7:1 a ~2.1:1 en
+ * claro y de ~2.0:1 a ~2.5:1 en oscuro. Sigue siendo textura de fondo: por
+ * encima de 3:1 empieza a competir con el texto en vez de sostenerlo.
  */
-export const FIELD_OPACITY = { light: 0.4, dark: 0.45 } as const
+export const FIELD_OPACITY = { light: 0.52, dark: 0.58 } as const
 
 /**
  * El SVG quieto se dibuja en un lienzo de referencia fijo y luego se escala

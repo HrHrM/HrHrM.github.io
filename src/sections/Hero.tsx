@@ -27,8 +27,8 @@ import { SITE } from '@/lib/constants'
  * falla en algo más básico que el tono.
  *
  * El patrón que se quería evitar sigue evitado, pero por tipografía y no por
- * omisión: la frase no baja a tamaño de pie de foto, se queda a 44px contra
- * los 84 del nombre. Ver el comentario del `<p>` más abajo.
+ * omisión: la frase no baja a tamaño de pie de foto, se queda a 34px contra
+ * los 72 del nombre — 2,1× de caída. Ver el comentario del `<p>` más abajo.
  *
  * Dos decisiones que parecen omisiones y no lo son:
  *
@@ -75,9 +75,19 @@ export function Hero() {
     // El `id` no es un ancla de navegación: no está en `SECTION_IDS` ni sale
     // en la Navbar. Lo observa `useScrolledPast` para saber cuándo la portada
     // ha terminado de pasar y la barra tiene que aparecer.
+    // `min-h` en `svh` y contenido centrado: es lo que hace que la portada
+    // guarde la misma proporción en un portátil y en un monitor grande. Antes
+    // medía 762px fijos —el padding salía de `10vw`, anchura— y eso era el 97%
+    // de una pantalla de 768 y el 53% de una de 1440.
+    //
+    // `svh` y no `vh` por el móvil: `vh` cuenta con la barra del navegador
+    // retraída, así que al aparecer recorta el hero y el contenido salta.
+    //
+    // Es `min-h` y no `h`: si el contenido crece —en móvil son cinco líneas
+    // más el zócalo— la sección se estira en vez de recortarlo.
     <section
       id="hero"
-      className="relative overflow-hidden border-b border-line pt-section pb-section"
+      className="relative flex min-h-[78svh] flex-col justify-center overflow-hidden py-hero-y"
     >
       {/* El orden en el DOM es el orden de pintado: partículas al fondo,
           geodésica encima, y el Container —que lleva `relative`— por delante
@@ -170,15 +180,19 @@ export function Hero() {
           {SITE.name}
         </h1>
 
-        {/* La frase va en `text-section` y no en `text-lead`: con el nombre a
-            84px, bajarla a 20px deja una caída de 4× que es exactamente el
+        {/* La frase tiene su propio token y no usa `text-lead`: con el nombre a
+            72px, bajarla a 20px deja una caída de 3,6× que es exactamente el
             patrón de portafolio de estudiante —nombre gigante, mensaje en letra
-            pequeña— que el resto de la página evita. A 44px la proporción es de
-            1.9× y las dos líneas se leen como una sola unidad.
+            pequeña— que el resto de la página evita. A 34px la proporción es de
+            2,1× y las dos líneas se leen como una sola unidad.
+
+            Tampoco usa `text-section`, que es lo que llevaba antes: ese token
+            lo comparten los cinco títulos de sección, así que ajustar el
+            subtítulo los habría encogido a todos.
 
             Peso 400 sobre un `<p>`: el tamaño lo acerca al titular, y es el
             peso el que deja claro cuál manda. */}
-        <p className="mt-5 max-w-4xl animate-reveal font-sans text-section leading-tight text-muted [animation-delay:135ms]">
+        <p className="mt-5 max-w-4xl animate-reveal font-sans text-hero-lead leading-tight text-muted [animation-delay:135ms]">
           {before}
           {accent ? <span className="text-accent">{accent}</span> : null}
           {after}

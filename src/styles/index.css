@@ -62,10 +62,33 @@
      Los topes y los suelos salen de medir el lienzo, no de redondear:
      84/58/40 px en el hero, 44/36/30 en los títulos de sección. */
 
-  /* El suelo es 2.5rem (40px) y no 2.75: a 44px «arquitectura web» se
-     desborda de los 350px útiles de un viewport de 390. Verificado en el
-     lienzo, no estimado. */
-  --text-hero: clamp(2.5rem, 7.5vw, 5.25rem);
+  /* El `min()` con la altura es lo que hace que el nombre no mida lo mismo en
+     un portátil que en un monitor. Con solo un `vw`, el tope se alcanzaba ya a
+     los ~1100px de ancho y a partir de ahí la tipografía era idéntica en todas
+     las pantallas de escritorio, incluidas las de 768px de alto — donde era
+     justo lo que hacía que la portada se sintiera apretada. Ahora el alto
+     también manda.
+
+     El suelo bajó de 2.5rem a 2.25rem (40 → 36px) por el móvil: a 40px
+     «Johnny Bohorquez» pide 357px y solo hay 335 útiles en un viewport de 390,
+     así que partía en dos líneas. A 36 entra en una. Medido, no estimado.
+
+     El tope bajó de 5.25rem a 4.5rem (84 → 72px). El suelo viejo existía por
+     el titular anterior —«arquitectura web» se desbordaba a 44px— y ese
+     titular ya no está. */
+  --text-hero: clamp(2.25rem, min(7vw, 8.5vh), 4.5rem);
+
+  /* El subtítulo del Hero tiene token propio y **no** usa `text-section`.
+     Comparten aspecto, pero `section` lo llevan los cinco títulos de sección y
+     bajarlo aquí los habría encogido todos. Al separarlos, el subtítulo se
+     ajusta solo para la portada.
+
+     El tope queda en 34px contra los 72 del nombre: 2,1× de caída. Es la misma
+     proporción que se buscó al pasar el nombre a `<h1>` — lo bastante separados
+     para que la jerarquía sea obvia y lo bastante cerca para que no se lea como
+     nombre gigante sobre pie de foto. */
+  --text-hero-lead: clamp(1.375rem, 1.4vw + 0.75rem, 2.125rem);
+
   --text-section: clamp(1.875rem, 2.2vw + 1rem, 2.75rem);
   /* Antes tenía suelo de 1.5rem porque Instrument Serif tiene la altura de x
      mucho menor y en móvil el título de tarjeta quedaba por debajo de su
@@ -83,7 +106,12 @@
   --tracking-display: -0.028em;
   --tracking-card: -0.02em;
 
-  --spacing-section: clamp(4.5rem, 10vw, 9rem);
+  /* El aire vertical de cada sección. **Es media distancia, no la distancia**:
+     cada sección lo paga arriba y abajo, así que entre dos secciones el hueco
+     vale el doble. Con el valor anterior (tope 9rem) eso daban 288px medidos a
+     1920, que se leían como un corte en la página en vez de como una pausa.
+     A 4.5rem el hueco queda en 144. */
+  --spacing-section: clamp(3rem, 5.5vw, 4.5rem);
   --spacing-gutter: clamp(1.25rem, 5vw, 2.5rem);
 
   /* El margen del contenido ancho, que hoy es solo el Hero. Ni la columna de
@@ -98,6 +126,16 @@
      Va como token y no como valor suelto en el JSX porque la escala de
      espaciado es una y vive aquí (CLAUDE.md §4). */
   --spacing-gutter-wide: clamp(2.5rem, 6.5vw, 7rem);
+
+  /* El aire vertical del Hero, y el único espaciado del sitio que se mide en
+     `vh` en vez de `vw`.
+
+     `section` va en `10vw`, que es correcto para las secciones de abajo —su
+     altura la decide el contenido— pero en la portada dejaba 144px fijos
+     arriba y abajo pasara lo que pasara: en un portátil de 768px el hero
+     ocupaba el 97% de la pantalla y en un monitor de 1440 el 53%. La misma
+     página se sentía apretada en uno y vacía en el otro. */
+  --spacing-hero-y: clamp(3rem, 7vh, 9rem);
 
   /* El rail: la columna de metadatos con su hairline vertical continuo, que es
      lo que da carácter a la página (`design/direccion-visual.md` §2).

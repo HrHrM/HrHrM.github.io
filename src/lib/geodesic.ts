@@ -185,8 +185,20 @@ export const BASE_PITCH = 0.42
  */
 export const RADIUS = 0.24
 
-/** Centro por encima de la mitad, para que la figura despeje el zócalo de
-    datos que cierra el Hero en vez de cruzarle los hairlines. */
+/**
+ * Por encima de la mitad de la caja, alineada con la masa de texto.
+ *
+ * El valor correcto **no** es 0.5, y el viaje de ida y vuelta merece quedar
+ * escrito. Se subió a 0.5 midiendo contra el bloque de contenido completo, que
+ * incluye el zócalo de datos; pero el zócalo es una franja de mono de 13px
+ * separada 64px del resto, y no pesa como texto. Centrar contra él dejaba la
+ * figura 85px por debajo del eje del nombre y la frase, y se veía descolgada.
+ *
+ * La referencia buena es el bloque sin el zócalo: de la línea de rol al CTA.
+ * Su centro cae en 0.435 del hero a 1920x1080 y en 0.407 a 1366x768 — no es
+ * una fracción constante porque la separación del zócalo es absoluta y la
+ * altura del hero no. 0.42 es el punto que sirve a las dos.
+ */
 export const CENTER_Y = 0.42
 
 /** Hairline de verdad: con el `dpr` en la transformada, 0.75 CSS px es una
