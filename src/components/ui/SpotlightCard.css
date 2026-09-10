@@ -1,0 +1,56 @@
+/* SpotlightCard — React Bits (MIT + Commons Clause, © David Haz).
+   https://reactbits.dev
+
+   Un foco que sigue al cursor dentro de la tarjeta. La mecánica es la del
+   original: JS solo escribe la posición del ratón en dos variables y el
+   degradado vive en CSS.
+
+   Lo que cambia está marcado con «CAMBIO». */
+
+.spotlight-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  /* CAMBIO — radio propio, en píxeles. El original no le da ninguno, así que
+     el círculo llega hasta la esquina más lejana de la caja: en su demo, una
+     tarjeta pequeña, eso es un charco de luz; aquí, sobre una ficha de
+     1072 × 804, se estira en un degradado difuso que no se distingue del
+     fondo. Medido: sin radio, el foco tiñe la mitad de la tarjeta a la vez. */
+  --spotlight-size: 320px;
+
+  position: relative;
+  overflow: hidden;
+  /* CAMBIO — el original trae `border-radius: 1.5rem`, borde `#222`, fondo
+     `#111` y `padding: 2rem`, que son los de su propia demo oscura. Aquí la
+     caja es la retícula del sitio: esquina viva, hairline del token y sin
+     fondo, para que la tarjeta siga leyéndose sobre `paper`. El relleno lo
+     pone el contenido, que ya lo tiene. */
+  border: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 500ms ease;
+  background: radial-gradient(
+    circle var(--spotlight-size) at var(--mouse-x) var(--mouse-y),
+    var(--spotlight-color, color-mix(in oklab, var(--accent) 30%, transparent)),
+    transparent 75%
+  );
+}
+
+.spotlight-card:hover::before,
+.spotlight-card:focus-within::before {
+  opacity: 1;
+}
+
+/* CAMBIO — el original no lo contempla. El foco en sí no es movimiento que
+   moleste, pero su aparición sí es una transición: aquí es inmediata. */
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-card::before {
+    transition: none;
+  }
+}
