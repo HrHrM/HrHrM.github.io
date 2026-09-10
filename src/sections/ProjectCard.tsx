@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { GithubIcon } from '@/components/ui/BrandIcon'
 import { useLocale } from '@/hooks/useLocale'
+import { cn } from '@/lib/cn'
 import type { Project } from '@/content/types'
 
 /**
@@ -21,14 +22,21 @@ import type { Project } from '@/content/types'
 export function ProjectCard({
   project,
   index,
+  bare = false,
 }: {
   project: Project
   index: number
+  /**
+   * Sin el hairline inferior, para cuando la ficha ya va dentro de una caja
+   * que tiene su propio borde. Si no, se dibujan dos líneas juntas.
+   */
+  bare?: boolean
 }) {
   const { ui } = useLocale()
   const { links, visibility } = project
 
   const hasLive = visibility === 'public' && Boolean(links.live)
+  const hasStore = visibility === 'public' && Boolean(links.store)
   const hasRepo = visibility === 'public' && Boolean(links.repo)
 
   const blocks = [
@@ -38,7 +46,12 @@ export function ProjectCard({
   ]
 
   return (
-    <article className="grid gap-6 border-b border-line py-10 md:grid-cols-12 md:gap-8 md:py-14">
+    <article
+      className={cn(
+        'grid gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-14',
+        !bare && 'border-b border-line',
+      )}
+    >
       <div className="md:col-span-3">
         <span
           aria-hidden="true"
@@ -102,6 +115,18 @@ export function ProjectCard({
             </a>
           ) : null}
 
+          {hasStore ? (
+            <a
+              href={links.store}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1.5 font-mono text-meta tracking-wide text-ink uppercase underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+            >
+              {ui.project.viewStore}
+              <ArrowUpRight aria-hidden="true" className="size-3.5" />
+            </a>
+          ) : null}
+
           {hasRepo ? (
             <a
               href={links.repo}
@@ -118,11 +143,11 @@ export function ProjectCard({
               NDA se muestran ambas: "Bajo NDA" dice por qué no hay detalle
               interno, y "Código privado" por qué no hay repositorio. */}
           {visibility === 'nda' ? (
-            <Badge tone="accent">{ui.project.underNda}</Badge>
+            <Badge tone="flag">{ui.project.underNda}</Badge>
           ) : null}
 
           {visibility === 'nda' || visibility === 'private' ? (
-            <Badge>{ui.project.codePrivate}</Badge>
+            <Badge tone="muted">{ui.project.codePrivate}</Badge>
           ) : null}
         </div>
       </div>

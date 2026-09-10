@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/Badge'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { useLocale } from '@/hooks/useLocale'
@@ -70,17 +71,13 @@ export function Experience() {
                     ))}
                   </ul>
                 ) : null}
-                {/* Chip cuadrado, sin radio: en esta página no hay una sola
-                    esquina redondeada. El tamaño y el tracking son los mismos
-                    que ya usan las etiquetas del zócalo del Hero, para no
-                    abrir una escala de mono nueva. */}
+                {/* El chip vive en `Badge`, no en clases repetidas aquí: es
+                    el mismo que usan las fichas de Proyectos, y una tecnología
+                    no puede dibujarse de dos maneras según la sección. */}
                 <ul className="mt-6 flex flex-wrap items-center gap-2">
                   {item.stack.map((tech) => (
-                    <li
-                      key={tech}
-                      className="bg-surface px-2.5 py-1 font-mono text-[0.625rem] tracking-widest text-accent uppercase"
-                    >
-                      {tech}
+                    <li key={tech}>
+                      <Badge>{tech}</Badge>
                     </li>
                   ))}
                 </ul>

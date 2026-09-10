@@ -18,6 +18,19 @@
   --muted: #5b6d66;
   --ink: #0b1512;
   --accent: #0f766e;
+
+  /* Séptimo color, y el único que no es de la paleta base. Marca la
+     restricción: NDA. No podía salir del acento —es teal, y el teal ya
+     significa «esto es lo destacado»— ni de `muted`, que es el gris de los
+     metadatos y no dice nada.
+
+     No es un naranja cualquiera: es **el acento anterior del proyecto**, el
+     terracota que había antes de repintar la paleta en teal. Así el color ya
+     estaba probado contra estos fondos en vez de entrar a ojo.
+
+     Contraste sobre `surface`, calculado: 6.17:1 en claro y 5.40:1 en oscuro.
+     Los dos pasan AA de sobra, que hace falta porque el chip va a 10px. */
+  --flag: #9e3b22;
 }
 
 /* El acento oscuro NO es el mismo token aclarado a ojo: `#0f766e` sobre
@@ -32,6 +45,7 @@
   --muted: #7d8f89;
   --ink: #eef4f1;
   --accent: #17a394;
+  --flag: #e0755a;
 }
 
 /* `@theme inline` en vez de `@theme`: hace que Tailwind referencie la variable
@@ -48,6 +62,7 @@
   --color-muted: var(--muted);
   --color-ink: var(--ink);
   --color-accent: var(--accent);
+  --color-flag: var(--flag);
 
   /* Display y sans son la misma familia a propósito (`design/tokens.md` §1).
      Se mantienen como dos tokens para poder volver a separarlas algún día sin
