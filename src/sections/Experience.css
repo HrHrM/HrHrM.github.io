@@ -1,0 +1,70 @@
+/* Capa visual del efecto de proximidad. La mecánica está en
+   `hooks/useProximityEffect.ts`, que escribe `--effect` (0..1) en cada
+   entrada; aquí todo se deriva de esa variable, así que color, desplazamiento
+   y escala se mueven a la vez sin transiciones que se desfasen.
+
+   Adaptado de `LineSidebar` — React Bits (MIT + Commons Clause, © David Haz).
+   https://reactbits.dev
+
+   Va en un fichero y no en clases de Tailwind porque son tres `color-mix()`
+   anidados con `calc()`: como valores arbitrarios quedarían ilegibles.
+   Los colores salen de los tokens, nunca de un hex suelto (CLAUDE.md §6). */
+
+.xp-item {
+  --effect: 0;
+  position: relative;
+}
+
+/* La línea guía del original, delante de la fecha y no encima: en bloque
+   empujaba la fecha 15px hacia abajo y rompía la alineación con el titular,
+   que es justo lo que el rail de metadatos existe para mantener. En línea, y
+   creciendo con `scaleX` —que no ocupa espacio—, la fecha no se mueve.
+   Es decorativa: no hay `aria` que darle. */
+.xp-marker {
+  display: inline-block;
+  height: 1px;
+  width: 2.5rem;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+  transform-origin: left center;
+  transform: scaleX(calc(0.5 + var(--effect) * 0.5));
+  background-color: color-mix(
+    in srgb,
+    var(--accent) calc(var(--effect) * 100%),
+    var(--line)
+  );
+}
+
+/* El desplazamiento se aplica solo al titular, no al bloque entero: arrastrar
+   el resumen y los tres highlights convertiría un acento en un temblor. */
+.xp-heading {
+  transform: translateX(calc(var(--effect) * 0.75rem));
+}
+
+.xp-company {
+  color: color-mix(
+    in srgb,
+    var(--accent) calc(var(--effect) * 100%),
+    var(--ink)
+  );
+}
+
+/* La fecha en mono sube de `muted` hacia `ink`: se aclara sin gastar un
+   segundo acento en la misma fila. */
+.xp-date {
+  color: color-mix(
+    in srgb,
+    var(--ink) calc(var(--effect) * 55%),
+    var(--muted)
+  );
+}
+
+/* `useProximityEffect` ya no se suscribe al puntero con la preferencia puesta,
+   así que `--effect` se queda en 0 y no hay nada que apagar aquí. Este bloque
+   es el cinturón: si algún día alguien escribe la variable desde otro sitio,
+   el desplazamiento sigue sin ocurrir. */
+@media (prefers-reduced-motion: reduce) {
+  .xp-heading {
+    transform: none;
+  }
+}

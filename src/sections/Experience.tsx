@@ -1,38 +1,57 @@
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { useLocale } from '@/hooks/useLocale'
+import { useNearestRow } from '@/hooks/useNearestRow'
 import { formatMonthYear } from '@/lib/dates'
 
+import './Experience.css'
+
+/**
+ * El efecto de proximidad va **por empresa**, no por línea: la unidad que el
+ * lector recorre aquí es el puesto entero, y encender los highlights uno a uno
+ * convertiría un timeline en un menú. Cada `<li>` es una fila del efecto.
+ *
+ * El puntero se escucha en la **sección**, no en la lista: la lista la limita
+ * el `Container`, así que atándolo ahí el efecto se apagaba al pasar por los
+ * márgenes laterales aunque siguieras a la altura de la misma entrada.
+ *
+ * Formación queda fuera a propósito: no es una lista que se recorra
+ * comparando, es un dato único.
+ */
 export function Experience() {
   const { ui, experience, education, locale } = useLocale()
+  const { containerRef, itemRef } = useNearestRow<HTMLElement>()
 
   const range = (start: string, end: string | null) =>
     `${formatMonthYear(start, locale)} — ${end ? formatMonthYear(end, locale) : ui.project.present}`
 
   return (
     <section
+      ref={containerRef}
       id="experience"
       aria-labelledby="experience-title"
       className="py-section"
     >
       <SectionHeading
         id="experience"
-        index="01"
+        index="02"
         title={ui.sections.experience.title}
       />
       <Container>
         <ol>
-          {experience.map((item) => (
+          {experience.map((item, index) => (
             <li
               key={`${item.company}-${item.start}`}
-              className="grid gap-3 border-b border-line py-8 md:grid-cols-12 md:gap-8"
+              ref={itemRef(index)}
+              className="xp-item grid gap-3 border-b border-line py-8 md:grid-cols-12 md:gap-8"
             >
-              <p className="font-mono text-meta text-muted tabular-nums md:col-span-3">
+              <p className="xp-date font-mono text-meta tabular-nums md:col-span-3">
+                <span aria-hidden="true" className="xp-marker" />
                 {range(item.start, item.end)}
               </p>
               <div className="md:col-span-9">
-                <h3 className="text-lead text-ink">
-                  {item.company}
+                <h3 className="xp-heading text-lead">
+                  <span className="xp-company">{item.company}</span>
                   <span className="text-muted"> · {item.role}</span>
                 </h3>
                 <p className="mt-2 max-w-prose">{item.summary}</p>
@@ -48,6 +67,20 @@ export function Experience() {
                     ))}
                   </ul>
                 ) : null}
+                {/* Chip cuadrado, sin radio: en esta página no hay una sola
+                    esquina redondeada. El tamaño y el tracking son los mismos
+                    que ya usan las etiquetas del zócalo del Hero, para no
+                    abrir una escala de mono nueva. */}
+                <ul className="mt-6 flex flex-wrap items-center gap-2">
+                  {item.stack.map((tech) => (
+                    <li
+                      key={tech}
+                      className="bg-surface px-2.5 py-1 font-mono text-[0.625rem] tracking-widest text-accent uppercase"
+                    >
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </li>
           ))}

@@ -4,7 +4,7 @@ import type { UIStrings } from '../types'
 export const ui: UIStrings = {
   nav: {
     projects: 'Work',
-    about: 'About',
+    about: 'About Me',
     stack: 'Stack',
     experience: 'Experience',
     contact: 'Contact',
@@ -40,7 +40,7 @@ export const ui: UIStrings = {
       title: 'Work',
       lead: 'Five engineering case studies: constraints, architecture, and outcomes.',
     },
-    about: { title: 'About' },
+    about: { title: 'About Me' },
     stack: {
       title: 'Stack',
       lead: 'Core technologies used in production and defended in code reviews.',

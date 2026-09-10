@@ -2496,6 +2496,183 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "aFv66",
+                          "name": "Fila stack Galilei",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "vZkVr",
+                              "name": "Badge React",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "N7kmV",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "r4npTb",
+                              "name": "Badge React Native",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "L0q76J",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT NATIVE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "PaTnk",
+                              "name": "Badge Claude Code",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "uM1d1",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "CLAUDE CODE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "m9pLTz",
+                              "name": "Badge spec-kit",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "BZWqb",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "SPEC-KIT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "UjfpO",
+                              "name": "Badge MCP",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "TwsJd",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MCP",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Tjvh4",
+                              "name": "Badge Playwright",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lw1wq",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PLAYWRIGHT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "GtGn5",
+                              "name": "Badge Maestro",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "LnQYx",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -2757,6 +2934,68 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fnjsT",
+                          "name": "Fila stack Pegaso",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "btwco",
+                              "name": "Badge Angular",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "rtaZ2",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "ANGULAR",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "SJf75",
+                              "name": "Badge APIs REST",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "hjSi1",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "APIS REST",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -3014,6 +3253,91 @@
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "U82mEp",
+                          "name": "Fila stack APPS2GO",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "kQdAM",
+                              "name": "Badge Flutter",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "UwFmE",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FLUTTER",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "D0pT5q",
+                              "name": "Badge Firebase",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "c0Qyi",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIREBASE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "c7NkMR",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jcZyE",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
                                 }
                               ]
                             }
@@ -8039,6 +8363,203 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Q789J",
+                  "name": "Stack",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    20,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "LMzMD",
+                      "name": "Fila 1",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "D9PIZT",
+                          "name": "Badge React",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "o7mqwz",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "REACT",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "vH0kX",
+                          "name": "Badge React Native",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Z4Gi5",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "REACT NATIVE",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "IWkrH",
+                          "name": "Badge Claude Code",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "EBo4J",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "CLAUDE CODE",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "G5ZWf",
+                      "name": "Fila 2",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "p5RAu",
+                          "name": "Badge spec-kit",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "wqBKE",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "SPEC-KIT",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "HEgxB",
+                          "name": "Badge MCP",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "vJ0fJ",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "MCP",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "CIaGo",
+                          "name": "Badge Playwright",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "L8Fws",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "PLAYWRIGHT",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "dNmpV",
+                          "name": "Badge Maestro",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "OUmWX",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "MAESTRO",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -10696,6 +11217,183 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "RKJM1",
+                          "name": "Fila stack Galilei",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "hs5g7",
+                              "name": "Badge React",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "caM4S",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "J1iSdX",
+                              "name": "Badge React Native",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "PsIuR",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT NATIVE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "k3kQq",
+                              "name": "Badge Claude Code",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "x9wbg",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "CLAUDE CODE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "gk8lY",
+                              "name": "Badge spec-kit",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "eziaJ",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "SPEC-KIT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "xVzYg",
+                              "name": "Badge MCP",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "was5f",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MCP",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "s6Mieh",
+                              "name": "Badge Playwright",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "tzm6k",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PLAYWRIGHT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "kBrIH",
+                              "name": "Badge Maestro",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "l1S4W",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -10957,6 +11655,68 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rCDBw",
+                          "name": "Fila stack Pegaso",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "UOjaY",
+                              "name": "Badge Angular",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "vFqb5",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "ANGULAR",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Q9IM3j",
+                              "name": "Badge APIs REST",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "fRvKR",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "APIS REST",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -11214,6 +11974,91 @@
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "sk7as",
+                          "name": "Fila stack APPS2GO",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "fZ3I9",
+                              "name": "Badge Flutter",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ViMzS",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FLUTTER",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "N767KC",
+                              "name": "Badge Firebase",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lhCnI",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIREBASE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "i8YKq",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "M1jMxa",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
                                 }
                               ]
                             }
@@ -16253,6 +17098,203 @@
                               "fontFamily": "$font-sans",
                               "fontSize": 14,
                               "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qezJW",
+                      "name": "Stack",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": [
+                        22,
+                        0,
+                        0,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "zcoV4",
+                          "name": "Fila 1",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "h8hbz",
+                              "name": "Badge React",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "g4tRE0",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "m72tr",
+                              "name": "Badge React Native",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "V3FcOr",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT NATIVE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "gWVkj",
+                              "name": "Badge Claude Code",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Y1U23",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "CLAUDE CODE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ehJwG",
+                              "name": "Badge spec-kit",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jhIud",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "SPEC-KIT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "BPvTx",
+                          "name": "Fila 2",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "bAMDm",
+                              "name": "Badge MCP",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "GQNvk",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MCP",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "trn2g",
+                              "name": "Badge Playwright",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "aGpOM",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PLAYWRIGHT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "JUNJT",
+                              "name": "Badge Maestro",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lkXM6",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
                             }
                           ]
                         }

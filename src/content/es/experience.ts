@@ -22,6 +22,15 @@ export const experience: ExperienceItem[] = [
       'Gestión del desarrollo de extremo a extremo de aplicaciones web y móviles utilizando React y React Native, impulsando funcionalidades hasta su despliegue en producción.',
       'Orquestación de sub-agentes mediante Claude Code y spec-kit, integrando MCP (Model Context Protocol) en el flujo de desarrollo local para acelerar la arquitectura, validado con pruebas de Playwright y Maestro.',
     ],
+    stack: [
+      'React',
+      'React Native',
+      'Claude Code',
+      'spec-kit',
+      'MCP',
+      'Playwright',
+      'Maestro',
+    ],
   },
   {
     company: 'Pegaso Consulting',
@@ -35,6 +44,7 @@ export const experience: ExperienceItem[] = [
       'Arquitectura e integración de APIs REST robustas en las vistas del frontend, garantizando contratos de datos claros y confiables con los equipos de backend.',
       'Optimización del rendimiento del sistema refactorizando bases de código heredadas, reduciendo la complejidad de los componentes y mejorando la reutilización del código.',
     ],
+    stack: ['Angular', 'APIs REST'],
   },
   {
     company: 'APPS2GO',
@@ -48,6 +58,7 @@ export const experience: ExperienceItem[] = [
       'Integración de servicios de Firebase como arquitectura de backend para autenticación, almacenamiento seguro y sincronización de base de datos en tiempo real.',
       'Traducción de prototipos complejos de Figma en interfaces móviles receptivas e intuitivas utilizando el conjunto completo de widgets de Flutter.',
     ],
+    stack: ['Flutter', 'Firebase', 'Figma'],
   },
 ]
 

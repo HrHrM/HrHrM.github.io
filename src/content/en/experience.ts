@@ -19,6 +19,15 @@ export const experience: ExperienceItem[] = [
       'Delivered web and mobile applications end to end using React and React Native, driving features through production rollout.',
       'Orchestrated sub-agents through Claude Code and spec-kit, wiring MCP (Model Context Protocol) into the local development loop to accelerate architecture work, validated with Playwright and Maestro test suites.',
     ],
+    stack: [
+      'React',
+      'React Native',
+      'Claude Code',
+      'spec-kit',
+      'MCP',
+      'Playwright',
+      'Maestro',
+    ],
   },
   {
     company: 'Pegaso Consulting',
@@ -32,6 +41,7 @@ export const experience: ExperienceItem[] = [
       'Integrated REST APIs across frontend views, defining clear data contracts alongside backend teams.',
       'Refactored legacy modules to decrease component complexity, improving testability and code reuse.',
     ],
+    stack: ['Angular', 'REST APIs'],
   },
   {
     company: 'APPS2GO',
@@ -45,6 +55,7 @@ export const experience: ExperienceItem[] = [
       'Integrated Firebase services for authentication, secure storage, and real-time database synchronization.',
       "Translated Figma design systems into responsive mobile interfaces using Flutter's widget architecture.",
     ],
+    stack: ['Flutter', 'Firebase', 'Figma'],
   },
 ]
 

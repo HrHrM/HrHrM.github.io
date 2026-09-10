@@ -41,6 +41,18 @@ export type ExperienceItem = {
   end: string | null
   summary: string
   highlights?: string[]
+  /**
+   * Las tecnologías de ese puesto, para la fila de chips bajo los highlights.
+   *
+   * Casi todo son nombres propios de producto y no se traducen, así que los
+   * dos idiomas coinciden salvo donde el orden de las palabras cambia:
+   * «APIs REST» en español, «REST APIs» en inglés. Por eso el array vive por
+   * idioma y no en un sitio común.
+   *
+   * Solo lo que se usó de verdad en esa empresa. Repetir el stack entero en
+   * los tres puestos convertiría el dato en decoración.
+   */
+  stack: string[]
 }
 
 export type EducationItem = {
@@ -123,7 +135,9 @@ export type UIStrings = {
    * Los párrafos de Sobre mí. Estaban incrustados en el JSX de About.tsx, que
    * rompe la regla 2 del CLAUDE.md §3: nada de datos hardcodeados en JSX.
    */
-  about: { paragraphs: string[] }
+  about: {
+    paragraphs: string[]
+  }
   sections: {
     projects: { title: string; lead: string }
     about: { title: string }
