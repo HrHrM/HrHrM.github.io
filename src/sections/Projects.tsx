@@ -13,7 +13,7 @@ export function Projects() {
     <section id="projects" aria-labelledby="projects-title" className="border-t border-line py-section">
       <SectionHeading
         id="projects"
-        index="04"
+        index="03"
         title={ui.sections.projects.title}
         lead={ui.sections.projects.lead}
       />

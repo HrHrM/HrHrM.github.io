@@ -1,5 +1,6 @@
 import type { Route } from './+types/Home'
 
+import { EdgeGradients } from '@/components/ui/EdgeGradients'
 import { About } from '@/sections/About'
 import { Contact } from '@/sections/Contact'
 import { Experience } from '@/sections/Experience'
@@ -33,11 +34,12 @@ export function meta({ location }: Route.MetaArgs) {
 export default function Home() {
   return (
     <main id="main">
+      <EdgeGradients />
       <Hero />
-      <Experience />
       <About />
-      <Stack />
+      <Experience />
       <Projects />
+      <Stack />
       <Contact />
     </main>
   )

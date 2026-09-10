@@ -49,7 +49,7 @@ export function Stack() {
     >
       <SectionHeading
         id="stack"
-        index="03"
+        index="04"
         title={ui.sections.stack.title}
         lead={ui.sections.stack.lead}
       />

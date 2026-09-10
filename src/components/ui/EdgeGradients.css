@@ -1,0 +1,122 @@
+/* Dos columnas de degradado animado pegadas a los bordes del viewport, para
+   ocupar el margen que el `Container` deja vacío en pantallas anchas.
+
+   Idea tomada de `GradientText` — React Bits (MIT + Commons Clause,
+   © David Haz), https://reactbits.dev — pero **sin su código**: aquel componente
+   anima `background-position` desde JS con `useAnimationFrame` de `motion`, y
+   `motion` no está instalado (CLAUDE.md §2). Un `@keyframes` sobre
+   `background-position` hace lo mismo, corre en el compositor y no cuesta ni un
+   byte de JS. */
+
+.edge-gradient {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* El margen que sobra a cada lado del `Container` (72rem), menos 1rem de
+     holgura. `max()` deja el ancho en 0 por debajo de 74rem y el efecto
+     desaparece solo, sin media query: ahí no hay margen vacío que rellenar,
+     hay texto.
+
+     La holgura no es estética: `100vw` **incluye la barra de scroll**, pero
+     `right: 0` se mide contra el área cliente, que no la incluye. Medido a
+     1920px con barra, la columna derecha se metía 7,5px dentro de la caja de
+     contenido. No hay forma en CSS puro de leer el ancho sin barra, así que se
+     resta un margen que la cubre de sobra. */
+  width: max(0px, (100vw - 72rem) / 2 - 1rem);
+
+  /* Aparece al pasar el hero. Quien lo monta decide cuándo, con la clase; la
+     transición es larga a propósito, para que no se perciba un encendido. */
+  opacity: 0;
+  transition: opacity 600ms ease;
+
+  background-repeat: no-repeat;
+  background-size: 100% 300%;
+  animation: edge-drift 26s ease-in-out infinite alternate;
+}
+
+.edge-gradient[data-visible='true'] {
+  opacity: 1;
+}
+
+/* Las dos alfas del degradado, por tema.
+   No es un capricho: el acento sobre `paper` casi blanco rinde mucho menos que
+   sobre `paper` casi negro. Medido con la misma alfa en los dos, el claro se
+   despegaba del fondo 19 niveles por canal como mucho —y 0 en algunos tramos—
+   mientras el oscuro llegaba a 30. El claro sube; el oscuro se queda. */
+.edge-gradient {
+  --edge-a1: 40%;
+  --edge-a2: 26%;
+}
+
+.dark .edge-gradient {
+  --edge-a1: 22%;
+  --edge-a2: 14%;
+}
+
+/* El degradado vertical es lo que se mueve. Tres paradas del acento a
+   distintas alturas y con poca alfa: es un ambiente, no una forma. */
+.edge-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in oklab, var(--accent) var(--edge-a1), transparent) 22%,
+    transparent 42%,
+    color-mix(in oklab, var(--accent) var(--edge-a2), transparent) 62%,
+    transparent 82%
+  );
+  background-size: inherit;
+  background-position: inherit;
+  animation: inherit;
+}
+
+/* La máscara horizontal: denso en el borde de la pantalla y a cero antes de
+   llegar al texto. Sin ella el degradado tendría un canto recto contra la
+   columna de contenido. */
+.edge-gradient--left::before {
+  mask-image: linear-gradient(to left, transparent, black 85%);
+}
+
+.edge-gradient--right::before {
+  mask-image: linear-gradient(to right, transparent, black 85%);
+}
+
+.edge-gradient--left {
+  left: 0;
+}
+
+.edge-gradient--right {
+  right: 0;
+}
+
+/* Desfase entre los dos lados: con la misma animación latían a la vez y se
+   leía como un parpadeo de la página entera. */
+.edge-gradient--right::before {
+  animation-delay: -13s;
+}
+
+@keyframes edge-drift {
+  from {
+    background-position: 50% 0%;
+  }
+  to {
+    background-position: 50% 100%;
+  }
+}
+
+/* El bloque global de `index.css` ya pone las animaciones a 0.01ms. Aquí
+   además se congela el degradado en una posición intermedia, para que no se
+   quede en el extremo del recorrido. */
+@media (prefers-reduced-motion: reduce) {
+  .edge-gradient,
+  .edge-gradient::before {
+    animation: none !important;
+    background-position: 50% 50% !important;
+  }
+}
