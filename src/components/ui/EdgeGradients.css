@@ -41,17 +41,31 @@
   opacity: 1;
 }
 
-/* Las dos alfas del degradado, por tema.
-   No es un capricho: el acento sobre `paper` casi blanco rinde mucho menos que
-   sobre `paper` casi negro. Medido con la misma alfa en los dos, el claro se
-   despegaba del fondo 19 niveles por canal como mucho —y 0 en algunos tramos—
-   mientras el oscuro llegaba a 30. El claro sube; el oscuro se queda. */
+/* Color y alfa del degradado, por tema.
+
+   En oscuro es luz: el acento sobre un fondo casi negro, que es la situación
+   en la que un halo translúcido se lee como luz.
+
+   En claro el acento **tal cual** no sirve. `#0f766e` es un teal oscuro: sobre
+   `paper` casi blanco no ilumina, oscurece, y a la alfa que hacía falta para
+   verse se leía como una mancha verde en el margen. Lo que sí funciona es el
+   mismo tono aclarado —un mint— porque su luminancia ya está cerca de la del
+   papel y solo tiñe.
+
+   Se deriva del token con `color-mix` en vez de escribir un hex nuevo: así el
+   margen sigue al acento si algún día cambia, y no entra un séptimo color en
+   una paleta de seis (CLAUDE.md §4).
+
+   Se descartó la sombra (`ink` al 9%): funcionaba, pero convertía el efecto en
+   profundidad neutra y perdía el color, que es lo que se quería. */
 .edge-gradient {
-  --edge-a1: 40%;
-  --edge-a2: 26%;
+  --edge-color: color-mix(in oklab, var(--accent) 40%, white);
+  --edge-a1: 60%;
+  --edge-a2: 40%;
 }
 
 .dark .edge-gradient {
+  --edge-color: var(--accent);
   --edge-a1: 22%;
   --edge-a2: 14%;
 }
@@ -66,9 +80,9 @@
   background-image: linear-gradient(
     to bottom,
     transparent 0%,
-    color-mix(in oklab, var(--accent) var(--edge-a1), transparent) 22%,
+    color-mix(in oklab, var(--edge-color) var(--edge-a1), transparent) 22%,
     transparent 42%,
-    color-mix(in oklab, var(--accent) var(--edge-a2), transparent) 62%,
+    color-mix(in oklab, var(--edge-color) var(--edge-a2), transparent) 62%,
     transparent 82%
   );
   background-size: inherit;
