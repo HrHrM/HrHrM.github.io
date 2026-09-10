@@ -26,7 +26,12 @@ export type Project = {
    * sostiene con tipografía. Un `cover` falso es peor que no tener ninguno.
    */
   cover?: string
-  links: { live?: string; repo?: string }
+  /**
+   * Enlaces de salida. `store` es su propio campo y no un `live` con otro
+   * rótulo: una ficha de tienda no es el producto funcionando, y el visitante
+   * necesita saber a cuál de las dos cosas va antes de pulsar.
+   */
+  links: { live?: string; repo?: string; store?: string }
   visibility: Visibility
   featured: boolean
   year: number
@@ -159,6 +164,7 @@ export type UIStrings = {
     underNda: string
     viewLive: string
     viewRepo: string
+    viewStore: string
     /** Puesto actual, en el rango de fechas de Experiencia. */
     present: string
   }

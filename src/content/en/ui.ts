@@ -60,6 +60,7 @@ export const ui: UIStrings = {
     underNda: 'Under NDA',
     viewLive: 'View live',
     viewRepo: 'View repo',
+    viewStore: 'View on Play Store',
     present: 'Present',
   },
   contact: {
