@@ -1,0 +1,76 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Permite lanzarlo a mano desde la pestaña Actions, sin tener que empujar.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  # Lo exige `deploy-pages`: el despliegue se autentica con OIDC, no con un
+  # token guardado en el repositorio.
+  id-token: write
+
+# Si se empuja dos veces seguidas, la segunda espera en vez de cancelar a la
+# primera: cancelar un despliegue a medias puede dejar el sitio incompleto.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Del `.nvmrc`, para que CI y la máquina de desarrollo no se
+          # separen. Con Node 18 el build falla.
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Tipos y lint **antes** de construir. Sin esto, un push con un error de
+      # tipos publica igual: el build de Vite no comprueba tipos.
+      - run: npm run typecheck
+      - run: npm run lint
+
+      - run: npm run build
+
+      # Comprobación del §7 del CLAUDE.md, adaptada: el `<h1>` ahora abre con
+      # un `<span>` del efecto de pliegue, así que el `grep` original devuelve
+      # vacío. Lo que importa sigue siendo lo mismo — que el HTML estático
+      # traiga el contenido y no un `<div>` vacío.
+      - name: El prerender trae el contenido
+        run: |
+          set -e
+          grep -q 'Johnny Bohorquez' dist/client/index.html
+          grep -q 'Johnny Bohorquez' dist/client/en/index.html
+          for id in hero about experience projects stack contact; do
+            grep -q "id=\"$id\"" dist/client/index.html \
+              || { echo "falta la sección $id en el HTML estático"; exit 1; }
+          done
+          echo "prerender correcto en las dos rutas"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          # `dist/client`, no `dist`. El `buildEnd` deja lo servible un nivel
+          # por debajo, y publicar `dist` sirve un directorio sin index. Es el
+          # error que el CLAUDE.md documenta haber tenido meses con el sitemap.
+          path: dist/client
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

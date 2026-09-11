@@ -7,7 +7,18 @@
  */
 export const SITE = {
   /** Sin barra final. Se usa para las URL canónicas y los hreflang. */
-  url: 'https://example.com', // TODO(dominio): pendiente en CLAUDE.md §8
+  /**
+   * De aquí salen las canónicas, los `hreflang` y la URL absoluta de
+   * `og:image`, así que tiene que ser el dominio real: con un valor de relleno
+   * le estaríamos diciendo a Google que la versión canónica vive en otro sitio.
+   *
+   * Es una *user page* de GitHub y por eso cuelga de la raíz. Eso importa para
+   * el día que haya dominio propio: cambiar a `https://loquesea.com` es editar
+   * esta línea y regenerar las OG, nada más. Desde una *project page*
+   * (`/HrHrM.github.io/repo/`) habría que deshacer además `base` en Vite y
+   * `basename` en el router.
+   */
+  url: 'https://hrhrm.github.io',
   name: 'Johnny Bohorquez',
   location: 'Caracas, Venezuela',
   email: 'johnny.phosts@gmail.com',
