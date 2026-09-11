@@ -1,0 +1,157 @@
+/* FoldText — React Bits (MIT + Commons Clause, © David Haz).
+   https://reactbits.dev
+
+   Cada trozo de texto entra girando sobre una bisagra, con un desfase entre
+   trozos. Lo que cambia respecto al original está marcado con «CAMBIO».
+
+   **Sin GSAP ni ScrollTrigger.** El original monta una `gsap.timeline` para
+   animar `transform`, `opacity` y una sombra: las tres tienen `@keyframes`
+   nativos. El desfase, que es lo único que la timeline aportaba de verdad,
+   sale de un `animation-delay` calculado con el índice de cada trozo. Ahorra
+   ~23 KB gzip de GSAP más el plugin en un sitio cuyo CSS entero pesa 8,5 KB. */
+
+.fold-text {
+  --fold-duration: 650ms;
+  --fold-stagger: 45ms;
+  --fold-delay: 0ms;
+  --fold-crease: 0.55;
+  --fold-perspective: 700px;
+  --fold-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  display: inline-block;
+  /* CAMBIO — el original fija `line-height: 0.95` y `letter-spacing: -0.04em`
+     dentro del componente. Aquí no: el hero ya tiene los suyos y son parte de
+     la escala tipográfica del proyecto, no de este efecto. */
+  white-space: pre-wrap;
+}
+
+/* El texto real para lectores de pantalla. Lo visual va con `aria-hidden`,
+   porque una palabra partida en spans puede leerse letra a letra. */
+.fold-text__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.fold-text__piece {
+  display: inline-block;
+  perspective: var(--fold-perspective);
+  transform-style: preserve-3d;
+}
+
+.fold-text__panel {
+  position: relative;
+  display: inline-block;
+  backface-visibility: hidden;
+  animation: fold-unfold var(--fold-duration) var(--fold-ease) both;
+  animation-delay: calc(var(--fold-delay) + var(--fold-i) * var(--fold-stagger));
+}
+
+/* La sombra del pliegue: oscura en el borde de la bisagra y clara en el
+   opuesto, que es lo que da el volumen del papel doblado. */
+.fold-text__panel::after {
+  content: '';
+  position: absolute;
+  inset: -0.08em -0.02em;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  animation: fold-crease var(--fold-duration) var(--fold-ease) both;
+  animation-delay: calc(var(--fold-delay) + var(--fold-i) * var(--fold-stagger));
+}
+
+.fold-text[data-hinge='top'] .fold-text__panel {
+  transform-origin: 50% 0%;
+  --fold-from: rotateX(-92deg);
+}
+
+.fold-text[data-hinge='bottom'] .fold-text__panel {
+  transform-origin: 50% 100%;
+  --fold-from: rotateX(92deg);
+}
+
+.fold-text[data-hinge='left'] .fold-text__panel {
+  transform-origin: 0% 50%;
+  --fold-from: rotateY(92deg);
+}
+
+.fold-text[data-hinge='right'] .fold-text__panel {
+  transform-origin: 100% 50%;
+  --fold-from: rotateY(-92deg);
+}
+
+.fold-text[data-hinge='top'] .fold-text__panel::after {
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0.58) 0%,
+    rgb(0 0 0 / 0.22) 42%,
+    rgb(255 255 255 / 0.26) 100%
+  );
+}
+
+.fold-text[data-hinge='bottom'] .fold-text__panel::after {
+  background: linear-gradient(
+    0deg,
+    rgb(0 0 0 / 0.58) 0%,
+    rgb(0 0 0 / 0.22) 42%,
+    rgb(255 255 255 / 0.26) 100%
+  );
+}
+
+.fold-text[data-hinge='left'] .fold-text__panel::after {
+  background: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0.58) 0%,
+    rgb(0 0 0 / 0.22) 42%,
+    rgb(255 255 255 / 0.26) 100%
+  );
+}
+
+.fold-text[data-hinge='right'] .fold-text__panel::after {
+  background: linear-gradient(
+    270deg,
+    rgb(0 0 0 / 0.58) 0%,
+    rgb(0 0 0 / 0.22) 42%,
+    rgb(255 255 255 / 0.26) 100%
+  );
+}
+
+@keyframes fold-unfold {
+  from {
+    opacity: 0;
+    transform: var(--fold-from);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fold-crease {
+  from {
+    opacity: var(--fold-crease);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Con la preferencia puesta no hay giro ni sombra: solo la aparición, y sin
+   desfase, porque el escalonado también es movimiento. El bloque global de
+   `index.css` pone las animaciones a 0.01ms; esto además evita que el texto se
+   quede tumbado en 3D si ese bloque cambiara. */
+@media (prefers-reduced-motion: reduce) {
+  .fold-text__panel {
+    transform: none !important;
+    animation-delay: 0ms !important;
+  }
+
+  .fold-text__panel::after {
+    display: none;
+  }
+}

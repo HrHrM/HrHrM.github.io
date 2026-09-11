@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { ButtonLink } from '@/components/ui/Button'
+import { FoldText } from '@/components/ui/FoldText'
 import { StarBorder } from '@/components/ui/StarBorder'
 import { Particles } from '@/components/ui/Particles'
 import { ParticlesStatic } from '@/components/ui/ParticlesStatic'
@@ -62,15 +63,8 @@ export function Hero() {
   // El acento se resalta partiendo la frase por el trozo declarado, en vez de
   // guardarla troceada en el contenido: así el texto sigue siendo una sola
   // cadena traducible y el HTML que ve Google es la frase completa.
-  const accentAt = taglineAccent ? tagline.indexOf(taglineAccent) : -1
-  const [before, accent, after] =
-    accentAt === -1
-      ? [tagline, '', '']
-      : [
-          tagline.slice(0, accentAt),
-          taglineAccent,
-          tagline.slice(accentAt + taglineAccent.length),
-        ]
+  const accent =
+    taglineAccent && tagline.includes(taglineAccent) ? taglineAccent : undefined
 
   return (
     // El `id` no es un ancla de navegación: no está en `SECTION_IDS` ni sale
@@ -177,8 +171,12 @@ export function Hero() {
         {/* El nombre sale de `SITE.name` y no del bundle de idioma: un nombre
             propio no se traduce, y tenerlo en los dos ui.ts sería la clase de
             dato duplicado que acaba divergiendo. */}
-        <h1 className="mt-6 animate-reveal font-display text-hero leading-[0.98] text-ink [animation-delay:90ms]">
-          {SITE.name}
+        {/* Ya no lleva `animate-reveal`: el pliegue **sustituye** a la entrada
+            de siempre en estos dos bloques, no se suma. Dos animaciones de
+            entrada encima del mismo texto se pisan. El retardo es el que tenía
+            la que se va, para que la cascada del hero no cambie de ritmo. */}
+        <h1 className="mt-6 font-display text-hero leading-[0.98] text-ink">
+          <FoldText text={SITE.name} splitBy="char" delay={90} stagger={28} />
         </h1>
 
         {/* La frase tiene su propio token y no usa `text-lead`: con el nombre a
@@ -193,10 +191,16 @@ export function Hero() {
 
             Peso 400 sobre un `<p>`: el tamaño lo acerca al titular, y es el
             peso el que deja claro cuál manda. */}
-        <p className="mt-5 max-w-4xl animate-reveal font-sans text-hero-lead leading-tight text-muted [animation-delay:135ms]">
-          {before}
-          {accent ? <span className="text-accent">{accent}</span> : null}
-          {after}
+        <p className="mt-5 max-w-4xl font-sans text-hero-lead leading-tight text-muted">
+          {/* Por palabra y no por carácter: son ocho palabras, y a nivel de
+              letra la frase entera se convertiría en un desfile. */}
+          <FoldText
+            text={tagline}
+            splitBy="word"
+            delay={260}
+            stagger={55}
+            highlight={accent || undefined}
+          />
         </p>
 
         {/* Un CTA y solo uno (CLAUDE.md §4). Llegó a haber tres —Contacto y
