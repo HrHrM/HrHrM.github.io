@@ -41,20 +41,45 @@ jobs:
 
       - run: npm run build
 
-      # Comprobación del §7 del CLAUDE.md, adaptada: el `<h1>` ahora abre con
-      # un `<span>` del efecto de pliegue, así que el `grep` original devuelve
-      # vacío. Lo que importa sigue siendo lo mismo — que el HTML estático
-      # traiga el contenido y no un `<div>` vacío.
-      - name: El prerender trae el contenido
-        run: |
-          set -e
-          grep -q 'Johnny Bohorquez' dist/client/index.html
-          grep -q 'Johnny Bohorquez' dist/client/en/index.html
-          for id in hero about experience projects stack contact; do
-            grep -q "id=\"$id\"" dist/client/index.html \
-              || { echo "falta la sección $id en el HTML estático"; exit 1; }
-          done
-          echo "prerender correcto en las dos rutas"
+      # Los navegadores pesan bastante y no cambian entre ejecuciones: se
+      # cachean por versión de Playwright, que es lo que decide si sirven.
+      - name: Versión de Playwright
+        id: pw
+        run: echo "version=$(node -p "require('./package.json').devDependencies['@playwright/test']")" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4
+        id: pw-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
+      - run: npx playwright install --with-deps chromium firefox
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+      # Las dependencias del sistema no van en la caché aunque sí el navegador.
+      - run: npx playwright install-deps chromium firefox
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+
+      # Sustituye al `grep` que había aquí para comprobar el prerender. Aquella
+      # comprobación era buena y sigue existiendo, pero ahora dentro de
+      # `tests/prerender.spec.ts`, donde además verifica el texto real, las
+      # canónicas, el sitemap y el 404 — y junto a las otras 90 pruebas.
+      #
+      # `SKIP_BUILD` porque el paso de arriba ya construyó: sin esto la
+      # configuración de Playwright vuelve a lanzar `npm run build`.
+      #
+      # Los enlaces de salida quedan fuera (`--grep-invert @external`): dependen
+      # de servidores ajenos y un 999 de LinkedIn no debe impedir publicar.
+      - name: Pruebas
+        run: npm test
+        env:
+          SKIP_BUILD: '1'
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
 
       - uses: actions/configure-pages@v5
 

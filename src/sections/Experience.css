@@ -52,11 +52,7 @@
 /* La fecha en mono sube de `muted` hacia `ink`: se aclara sin gastar un
    segundo acento en la misma fila. */
 .xp-date {
-  color: color-mix(
-    in srgb,
-    var(--ink) calc(var(--effect) * 55%),
-    var(--muted)
-  );
+  color: color-mix(in srgb, var(--ink) calc(var(--effect) * 55%), var(--muted));
 }
 
 /* `useProximityEffect` ya no se suscribe al puntero con la preferencia puesta,

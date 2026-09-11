@@ -73,7 +73,7 @@ export const ui: UIStrings = {
     cv: 'Descargar CV',
   },
   footer: {
-    builtWith: 'Creado con React, Tailwind y pre-renderizado estático.',
+    builtWith: 'Creado con React y Tailwind.',
     rights: 'Todos los derechos reservados.',
   },
   theme: {

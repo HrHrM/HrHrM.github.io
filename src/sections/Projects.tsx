@@ -12,8 +12,9 @@ import { useLocale } from '@/hooks/useLocale'
  * Aquí estuvo una galería en acordeón para los dos trabajos de Galilei. Se
  * quitó: sin capturas propias iba con marcadores de posición, y el producto
  * que más peso tenía en ella está bajo NDA, así que ni con fotos reales podía
- * llenarse. El componente sigue en `components/ui/AccordionGallery.tsx` por si
- * vuelve; al no importarlo nadie, no entra en el build.
+ * llenarse. El componente se borró del repo — estaba sin usar y un fichero que
+ * nadie importa envejece sin que nadie lo note. Está en la historia de git si
+ * algún día hay capturas que enseñar.
  */
 export function Projects() {
   const { ui, projects } = useLocale()

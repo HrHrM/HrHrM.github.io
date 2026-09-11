@@ -1,0 +1,259 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Generador de OG</title>
+<!--
+  Fuente de verdad de `public/og-es.png` y `public/og-en.png`.
+
+  No se dibujan a mano: se rasterizan desde aquí a 1200×630 con Playwright, de
+  modo que la imagen que ve quien pega el enlace en LinkedIn o WhatsApp usa los
+  mismos tokens y las mismas fuentes que la página. Si cambia la paleta o el
+  titular, se regenera desde aquí.
+
+      node scratchpad/og.mjs
+
+  El idioma se elige por query string: `og.html` da el español y `og.html?en`
+  el inglés. Un solo fichero para los dos, porque la única diferencia es el
+  texto y duplicarlo garantiza que un día se desincronicen.
+
+  **Las fuentes se cargan desde `node_modules`**, no desde Google Fonts. Es la
+  misma familia autohospedada que usa el sitio; enlazar a un tercero aquí daría
+  una imagen con otra tipografía sin que nadie lo note.
+-->
+<style>
+  @font-face {
+    font-family: 'Schibsted Grotesk Variable';
+    font-weight: 400 900;
+    font-display: block;
+    src: url('/node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2')
+      format('woff2-variations');
+  }
+  @font-face {
+    font-family: 'JetBrains Mono Variable';
+    font-weight: 400 800;
+    font-display: block;
+    src: url('/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2')
+      format('woff2-variations');
+  }
+
+  /* Los seis tokens, copiados de `src/styles/index.css`. Se copian y no se
+     importan porque ese fichero es Tailwind v4 y arrastraría el framework
+     entero para pintar un rectángulo. Si la paleta cambia, cambia aquí. */
+  :root {
+    --paper: #fbfdfc;
+    --surface: #eff6f3;
+    --line: #dbe8e2;
+    --muted: #5b6d66;
+    --ink: #0b1512;
+    --accent: #0f766e;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: var(--paper);
+    font-family: 'Schibsted Grotesk Variable', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* `space-between` y no `center`: con el centrado, el bloque de texto y la
+       fila de datos se acercaban hasta quedar a 5px —medido— y se leían como
+       un solo párrafo. Repartir el sobrante los separa solo. */
+    justify-content: space-between;
+    /* El raíl de metadatos de 120px es lo que da carácter a la página
+       (`design/direccion-visual.md` §2). Aquí se respeta la misma medida para
+       que la OG y el sitio se reconozcan como la misma cosa. */
+    /* El padding superior no es decorativo: con `space-between`, es lo único
+       que reparte el sobrante. A 68px quedaban 68 arriba y 171 en el centro, y
+       el hueco central se leía como un error de maquetación. A 118 quedan
+       118/121/60, que sí se lee como aire a propósito. */
+    padding: 118px 96px 60px 176px;
+  }
+
+  /* El hairline vertical del raíl, continuo de arriba abajo. Va en `muted` a
+     baja opacidad y no en `line` porque justo ahí cae también una línea de la
+     retícula: con el mismo color, el raíl desaparecía dentro del patrón. */
+  .rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 120px;
+    width: 1px;
+    background: color-mix(in oklab, var(--muted) 34%, transparent);
+  }
+
+  /* La retícula de fondo, muy tenue: la misma idea de precisión, sin robar
+     atención al texto. */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      90deg,
+      var(--line) 0 1px,
+      transparent 1px 100%
+    );
+    background-size: 120px 100%;
+    opacity: 0.55;
+  }
+
+  .content {
+    position: relative;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .name {
+    margin-top: 26px;
+    /* 96px, el mismo tope que el hero en escritorio, y no por simetría: a 104
+       el nombre mide 933px y solo hay 928 útiles, así que partía en dos
+       líneas. A 96 mide 861 y entra con 67px de aire. Medido en el navegador.
+       Si algún día el nombre cambia, hay que volver a medirlo. */
+    font-size: 96px;
+    font-weight: 800;
+    /* El display vive en 800 y necesita tracking negativo o las palabras se
+       separan (CLAUDE.md §4). -2.4px es el valor del hero a este tamaño. */
+    letter-spacing: -2.4px;
+    line-height: 0.98;
+    white-space: nowrap;
+  }
+
+  /* La regla de acento bajo el nombre: el acento aparece **una vez**. */
+  .rule {
+    margin-top: 34px;
+    width: 132px;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  .tagline {
+    margin-top: 34px;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    color: var(--muted);
+    max-width: 900px;
+  }
+
+  /* La palabra que el hero pinta en acento, pintada igual aquí. */
+  .tagline b {
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  /* Los tres datos del hero, en la misma retícula de metadatos. */
+  .facts {
+    position: relative;
+    display: flex;
+    gap: 40px;
+    padding-top: 26px;
+    /* El hairline que los separa del texto: es el mismo recurso que usa la
+       página para marcar un cambio de bloque sin meter una caja. */
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono Variable', monospace;
+  }
+
+  .fact {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .fact dt {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* 15px y no 17: en mono, «3 · Empresarial y multi-cliente» pide ~306px a 17
+     y la columna mide 282, así que partía en dos líneas justo en la fila que
+     tiene que leerse de un vistazo. */
+  .fact dd {
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  /* El dominio, arriba a la derecha: quien ve la tarjeta en LinkedIn sabe a
+     dónde va antes de pulsar. */
+  .domain {
+    position: absolute;
+    top: 52px;
+    right: 96px;
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+</style>
+
+<div class="card">
+  <div class="grid"></div>
+  <div class="rail"></div>
+  <div class="domain">hrhrm.github.io</div>
+  <div class="content">
+    <p class="eyebrow" id="eyebrow"></p>
+    <h1 class="name">Johnny Bohorquez</h1>
+    <div class="rule"></div>
+    <p class="tagline" id="tagline"></p>
+  </div>
+  <dl class="facts" id="facts"></dl>
+</div>
+
+<script>
+  // El contenido se copia de `src/content/{es,en}/ui.ts`. Es duplicación, y es
+  // consciente: importar el módulo real exigiría un bundler para generar una
+  // imagen. Lo que la evita de verdad es que el fichero avise, así que:
+  // TODO(og): si cambia `hero` en `ui.ts`, cambiar también aquí y regenerar.
+  const COPY = {
+    es: {
+      eyebrow: 'Desarrollador de software · Caracas, Venezuela',
+      tagline: 'Desarrollando aplicaciones web y móviles <b>escalables.</b>',
+      facts: [
+        ['Experiencia', '+4 años en la industria'],
+        ['Empresas', '3 · Empresarial y multi-cliente'],
+        ['Núcleo', 'React · Angular · Flutter'],
+      ],
+    },
+    en: {
+      eyebrow: 'Software Developer · Caracas, Venezuela',
+      tagline: 'Developing <b>scalable</b> web and mobile applications.',
+      facts: [
+        ['Experience', '+4 years in the industry'],
+        ['Companies', '3 · Enterprise and multi-client'],
+        ['Core', 'React · Angular · Flutter'],
+      ],
+    },
+  }
+
+  const lang = location.search.includes('en') ? 'en' : 'es'
+  const copy = COPY[lang]
+  document.documentElement.lang = lang
+  document.getElementById('eyebrow').textContent = copy.eyebrow
+  document.getElementById('tagline').innerHTML = copy.tagline
+  document.getElementById('facts').innerHTML = copy.facts
+    .map(([k, v]) => `<div class="fact"><dt>${k}</dt><dd>${v}</dd></div>`)
+    .join('')
+</script>

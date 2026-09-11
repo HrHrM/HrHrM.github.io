@@ -31,8 +31,23 @@ export function swapLocalePath(pathname: string, target: Locale): string {
   return target === DEFAULT_LOCALE ? bare : `/en${bare}`
 }
 
-/** URL absoluta, para canónicas y hreflang. La raíz conserva su barra final. */
+/**
+ * URL absoluta, para canónicas, hreflang, sitemap y `og:image`.
+ *
+ * **Las rutas de página acaban en barra, y no es cosmético.** El sitio se
+ * publica en GitHub Pages, donde `/en` es en realidad el fichero
+ * `en/index.html`: pedir `/en` devuelve un **301** hacia `/en/`. Medido en
+ * producción. Declarar como canónica una URL que redirige es un error que no
+ * avisa —Google sigue el 301 y la indexa igual— pero lo recomendado es que la
+ * canónica responda 200 directamente, y lo mismo vale para los `hreflang` y
+ * para cada `<loc>` del sitemap.
+ *
+ * La barra se añade solo si la ruta no tiene extensión: `/og-es.png` es un
+ * fichero y con barra final daría un 404.
+ */
 export function absoluteUrl(siteUrl: string, path: string): string {
   const base = siteUrl.replace(/\/$/, '')
-  return path === '/' ? `${base}/` : `${base}${path}`
+  const isFile = /\.[a-z0-9]+$/i.test(path)
+  const withSlash = isFile || path.endsWith('/') ? path : `${path}/`
+  return `${base}${withSlash}`
 }

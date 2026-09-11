@@ -4,6 +4,7 @@ import path from 'node:path'
 import type { Config } from '@react-router/dev/config'
 
 import { SITE } from './src/lib/constants'
+import { absoluteUrl } from './src/lib/paths'
 
 /**
  * Rutas a generar: una por idioma y nada más.
@@ -65,18 +66,26 @@ export default {
     const outDir = path.join(buildDir, 'client')
     const base = SITE.url.replace(/\/$/, '')
 
-    const urls = ROUTE_PATHS.map((p) => {
-      // Solo hay dos rutas, y cada una declara sus dos variantes de idioma.
-      const canonical = p === '/' ? '/' : p
-      return [
+    /**
+     * Las URL salen de `absoluteUrl`, la misma función que construye las
+     * canónicas de cada página, en vez de concatenarse a mano aquí. Antes eran
+     * dos formas distintas de escribir lo mismo y divergieron: el sitemap
+     * listaba `…/en` mientras Pages redirige eso a `…/en/` con un 301, así que
+     * cada `<loc>` apuntaba a una redirección.
+     */
+    const es = absoluteUrl(base, '/')
+    const en = absoluteUrl(base, '/en')
+
+    const urls = ROUTE_PATHS.map((p) =>
+      [
         '  <url>',
-        `    <loc>${base}${canonical}</loc>`,
-        `    <xhtml:link rel="alternate" hreflang="es" href="${base}/"/>`,
-        `    <xhtml:link rel="alternate" hreflang="en" href="${base}/en"/>`,
-        `    <xhtml:link rel="alternate" hreflang="x-default" href="${base}/"/>`,
+        `    <loc>${absoluteUrl(base, p)}</loc>`,
+        `    <xhtml:link rel="alternate" hreflang="es" href="${es}"/>`,
+        `    <xhtml:link rel="alternate" hreflang="en" href="${en}"/>`,
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${es}"/>`,
         '  </url>',
-      ].join('\n')
-    }).join('\n')
+      ].join('\n'),
+    ).join('\n')
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"

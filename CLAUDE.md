@@ -25,9 +25,10 @@ Todo lo demás en la página está al servicio de eso.
 | Estilos    | Tailwind CSS v4                           | plugin `@tailwindcss/vite`                                            |
 | Rutas      | React Router 7                            | `routes.ts`, rutas explícitas. **No** v8: exige Node ≥ 22.22.0        |
 | Prerender  | React Router framework mode               | `@react-router/dev`, `ssr: false` + `prerender` → un `.html` por ruta |
-| Animación  | CSS (`@keyframes`)                        | una sola, en el Hero. `motion` **no** está instalado                  |
+| Animación  | CSS (`@keyframes`) + View Transitions     | ver §4. `motion` y `gsap` **no** están instalados, y es deliberado    |
 | Iconos     | `lucide-react`                            |                                                                       |
 | Formulario | `react-hook-form` + `zod`                 | envío vía Formspree / Web3Forms                                       |
+| Pruebas    | Playwright                                | `playwright.config.ts`, 98 pruebas en Chromium y Firefox              |
 | Lint       | Oxlint                                    | `.oxlintrc.json`, sin ESLint                                          |
 | Formato    | Prettier (o `oxfmt`)                      |                                                                       |
 | Utilidades | `clsx` + `tailwind-merge` → helper `cn()` |                                                                       |
@@ -282,11 +283,27 @@ es decorativo. Cualquier borde que signifique algo usa `muted` o `ink`, nunca `l
   carácter lo da el **rail de metadatos de 120 px** con su hairline vertical
   continuo, que recorre la página entera y pone cada dato en un sitio fijo y
   visible. Deja de ir en silencio. Ver `design/direccion-visual.md` §2.
-- **Una sola animación**, y solo en el Hero: `fade + translateY(8px)`, en CSS.
-  La animación repartida por toda la página es lo que hace que un portafolio se
-  vea genérico. Ojo al anular `prefers-reduced-motion`: hay que poner a cero
-  `animation-delay` **además** de `animation-duration`, o con `fill-mode: both`
-  el elemento se queda invisible durante todo el retardo.
+- **~~Una sola animación, y solo en el Hero.~~ Revisado.** La regla original
+  decía eso, y hoy el sitio tiene pliegue en el nombre, partículas y geodésica
+  en el Hero, destello en el CTA, foco en las fichas, raíl en Experiencia,
+  espiral en Sobre mí, márgenes animados y dos transiciones de vista (círculo
+  al cambiar de tema, barrido al cambiar de idioma).
+
+  Se rompió a conciencia y con acuerdo, así que lo que queda no es la
+  prohibición sino **lo que la motivaba**: la animación repartida sin criterio
+  es lo que hace que un portafolio se vea genérico. Cada efecto que entra tiene
+  que ganarse el sitio, respetar `prefers-reduced-motion` y no costar una
+  dependencia — los portados de React Bits vienen pidiendo GSAP o `motion` y
+  están reescritos con `@keyframes`.
+
+  **La trampa de `prefers-reduced-motion`**: hay que poner a cero
+  `animation-delay` **además** de `animation-duration`. Con `fill-mode: both`,
+  anular solo la duración deja el elemento en su primer fotograma —que en casi
+  todos estos efectos es `opacity: 0`— durante todo el retardo. O sea: quien
+  activa la preferencia ve la página en blanco. Hay una prueba dedicada a esto
+  en `tests/motion.spec.ts`, y no comprueba que no haya animación sino que **el
+  texto se vea**.
+
 - **Suelo de calidad no negociable:** foco de teclado visible, contraste AA,
   `prefers-reduced-motion` respetado, navegable sin ratón.
 - **Sin barras de porcentaje** en la sección de stack. Nadie sabe qué significa
@@ -392,21 +409,38 @@ de clientes · métricas inventadas · llamar "personal" a un proyecto pagado.
 - [x] **Diseño** — tokens, paleta y escala definidos y verificados.
 - [x] **Setup** — Vite, Tailwind v4, React Router con prerender. Falta el deploy.
 - [x] **Maquetado** — una sola página por idioma, los dos idiomas escritos.
-- [~] **Pulido** — accesibilidad, animación, sitemap, robots y OG image hechos.
+- [~] **Pulido** — accesibilidad, animación, sitemap, robots y OG hechos.
   Falta pasar Lighthouse.
-- [ ] **Lanzamiento** — dominio propio, OG image, analytics ligero.
+- [x] **Lanzamiento** — publicado el 2026-09-11 en <https://hrhrm.github.io>.
+      Lo que queda vive en `LANZAMIENTO.md`.
 
 ### Cómo comprobar que el prerender sigue vivo
 
 Es la comprobación que no se puede saltar: el HTML tiene que traer el contenido.
+Si se rompe, la página se ve idéntica en el navegador —React la rellena al
+hidratar— y quien lo nota es Google, meses después.
+
+```bash
+npm test
+```
+
+Lo cubre `tests/prerender.spec.ts`, que lee el HTML **sin ejecutar JavaScript**
+y comprueba el nombre, las seis secciones, que haya texto de verdad y no solo
+estructura, las canónicas, los `hreflang`, el sitemap y el 404.
+
+<details><summary>El <code>grep</code> que había aquí antes, y por qué ya no vale</summary>
 
 ```bash
 npm run build
 grep -oE "<h1[^>]*>[^<]*" dist/client/index.html
 ```
 
-Si sale el titular, funciona. Si sale un `<div>` vacío, el prerender está roto y
-todo el motivo de usar framework mode se ha perdido.
+Devuelve **vacío** desde que el `<h1>` abre con un `<span>` del efecto de
+pliegue. El contenido está; el comando ya no lo encuentra. Es justo el modo en
+que una comprobación se convierte en ruido: falla sin que nada esté roto, y a
+la tercera vez se ignora.
+
+</details>
 
 ---
 
@@ -431,8 +465,10 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
       Cuidado con «Ingeniero de software»: nombra una carrera que **no** es la suya. La carrera es Informática.
 
 - [x] **Email público, GitHub y LinkedIn.** En `lib/constants.ts`.
-- [ ] **`public/cv.pdf`.** El fichero no existe todavía; el enlace de Contacto
-      apunta a un 404.
+- [x] **El CV.** Son dos, uno por idioma:
+      `public/Johnny_Bohorquez_CV_ES.pdf` y `public/Johnny_Bohorquez_CV.pdf`.
+      Las rutas están en `LINKS.cv` y hay una prueba que comprueba que
+      responden.
 - [ ] **Limpiar el GitHub público.** `github.com/HrHrM` fija repos de práctica
       (`*_practice001`, `*_practice006`, `ReactN-Tesis`) y la bio dice «currently
       learning». Enlazado desde el portafolio, resta en vez de sumar.
@@ -441,9 +477,13 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
       Suele ser que sí y tarda dos días; hacerlo ya para no rehacer tarjetas después.
 - [ ] Referencias: 15–20 piezas, y no solo portafolios — portadas, señalética,
       packaging, revistas. Lo que se repita es la dirección.
-- [ ] Dominio. Mientras no esté, `SITE.url` es `https://example.com` y **las
-      canónicas y los hreflang apuntan a un sitio que no es el tuyo**. Hay que
-      cambiarlo antes de que Google indexe nada.
+- [x] Dominio. `SITE.url` es `https://hrhrm.github.io`. Con dominio propio,
+      migrar es **editar esa constante y regenerar las OG**: el sitio cuelga de
+      la raíz, así que no hay `base` ni `basename` que tocar.
+
+      Ojo con la barra final: en Pages, `/en` responde 301 hacia `/en/`, así que
+          `absoluteUrl()` la añade a las rutas de página (y no a los ficheros). Hay
+          una prueba que exige que toda canónica responda 200 sin redirigir.
 
 ### Qué va en `public/` y qué en `src/assets/`
 
@@ -462,8 +502,8 @@ Regla corta: si la URL aparece en un `href`, un `<meta>` o la escribe un tercero
 va en `public/`. Si la escribe un `import`, va en `src/assets/`.
 
 **Las OG image se generan**, no se dibujan a mano: `scratchpad/og.html` usa los
-mismos tokens y las mismas fuentes que el sitio, y se rasteriza a 1200×630 con
-Playwright. Si cambia el titular o la paleta, se regenera desde ahí.
+mismos tokens y las mismas fuentes que el sitio, y `npm run og` lo rasteriza a
+1200×630 con Playwright. Si cambia el titular o la paleta, se regenera desde ahí.
 `og:image` **tiene que ser URL absoluta** — con ruta relativa, WhatsApp y
 LinkedIn no la resuelven. Sale de `SITE.url`, así que se corrige sola con el
 dominio.
