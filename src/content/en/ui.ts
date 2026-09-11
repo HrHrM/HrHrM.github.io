@@ -4,7 +4,7 @@ import type { UIStrings } from '../types'
 export const ui: UIStrings = {
   nav: {
     projects: 'Work',
-    about: 'About',
+    about: 'About Me',
     stack: 'Stack',
     experience: 'Experience',
     contact: 'Contact',
@@ -13,12 +13,12 @@ export const ui: UIStrings = {
     skipToContent: 'Skip to content',
   },
   hero: {
-    eyebrow: 'Software Developer · Caracas',
-    headline: 'Engineering scalable web and mobile architecture.',
-    headlineAccent: 'scalable',
+    eyebrow: 'Software Developer · Caracas, Venezuela',
+    tagline: 'Developing scalable web and mobile applications.',
+    taglineAccent: 'scalable',
     cta: 'View experience',
     facts: [
-      { label: 'Experience', value: '4 years in production' },
+      { label: 'Experience', value: '+4 years in the industry' },
       { label: 'Companies', value: '3 · Enterprise and multi-client' },
       { label: 'Core', value: 'React · Angular · Flutter' },
     ],
@@ -40,7 +40,7 @@ export const ui: UIStrings = {
       title: 'Work',
       lead: 'Five engineering case studies: constraints, architecture, and outcomes.',
     },
-    about: { title: 'About' },
+    about: { title: 'About Me' },
     stack: {
       title: 'Stack',
       lead: 'Core technologies used in production and defended in code reviews.',
@@ -60,6 +60,7 @@ export const ui: UIStrings = {
     underNda: 'Under NDA',
     viewLive: 'View live',
     viewRepo: 'View repo',
+    viewStore: 'View on Play Store',
     present: 'Present',
   },
   contact: {

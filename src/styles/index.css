@@ -18,6 +18,19 @@
   --muted: #5b6d66;
   --ink: #0b1512;
   --accent: #0f766e;
+
+  /* Séptimo color, y el único que no es de la paleta base. Marca la
+     restricción: NDA. No podía salir del acento —es teal, y el teal ya
+     significa «esto es lo destacado»— ni de `muted`, que es el gris de los
+     metadatos y no dice nada.
+
+     No es un naranja cualquiera: es **el acento anterior del proyecto**, el
+     terracota que había antes de repintar la paleta en teal. Así el color ya
+     estaba probado contra estos fondos en vez de entrar a ojo.
+
+     Contraste sobre `surface`, calculado: 6.17:1 en claro y 5.40:1 en oscuro.
+     Los dos pasan AA de sobra, que hace falta porque el chip va a 10px. */
+  --flag: #9e3b22;
 }
 
 /* El acento oscuro NO es el mismo token aclarado a ojo: `#0f766e` sobre
@@ -32,6 +45,7 @@
   --muted: #7d8f89;
   --ink: #eef4f1;
   --accent: #17a394;
+  --flag: #e0755a;
 }
 
 /* `@theme inline` en vez de `@theme`: hace que Tailwind referencie la variable
@@ -48,6 +62,7 @@
   --color-muted: var(--muted);
   --color-ink: var(--ink);
   --color-accent: var(--accent);
+  --color-flag: var(--flag);
 
   /* Display y sans son la misma familia a propósito (`design/tokens.md` §1).
      Se mantienen como dos tokens para poder volver a separarlas algún día sin
@@ -62,10 +77,33 @@
      Los topes y los suelos salen de medir el lienzo, no de redondear:
      84/58/40 px en el hero, 44/36/30 en los títulos de sección. */
 
-  /* El suelo es 2.5rem (40px) y no 2.75: a 44px «arquitectura web» se
-     desborda de los 350px útiles de un viewport de 390. Verificado en el
-     lienzo, no estimado. */
-  --text-hero: clamp(2.5rem, 7.5vw, 5.25rem);
+  /* El `min()` con la altura es lo que hace que el nombre no mida lo mismo en
+     un portátil que en un monitor. Con solo un `vw`, el tope se alcanzaba ya a
+     los ~1100px de ancho y a partir de ahí la tipografía era idéntica en todas
+     las pantallas de escritorio, incluidas las de 768px de alto — donde era
+     justo lo que hacía que la portada se sintiera apretada. Ahora el alto
+     también manda.
+
+     El suelo bajó de 2.5rem a 2.25rem (40 → 36px) por el móvil: a 40px
+     «Johnny Bohorquez» pide 357px y solo hay 335 útiles en un viewport de 390,
+     así que partía en dos líneas. A 36 entra en una. Medido, no estimado.
+
+     El tope bajó de 5.25rem a 4.5rem (84 → 72px). El suelo viejo existía por
+     el titular anterior —«arquitectura web» se desbordaba a 44px— y ese
+     titular ya no está. */
+  --text-hero: clamp(2.25rem, min(7vw, 8.5vh), 4.5rem);
+
+  /* El subtítulo del Hero tiene token propio y **no** usa `text-section`.
+     Comparten aspecto, pero `section` lo llevan los cinco títulos de sección y
+     bajarlo aquí los habría encogido todos. Al separarlos, el subtítulo se
+     ajusta solo para la portada.
+
+     El tope queda en 34px contra los 72 del nombre: 2,1× de caída. Es la misma
+     proporción que se buscó al pasar el nombre a `<h1>` — lo bastante separados
+     para que la jerarquía sea obvia y lo bastante cerca para que no se lea como
+     nombre gigante sobre pie de foto. */
+  --text-hero-lead: clamp(1.375rem, 1.4vw + 0.75rem, 2.125rem);
+
   --text-section: clamp(1.875rem, 2.2vw + 1rem, 2.75rem);
   /* Antes tenía suelo de 1.5rem porque Instrument Serif tiene la altura de x
      mucho menor y en móvil el título de tarjeta quedaba por debajo de su
@@ -83,8 +121,36 @@
   --tracking-display: -0.028em;
   --tracking-card: -0.02em;
 
-  --spacing-section: clamp(4.5rem, 10vw, 9rem);
+  /* El aire vertical de cada sección. **Es media distancia, no la distancia**:
+     cada sección lo paga arriba y abajo, así que entre dos secciones el hueco
+     vale el doble. Con el valor anterior (tope 9rem) eso daban 288px medidos a
+     1920, que se leían como un corte en la página en vez de como una pausa.
+     A 4.5rem el hueco queda en 144. */
+  --spacing-section: clamp(3rem, 5.5vw, 4.5rem);
   --spacing-gutter: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* El margen del contenido ancho, que hoy es solo el Hero. Ni la columna de
+     72rem del resto de la página —que en pantalla grande deja el hero como un
+     marco central— ni el sangrado completo, que dejaba el texto pegado al
+     borde. Pendiente más viva que `gutter` (6.5vw contra 5vw) y tope en 7rem.
+
+     El suelo es 2.5rem y no 1.25 a propósito: este token solo se aplica desde
+     `md`, y por debajo manda `gutter`. Si la pendiente arrancara en el suelo
+     de móvil, 6.5vw le comería 31px de los 350 útiles de un viewport de 390.
+
+     Va como token y no como valor suelto en el JSX porque la escala de
+     espaciado es una y vive aquí (CLAUDE.md §4). */
+  --spacing-gutter-wide: clamp(2.5rem, 6.5vw, 7rem);
+
+  /* El aire vertical del Hero, y el único espaciado del sitio que se mide en
+     `vh` en vez de `vw`.
+
+     `section` va en `10vw`, que es correcto para las secciones de abajo —su
+     altura la decide el contenido— pero en la portada dejaba 144px fijos
+     arriba y abajo pasara lo que pasara: en un portátil de 768px el hero
+     ocupaba el 97% de la pantalla y en un monitor de 1440 el 53%. La misma
+     página se sentía apretada en uno y vacía en el otro. */
+  --spacing-hero-y: clamp(3rem, 7vh, 9rem);
 
   /* El rail: la columna de metadatos con su hairline vertical continuo, que es
      lo que da carácter a la página (`design/direccion-visual.md` §2).
@@ -192,5 +258,122 @@
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Transición de tema: un círculo que crece desde el botón.
+   Idea de https://transition-kit.space/transition/circle-reveal
+
+   Es CSS puro sobre la View Transitions API: no hay librería ni un solo byte
+   de JS de animación. `useTheme` solo envuelve el cambio de clase en
+   `startViewTransition` y deja el centro y el radio en tres variables.
+
+   Donde la API no existe el tema cambia de golpe, que es lo que hacía antes,
+   así que el fallback no pierde nada. `prefers-reduced-motion` lo salta desde
+   JS, porque a esta pseudo-clase no llega el bloque global de más abajo.
+   ───────────────────────────────────────────────────────────── */
+/* Lo común a las dos transiciones: sin el fundido cruzado que los navegadores
+   ponen por defecto, y la capa nueva encima de la vieja. Recortar la que entra
+   —en vez de fundir— es lo que hace que el borde sea nítido en ambas. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* El cambio de tema va acotado con `.vt-theme`, que `useTheme` pone y quita.
+   Sin acotarlo, el círculo se aplicaría también al cambio de idioma, que es
+   otra navegación con transición y tiene que verse distinta. */
+.vt-theme::view-transition-new(root) {
+  animation: theme-circle-reveal 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes theme-circle-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+  to {
+    clip-path: circle(
+      var(--vt-r, 100vmax) at var(--vt-x, 50%) var(--vt-y, 50%)
+    );
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Cambio de idioma: un barrido lateral.
+
+   Deliberadamente **distinto del círculo del tema**: son dos acciones
+   distintas y compartir gesto las confundiría. El círculo dice «la página
+   cambia de piel»; el barrido dice «te has movido de lado, a la otra versión
+   de lo mismo».
+
+   La dirección la fija `--vt-dir` desde el conmutador: hacia la izquierda al
+   pasar a inglés y hacia la derecha al volver, para que ir y volver no se
+   sientan igual. Lo dispara `viewTransition` del Link de React Router.
+   ───────────────────────────────────────────────────────────── */
+:root:not(.vt-theme)::view-transition-new(root) {
+  /* El frente de onda.
+
+     El recorte duro de un `clip-path` no deja ver por dónde va pasando: solo
+     hay «ya está» y «todavía no». Con una máscara, el borde puede tener
+     grosor, y ahí caben tres bandas de opacidad creciente por delante del
+     frente sólido. Se leen como la cresta y su estela, y dejan entrever la
+     página anterior justo en el punto por el que va cruzando.
+
+     El ángulo sale de `--vt-dir`: 90deg entra por la izquierda y 270deg por la
+     derecha. Se calcula en vez de escribir dos reglas porque `to right` y
+     `to left` son palabras clave y no admiten variable.
+
+     Se descartó pintar la cresta con `background-image` sobre la capa vieja:
+     `::view-transition-old(root)` es una instantánea opaca, así que el fondo
+     queda detrás y no se ve nunca. */
+  --locale-crest: linear-gradient(
+    calc(90deg + var(--vt-dir, 1) * 180deg),
+    transparent 0 34%,
+    rgb(0 0 0 / 0.16) 39%,
+    transparent 42%,
+    rgb(0 0 0 / 0.4) 47%,
+    transparent 50%,
+    rgb(0 0 0 / 0.72) 55%,
+    rgb(0 0 0) 62% 100%
+  );
+  -webkit-mask-image: var(--locale-crest);
+  mask-image: var(--locale-crest);
+  -webkit-mask-size: 220% 100%;
+  mask-size: 220% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: locale-wipe 680ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* La máscara mide 220% del ancho, así que desplazarla de un extremo al otro
+   lleva el frente de un lado a otro de la pantalla: a 0% la capa nueva ve la
+   parte transparente y está oculta; a 100%, la opaca y está entera. */
+@keyframes locale-wipe {
+  from {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+  }
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+/* El tema ya se salta la transición desde JS, pero el idioma lo dispara el
+   `Link` del router y ahí no hay dónde comprobarlo: se apaga desde CSS. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }

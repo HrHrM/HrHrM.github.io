@@ -2487,11 +2487,234 @@
                                   "fill": "$muted",
                                   "textGrowth": "fixed-width",
                                   "width": 760,
-                                  "content": "Integración de Claude Code y flujos basados en spec-kit para acelerar ciclos de desarrollo, utilizando Playwright y Maestro en pruebas automatizadas multiplataforma.",
+                                  "content": "Orquestación de sub-agentes mediante Claude Code y spec-kit, integrando MCP (Model Context Protocol) en el flujo de desarrollo local para acelerar la arquitectura, validado con pruebas de Playwright y Maestro.",
                                   "lineHeight": 1.6,
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "aFv66",
+                          "name": "Fila stack Galilei",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "vZkVr",
+                              "name": "Badge React",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "N7kmV",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "r4npTb",
+                              "name": "Badge React Native",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "L0q76J",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT NATIVE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "PaTnk",
+                              "name": "Badge Claude Code",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "uM1d1",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "CLAUDE CODE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "m9pLTz",
+                              "name": "Badge spec-kit",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "BZWqb",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "SPEC-KIT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "UjfpO",
+                              "name": "Badge MCP",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "TwsJd",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MCP",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Tjvh4",
+                              "name": "Badge Playwright",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lw1wq",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PLAYWRIGHT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "GtGn5",
+                              "name": "Badge Maestro",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "LnQYx",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "EUfBf",
+                              "name": "Badge pen.dev",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "xHxtl",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PEN.DEV",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "hjQQ3",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "TQqNx",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
                                 }
                               ]
                             }
@@ -2757,6 +2980,68 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fnjsT",
+                          "name": "Fila stack Pegaso",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "btwco",
+                              "name": "Badge Angular",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "rtaZ2",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "ANGULAR",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "SJf75",
+                              "name": "Badge APIs REST",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "hjSi1",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "APIS REST",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -3014,6 +3299,91 @@
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "U82mEp",
+                          "name": "Fila stack APPS2GO",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "kQdAM",
+                              "name": "Badge Flutter",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "UwFmE",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FLUTTER",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "D0pT5q",
+                              "name": "Badge Firebase",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "c0Qyi",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIREBASE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "c7NkMR",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jcZyE",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
                                 }
                               ]
                             }
@@ -4136,7 +4506,7 @@
                               "id": "hjiyD",
                               "name": "Label",
                               "fill": "$ink",
-                              "content": "Claude Code",
+                              "content": "Claude Code (MCP, sub-agentes)",
                               "fontFamily": "$font-mono",
                               "fontSize": 14,
                               "fontWeight": "normal"
@@ -5244,7 +5614,7 @@
                                   "fill": "$ink",
                                   "textGrowth": "fixed-width",
                                   "width": 900,
-                                  "content": "Desarrollo frontend de extremo a extremo. El diseño fue provisto por una agencia de terceros; la arquitectura, estructura de componentes, marcado y comportamiento responsivo se implementaron de forma independiente.",
+                                  "content": "Desarrollo frontend de extremo a extremo. El diseño fue provisto por una agencia de terceros; la arquitectura, estructura de componentes, marcado y comportamiento responsivo se implementaron de forma independiente, con flujos de trabajo acelerados por sub-agentes de IA y spec-kit.",
                                   "lineHeight": 1.65,
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
@@ -8039,6 +8409,259 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Q789J",
+                  "name": "Stack",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    20,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "LMzMD",
+                      "name": "Fila 1",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "D9PIZT",
+                          "name": "Badge React",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "o7mqwz",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "REACT",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "vH0kX",
+                          "name": "Badge React Native",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Z4Gi5",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "REACT NATIVE",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "IWkrH",
+                          "name": "Badge Claude Code",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "EBo4J",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "CLAUDE CODE",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "G5ZWf",
+                      "name": "Fila 2",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "p5RAu",
+                          "name": "Badge spec-kit",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "wqBKE",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "SPEC-KIT",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "HEgxB",
+                          "name": "Badge MCP",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "vJ0fJ",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "MCP",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "CIaGo",
+                          "name": "Badge Playwright",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "L8Fws",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "PLAYWRIGHT",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "dNmpV",
+                          "name": "Badge Maestro",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "OUmWX",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "MAESTRO",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "J7NQ3j",
+                      "name": "Fila 3",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "a956Ij",
+                          "name": "Badge pen.dev",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "V159gk",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "PEN.DEV",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "aiDak",
+                          "name": "Badge Figma",
+                          "fill": "$surface",
+                          "padding": [
+                            5,
+                            10
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "JaBCl",
+                              "name": "Label",
+                              "fill": "$accent",
+                              "content": "FIGMA",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 1.4
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -8660,9 +9283,9 @@
                         {
                           "type": "text",
                           "id": "yfdTZ",
-                          "name": "Claude Code",
+                          "name": "Claude Code (MCP, sub-agentes)",
                           "fill": "$ink",
-                          "content": "Claude Code",
+                          "content": "Claude Code (MCP, sub-agentes)",
                           "fontFamily": "$font-mono",
                           "fontSize": 12,
                           "fontWeight": "normal"
@@ -8676,16 +9299,6 @@
                           "fontFamily": "$font-mono",
                           "fontSize": 12,
                           "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "EJhMp",
-                          "name": "Maestro",
-                          "fill": "$ink",
-                          "content": "Maestro",
-                          "fontFamily": "$font-mono",
-                          "fontSize": 12,
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -8696,6 +9309,16 @@
                       "gap": 16,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "text",
+                          "id": "EJhMp",
+                          "name": "Maestro",
+                          "fill": "$ink",
+                          "content": "Maestro",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
                         {
                           "type": "text",
                           "id": "B4VXra",
@@ -10687,11 +11310,234 @@
                                   "fill": "$muted",
                                   "textGrowth": "fixed-width",
                                   "width": 760,
-                                  "content": "Integración de Claude Code y flujos basados en spec-kit para acelerar ciclos de desarrollo, utilizando Playwright y Maestro en pruebas automatizadas multiplataforma.",
+                                  "content": "Orquestación de sub-agentes mediante Claude Code y spec-kit, integrando MCP (Model Context Protocol) en el flujo de desarrollo local para acelerar la arquitectura, validado con pruebas de Playwright y Maestro.",
                                   "lineHeight": 1.6,
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "RKJM1",
+                          "name": "Fila stack Galilei",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "hs5g7",
+                              "name": "Badge React",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "caM4S",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "J1iSdX",
+                              "name": "Badge React Native",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "PsIuR",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT NATIVE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "k3kQq",
+                              "name": "Badge Claude Code",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "x9wbg",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "CLAUDE CODE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "gk8lY",
+                              "name": "Badge spec-kit",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "eziaJ",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "SPEC-KIT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "xVzYg",
+                              "name": "Badge MCP",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "was5f",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MCP",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "s6Mieh",
+                              "name": "Badge Playwright",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "tzm6k",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PLAYWRIGHT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "kBrIH",
+                              "name": "Badge Maestro",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "l1S4W",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "SsdJ8",
+                              "name": "Badge pen.dev",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "qLzZA",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PEN.DEV",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "krnnx",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "QKn5J",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
                                 }
                               ]
                             }
@@ -10957,6 +11803,68 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rCDBw",
+                          "name": "Fila stack Pegaso",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "UOjaY",
+                              "name": "Badge Angular",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "vFqb5",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "ANGULAR",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Q9IM3j",
+                              "name": "Badge APIs REST",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "fRvKR",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "APIS REST",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -11214,6 +12122,91 @@
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
                                   "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "sk7as",
+                          "name": "Fila stack APPS2GO",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "padding": [
+                            26,
+                            0,
+                            0,
+                            0
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "fZ3I9",
+                              "name": "Badge Flutter",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ViMzS",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FLUTTER",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "N767KC",
+                              "name": "Badge Firebase",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lhCnI",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIREBASE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "i8YKq",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "M1jMxa",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
                                 }
                               ]
                             }
@@ -12334,9 +13327,9 @@
                             {
                               "type": "text",
                               "id": "ES6Do",
-                              "name": "Label",
+                              "name": "Claude Code (MCP, sub-agentes)",
                               "fill": "$ink",
-                              "content": "Claude Code",
+                              "content": "Claude Code (MCP, sub-agentes)",
                               "fontFamily": "$font-mono",
                               "fontSize": 14,
                               "fontWeight": "normal"
@@ -13444,7 +14437,7 @@
                                   "fill": "$ink",
                                   "textGrowth": "fixed-width",
                                   "width": 900,
-                                  "content": "Desarrollo frontend de extremo a extremo. El diseño fue provisto por una agencia de terceros; la arquitectura, estructura de componentes, marcado y comportamiento responsivo se implementaron de forma independiente.",
+                                  "content": "Desarrollo frontend de extremo a extremo. El diseño fue provisto por una agencia de terceros; la arquitectura, estructura de componentes, marcado y comportamiento responsivo se implementaron de forma independiente, con flujos de trabajo acelerados por sub-agentes de IA y spec-kit.",
                                   "lineHeight": 1.65,
                                   "fontFamily": "$font-sans",
                                   "fontSize": 15,
@@ -16257,6 +17250,249 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qezJW",
+                      "name": "Stack",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": [
+                        22,
+                        0,
+                        0,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "zcoV4",
+                          "name": "Fila 1",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "h8hbz",
+                              "name": "Badge React",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "g4tRE0",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "m72tr",
+                              "name": "Badge React Native",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "V3FcOr",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "REACT NATIVE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "gWVkj",
+                              "name": "Badge Claude Code",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Y1U23",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "CLAUDE CODE",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ehJwG",
+                              "name": "Badge spec-kit",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jhIud",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "SPEC-KIT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "BPvTx",
+                          "name": "Fila 2",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "bAMDm",
+                              "name": "Badge MCP",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "GQNvk",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MCP",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "trn2g",
+                              "name": "Badge Playwright",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "aGpOM",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PLAYWRIGHT",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "JUNJT",
+                              "name": "Badge Maestro",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lkXM6",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "MAESTRO",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "QrL8v",
+                              "name": "Badge pen.dev",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "FQMW6",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "PEN.DEV",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "zHJow",
+                              "name": "Badge Figma",
+                              "fill": "$surface",
+                              "padding": [
+                                5,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ow3yp",
+                                  "name": "Label",
+                                  "fill": "$accent",
+                                  "content": "FIGMA",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 1.4
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -16773,9 +18009,9 @@
                             {
                               "type": "text",
                               "id": "vOOZg",
-                              "name": "Claude Code",
+                              "name": "Claude Code (MCP, sub-agentes)",
                               "fill": "$ink",
-                              "content": "Claude Code",
+                              "content": "Claude Code (MCP, sub-agentes)",
                               "fontFamily": "$font-mono",
                               "fontSize": 13,
                               "fontWeight": "normal"
@@ -16809,7 +18045,16 @@
                               "fontFamily": "$font-mono",
                               "fontSize": 13,
                               "fontWeight": "normal"
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "irFBk",
+                          "name": "Linea",
+                          "gap": 18,
+                          "alignItems": "center",
+                          "children": [
                             {
                               "type": "text",
                               "id": "q8Kf3",
@@ -20189,6 +21434,1263 @@
               "fontFamily": "$font-mono",
               "fontSize": 13,
               "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "nJeXX",
+      "x": 10108,
+      "y": 0,
+      "name": "Stack · rediseño con iconos",
+      "clip": true,
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "padding": [
+        0,
+        96,
+        88,
+        96
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "Z37qkR",
+          "name": "Cabecera 03",
+          "width": "fill_container",
+          "padding": [
+            88,
+            0,
+            0,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "C0VuO",
+              "name": "Cabecera cuerpo",
+              "width": "fill_container",
+              "stroke": "$line",
+              "strokeWidth": {
+                "left": 1
+              },
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "padding": [
+                0,
+                0,
+                26,
+                40
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Jq2My",
+                  "name": "Titulo",
+                  "fill": "$ink",
+                  "content": "Stack",
+                  "lineHeight": 1,
+                  "fontFamily": "$font-display",
+                  "fontSize": 44,
+                  "fontWeight": "800",
+                  "letterSpacing": -1.2
+                },
+                {
+                  "type": "frame",
+                  "id": "VkUBJ",
+                  "name": "Lead",
+                  "width": "fill_container",
+                  "padding": [
+                    16,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "a0sDIb",
+                      "name": "Lead texto",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": 720,
+                      "content": "Tecnologías principales usadas en producción y defendidas en revisiones de código.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-sans",
+                      "fontSize": 20,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "vhbkE",
+          "name": "Grupos",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Rau9Z",
+              "name": "Grupo LENGUAJES",
+              "width": "fill_container",
+              "stroke": "$line",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeAlignment": "inner",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "t8O6g",
+                  "name": "Rail",
+                  "width": 120,
+                  "layout": "vertical",
+                  "padding": [
+                    26,
+                    20,
+                    26,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uWCOW",
+                      "name": "Rotulo",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "LENGUAJES",
+                      "lineHeight": 1.6,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ibZLX",
+                  "name": "Cuerpo",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "left": 1
+                  },
+                  "strokeAlignment": "inner",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "R2sJf",
+                      "name": "Fila 1",
+                      "width": "fill_container",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "o46E2t",
+                          "name": "Item TypeScript",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "padding": [
+                            20,
+                            20,
+                            20,
+                            40
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "y4j7es",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "TypeScript",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "wQOfD",
+                          "name": "Item JavaScript",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "GmZOd",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "JavaScript",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "pSALk",
+                          "name": "Item Dart",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "vTrjd",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Dart",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "T5cgkh",
+                          "name": "Item HTML",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "eRFc2",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "HTML",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gxBXt",
+                          "name": "Item CSS / SASS",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "L8kFZ9",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "CSS / SASS",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Yh9CZ",
+              "name": "Grupo FRAMEWORKS Y LIBRERÍAS",
+              "width": "fill_container",
+              "stroke": "$line",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeAlignment": "inner",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "SxltN",
+                  "name": "Rail",
+                  "width": 120,
+                  "layout": "vertical",
+                  "padding": [
+                    26,
+                    20,
+                    26,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "aAXeM",
+                      "name": "Rotulo",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "FRAMEWORKS Y LIBRERÍAS",
+                      "lineHeight": 1.6,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "QmGEo",
+                  "name": "Cuerpo",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "left": 1
+                  },
+                  "strokeAlignment": "inner",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "OKZ6W",
+                      "name": "Fila 1",
+                      "width": "fill_container",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "o7sOul",
+                          "name": "Item React",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "padding": [
+                            20,
+                            20,
+                            20,
+                            40
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "hG1qj",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "React",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fAwXP",
+                          "name": "Item React Native",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "a3lSUd",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "React Native",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "vK9L8",
+                          "name": "Item Angular",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "R4Tfq",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Angular",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "goISr",
+                          "name": "Item Flutter",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "TZx5C",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Flutter",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "qkdKq",
+                          "name": "Item Node.js",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "OlE5q",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Node.js",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Xq4UR",
+              "name": "Grupo SERVICIOS E INTEGRACIÓN",
+              "width": "fill_container",
+              "stroke": "$line",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeAlignment": "inner",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "L5nja9",
+                  "name": "Rail",
+                  "width": 120,
+                  "layout": "vertical",
+                  "padding": [
+                    26,
+                    20,
+                    26,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "v86HFK",
+                      "name": "Rotulo",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "SERVICIOS E INTEGRACIÓN",
+                      "lineHeight": 1.6,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "S3P7J",
+                  "name": "Cuerpo",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "left": 1
+                  },
+                  "strokeAlignment": "inner",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "TUPWK",
+                      "name": "Fila 1",
+                      "width": "fill_container",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "kHkt1",
+                          "name": "Item Firebase",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "padding": [
+                            20,
+                            20,
+                            20,
+                            40
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "W2ACW",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Firebase",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "OpwcN",
+                          "name": "Item APIs REST",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Juk6g",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "APIs REST",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ljEpf",
+                          "name": "Hueco",
+                          "width": "fill_container",
+                          "height": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "j3jSqh",
+                          "name": "Hueco",
+                          "width": "fill_container",
+                          "height": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Bb4tC",
+                          "name": "Hueco",
+                          "width": "fill_container",
+                          "height": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "A2baBT",
+              "name": "Grupo HERRAMIENTAS Y METODOLOGÍA",
+              "width": "fill_container",
+              "stroke": "$line",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeAlignment": "inner",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "efkbr",
+                  "name": "Rail",
+                  "width": 120,
+                  "layout": "vertical",
+                  "padding": [
+                    26,
+                    20,
+                    26,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "YENE3",
+                      "name": "Rotulo",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "HERRAMIENTAS Y METODOLOGÍA",
+                      "lineHeight": 1.6,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "k3Ali",
+                  "name": "Cuerpo",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "left": 1
+                  },
+                  "strokeAlignment": "inner",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Gxg23",
+                      "name": "Fila 1",
+                      "width": "fill_container",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "OEVm9",
+                          "name": "Item Git",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "padding": [
+                            20,
+                            20,
+                            20,
+                            40
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "q7MWX",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Git",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XRbfQ",
+                          "name": "Item Claude Code",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "hY1V1",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Claude Code",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "f6bYn",
+                          "name": "Item spec-kit",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "z7e1I4",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "spec-kit",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "icon",
+                              "id": "N9Urtc",
+                              "name": "Enlace externo",
+                              "width": 13,
+                              "height": 13,
+                              "icon": "arrow-up-right",
+                              "library": "lucide",
+                              "fill": "$muted"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Z9fsg",
+                          "name": "Item Playwright",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "o4RNgs",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Playwright",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "dtPF6",
+                          "name": "Item Maestro",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "oLKyO",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Maestro",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "icon",
+                              "id": "IbNKg",
+                              "name": "Enlace externo",
+                              "width": 13,
+                              "height": 13,
+                              "icon": "arrow-up-right",
+                              "library": "lucide",
+                              "fill": "$muted"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HC0xZ",
+                      "name": "Fila 2",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "top": 1
+                      },
+                      "strokeAlignment": "inner",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "aLMoP",
+                          "name": "Item Figma",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "padding": [
+                            20,
+                            20,
+                            20,
+                            40
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Pb1v0",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Figma",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rLiXe",
+                          "name": "Item Agile / SCRUM",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "x4oEv",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Agile / SCRUM",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "serBm",
+                          "name": "Item Pencil",
+                          "width": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RUvY7",
+                              "name": "Label",
+                              "fill": "$ink",
+                              "content": "Pencil",
+                              "lineHeight": 1.3,
+                              "fontFamily": "$font-sans",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "icon",
+                              "id": "qi56C",
+                              "name": "Enlace externo",
+                              "width": 13,
+                              "height": 13,
+                              "icon": "arrow-up-right",
+                              "library": "lucide",
+                              "fill": "$muted"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iQVxC",
+                          "name": "Hueco",
+                          "width": "fill_container",
+                          "height": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "lrXbu",
+                          "name": "Hueco",
+                          "width": "fill_container",
+                          "height": "fill_container",
+                          "stroke": "$line",
+                          "strokeWidth": {
+                            "left": 1
+                          },
+                          "strokeAlignment": "inner",
+                          "gap": 12,
+                          "padding": 20,
+                          "alignItems": "center"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "m8lXwF",
+          "name": "Estados y variantes",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            64,
+            0,
+            0,
+            120
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "LStBb",
+              "name": "Cabecera estados",
+              "width": "fill_container",
+              "stroke": "$line",
+              "strokeWidth": {
+                "left": 1
+              },
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                0,
+                0,
+                20,
+                40
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "icA6w",
+                  "name": "Rotulo",
+                  "fill": "$muted",
+                  "content": "ESTADOS · SOLO TRES ITEMS ENLAZAN",
+                  "lineHeight": 1.6,
+                  "fontFamily": "$font-mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1.5
+                },
+                {
+                  "type": "text",
+                  "id": "B1CUsY",
+                  "name": "Nota",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": 720,
+                  "content": "Sin logos: pesaban 2,6 MB gzip como paquete y chocaban con una paleta de seis colores. Queda la retícula, que es lo que ordenaba la sección. Solo spec-kit, Maestro y Pencil enlazan — llevan ↗ desde el reposo y son las únicas con hover.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-sans",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k0eIvW",
+              "name": "Variante A · REPOSO — etiqueta en ink",
+              "width": "fill_container",
+              "stroke": "$line",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeAlignment": "inner",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "LnrUs",
+                  "name": "Rail",
+                  "width": 120,
+                  "layout": "vertical",
+                  "padding": [
+                    20,
+                    20,
+                    20,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JMwXa",
+                      "name": "Rotulo",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "ESTADOS",
+                      "lineHeight": 1.6,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "n6uWqV",
+                  "name": "Cuerpo",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "left": 1
+                  },
+                  "strokeAlignment": "inner",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "c1jDd0",
+                      "name": "Estático · sin enlace",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "padding": [
+                        20,
+                        20,
+                        20,
+                        40
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Feamg",
+                          "name": "Label",
+                          "fill": "$ink",
+                          "content": "Playwright",
+                          "lineHeight": 1.3,
+                          "fontFamily": "$font-sans",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "R0enao",
+                      "name": "Enlace · reposo",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "left": 1
+                      },
+                      "strokeAlignment": "inner",
+                      "gap": 12,
+                      "padding": 20,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "mdIMK",
+                          "name": "Label",
+                          "fill": "$ink",
+                          "content": "spec-kit",
+                          "lineHeight": 1.3,
+                          "fontFamily": "$font-sans",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "AKTkd",
+                          "name": "Enlace externo",
+                          "width": 13,
+                          "height": 13,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$muted"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ErCQT",
+                      "name": "Enlace · hover",
+                      "width": "fill_container",
+                      "fill": "$surface",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "left": 1
+                      },
+                      "strokeAlignment": "inner",
+                      "gap": 12,
+                      "padding": 20,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "u49jrX",
+                          "name": "Label",
+                          "fill": "$accent",
+                          "content": "spec-kit",
+                          "lineHeight": 1.3,
+                          "fontFamily": "$font-sans",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "r9UHV",
+                          "name": "Enlace externo",
+                          "width": 13,
+                          "height": 13,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "L6BqjK",
+                      "name": "Hueco",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "left": 1
+                      },
+                      "strokeAlignment": "inner"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "l90KYQ",
+                      "name": "Hueco",
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "left": 1
+                      },
+                      "strokeAlignment": "inner"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

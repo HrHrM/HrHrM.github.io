@@ -13,11 +13,22 @@ export const experience: ExperienceItem[] = [
     start: '2025-04',
     end: null,
     summary:
-      'Core web platform engineering and end-to-end delivery of multi-client web and mobile applications.',
+      'Development of the core web platform and an ecosystem of enterprise web and mobile applications.',
     highlights: [
-      'Engineered code refactors across the core web platform to improve system scalability and performance.',
-      'Delivered web and mobile applications end to end using React and React Native, driving features through production rollout.',
-      'Orchestrated sub-agents through Claude Code and spec-kit, wiring MCP (Model Context Protocol) into the local development loop to accelerate architecture work, validated with Playwright and Maestro test suites.',
+      'Cross-platform ecosystem: Built React and React Native applications tailored to distinct user roles, including location-aware mobile clients for field sales, real-time supervision modules, and analytical BI dashboards for executives.',
+      'Optimization and scalability: Executed critical refactoring across the central web platform, eliminating technical debt and maximizing the reuse of components and shared business logic across multiple products.',
+      'AI orchestration and automation: Integrated sub-agents via Claude Code and spec-kit using MCP (Model Context Protocol) into the local development workflow to accelerate architecture, backed by cross-platform automated testing with Playwright and Maestro.',
+    ],
+    stack: [
+      'React',
+      'React Native',
+      'Claude Code',
+      'spec-kit',
+      'MCP',
+      'Playwright',
+      'Maestro',
+      'pen.dev',
+      'Figma',
     ],
   },
   {
@@ -32,6 +43,7 @@ export const experience: ExperienceItem[] = [
       'Integrated REST APIs across frontend views, defining clear data contracts alongside backend teams.',
       'Refactored legacy modules to decrease component complexity, improving testability and code reuse.',
     ],
+    stack: ['Angular', 'REST APIs'],
   },
   {
     company: 'APPS2GO',
@@ -45,6 +57,7 @@ export const experience: ExperienceItem[] = [
       'Integrated Firebase services for authentication, secure storage, and real-time database synchronization.',
       "Translated Figma design systems into responsive mobile interfaces using Flutter's widget architecture.",
     ],
+    stack: ['Flutter', 'Firebase', 'Figma'],
   },
 ]
 

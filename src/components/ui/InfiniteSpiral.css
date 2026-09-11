@@ -1,0 +1,81 @@
+/* InfiniteSpiral — React Bits (MIT + Commons Clause, © David Haz).
+   https://reactbits.dev
+
+   Fichero aparte y no `index.css` porque el componente necesita una capa 3D
+   (`preserve-3d`, `backface-visibility`) que no se expresa con utilidades de
+   Tailwind, y viene con el componente.
+
+   Lo que cambia respecto al original está marcado con «CAMBIO». */
+
+.infinite-spiral {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* CAMBIO — fuera el `min-height: 320px` del original. Es un suelo que pelea
+     con el padre: aquí la caja se estira al alto de la columna de texto, y un
+     mínimo fijo la desbordaría en cuanto el texto fuera más corto (el inglés
+     ocupa entre un 15% y un 25% menos, CLAUDE.md §3). Quien la coloca le da
+     el alto. */
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.infinite-spiral__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.infinite-spiral__item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  overflow: hidden;
+  /* CAMBIO — el original va con blanco al 24% sobre fondo al 8% y una sombra
+     violeta. Los tres suponen un fondo oscuro; sobre `paper`, que aquí es casi
+     blanco, el borde desaparece y la sombra es una mancha de color. Se pasa a
+     los tokens: hairline de `line` y fondo de `surface`, que es lo que se ve
+     mientras la imagen carga. */
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: none;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+  text-decoration: none;
+}
+
+.infinite-spiral__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  user-select: none;
+}
+
+/* CAMBIO — el bloque del original solo quitaba una `transition` que no existe.
+   Aquí `prefers-reduced-motion` ya apaga el bucle en JS, así que esto solo
+   tiene que asegurar que el cursor no invite a arrastrar algo que no se mueve. */
+@media (prefers-reduced-motion: reduce) {
+  .infinite-spiral {
+    cursor: default !important;
+  }
+}
+
+/* Paneles de logo. No son fotos: el glifo va centrado, con aire y pintado con
+   un token, así que el panel deja de comportarse como un marco de imagen.
+
+   El color es `muted` y no `ink`: los logos están al lado de la columna de
+   texto y no deben pesar más que ella. */
+.infinite-spiral__glyph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 42%;
+  height: 42%;
+  transform: translate(-50%, -50%);
+  color: var(--muted);
+}

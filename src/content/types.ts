@@ -26,7 +26,12 @@ export type Project = {
    * sostiene con tipografía. Un `cover` falso es peor que no tener ninguno.
    */
   cover?: string
-  links: { live?: string; repo?: string }
+  /**
+   * Enlaces de salida. `store` es su propio campo y no un `live` con otro
+   * rótulo: una ficha de tienda no es el producto funcionando, y el visitante
+   * necesita saber a cuál de las dos cosas va antes de pulsar.
+   */
+  links: { live?: string; repo?: string; store?: string }
   visibility: Visibility
   featured: boolean
   year: number
@@ -41,6 +46,18 @@ export type ExperienceItem = {
   end: string | null
   summary: string
   highlights?: string[]
+  /**
+   * Las tecnologías de ese puesto, para la fila de chips bajo los highlights.
+   *
+   * Casi todo son nombres propios de producto y no se traducen, así que los
+   * dos idiomas coinciden salvo donde el orden de las palabras cambia:
+   * «APIs REST» en español, «REST APIs» en inglés. Por eso el array vive por
+   * idioma y no en un sitio común.
+   *
+   * Solo lo que se usó de verdad en esa empresa. Repetir el stack entero en
+   * los tres puestos convertiría el dato en decoración.
+   */
+  stack: string[]
 }
 
 export type EducationItem = {
@@ -84,23 +101,27 @@ export type UIStrings = {
     skipToContent: string
   }
   hero: {
-    /** Rol y ubicación, en mono, encima del titular. */
+    /** Rol y ubicación, en mono, encima del nombre. */
     eyebrow: string
     /**
-     * El <h1>: la frase de posicionamiento. Vive aquí y no en `constants.ts`
-     * porque cambia con el idioma — es el texto más importante de la página.
+     * La frase de posicionamiento, debajo del nombre.
+     *
+     * **No es el `<h1>`.** El titular es el nombre, y sale de `SITE.name` en
+     * `constants.ts` porque un nombre propio no se traduce. Esto sí vive por
+     * idioma: es la frase que dice qué hace, y es el texto que más trabaja de
+     * la página después del nombre.
      */
-    headline: string
+    tagline: string
     /**
-     * El trozo de `headline` que va en color de acento: el único acento del
+     * El trozo de `tagline` que va en color de acento: el único acento del
      * primer viewport. Tiene que aparecer **literalmente** dentro de
-     * `headline`, o no se resalta nada y el titular se pinta entero en `ink`.
+     * `tagline`, o no se resalta nada y la frase se pinta entera en `muted`.
      *
      * Se declara por idioma en vez de deducirse como "última palabra" porque
-     * no cae en el mismo sitio: en español cierra la frase («escalable.») y en
-     * inglés va en medio («scalable»).
+     * no cae en el mismo sitio: en español cierra la frase («escalables.») y
+     * en inglés va en medio («scalable»).
      */
-    headlineAccent: string
+    taglineAccent: string
     cta: string
     /**
      * El zócalo de datos duros bajo el CTA: tres celdas separadas por
@@ -119,7 +140,9 @@ export type UIStrings = {
    * Los párrafos de Sobre mí. Estaban incrustados en el JSX de About.tsx, que
    * rompe la regla 2 del CLAUDE.md §3: nada de datos hardcodeados en JSX.
    */
-  about: { paragraphs: string[] }
+  about: {
+    paragraphs: string[]
+  }
   sections: {
     projects: { title: string; lead: string }
     about: { title: string }
@@ -141,6 +164,7 @@ export type UIStrings = {
     underNda: string
     viewLive: string
     viewRepo: string
+    viewStore: string
     /** Puesto actual, en el rango de fechas de Experiencia. */
     present: string
   }

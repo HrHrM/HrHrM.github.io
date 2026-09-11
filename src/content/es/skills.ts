@@ -27,13 +27,17 @@ export const skills: SkillGroup[] = [
   {
     id: 'tooling',
     label: 'Herramientas y metodología',
+    // El orden importa: la retícula los reparte en filas de cinco, así que
+    // esto decide qué cae en cada columna.
     items: [
       'Git',
       'Claude Code (MCP, sub-agentes)',
+      'spec-kit',
       'Playwright',
       'Maestro',
       'Figma',
       'Agile/SCRUM',
+      'Pencil',
     ],
   },
   {

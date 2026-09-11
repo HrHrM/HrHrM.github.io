@@ -1,0 +1,229 @@
+/* Dos columnas de degradado animado pegadas a los bordes del viewport, para
+   ocupar el margen que el `Container` deja vacío en pantallas anchas.
+
+   Idea tomada de `GradientText` — React Bits (MIT + Commons Clause,
+   © David Haz), https://reactbits.dev — pero **sin su código**: aquel componente
+   anima `background-position` desde JS con `useAnimationFrame` de `motion`, y
+   `motion` no está instalado (CLAUDE.md §2). Un `@keyframes` sobre
+   `background-position` hace lo mismo, corre en el compositor y no cuesta ni un
+   byte de JS. */
+
+.edge-gradient {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* El margen que sobra a cada lado del `Container` (72rem), menos 1rem de
+     holgura. `max()` deja el ancho en 0 por debajo de 74rem y el efecto
+     desaparece solo, sin media query: ahí no hay margen vacío que rellenar,
+     hay texto.
+
+     La holgura no es estética: `100vw` **incluye la barra de scroll**, pero
+     `right: 0` se mide contra el área cliente, que no la incluye. Medido a
+     1920px con barra, la columna derecha se metía 7,5px dentro de la caja de
+     contenido. No hay forma en CSS puro de leer el ancho sin barra, así que se
+     resta un margen que la cubre de sobra. */
+  width: max(0px, (100vw - 72rem) / 2 - 1rem);
+
+  /* Aparece al pasar el hero. Quien lo monta decide cuándo, con la clase; la
+     transición es larga a propósito, para que no se perciba un encendido. */
+  opacity: 0;
+  transition: opacity 600ms ease;
+
+  background-repeat: no-repeat;
+  background-size: 100% 300%;
+  animation: edge-drift 26s ease-in-out infinite alternate;
+}
+
+.edge-gradient[data-visible='true'] {
+  opacity: 1;
+}
+
+/* **Cada tema tiene un efecto distinto, no el mismo con otro número.**
+
+   Oscuro: niebla de luz. El acento sobre un fondo casi negro, la única
+   situación en la que un halo translúcido se lee como luz.
+
+   Claro: hairlines (más abajo). Sobre papel casi blanco no hay nada que
+   iluminar, y la niebla en `ink` —que también se probó— daba la mitad de
+   contraste: 22 niveles contra los 43 de las líneas, medidos contra el fondo.
+   Si algún día se prefiere la niebla en claro, estos son sus valores y basta
+   con borrar el bloque de `:root:not(.dark)`. */
+.edge-gradient {
+  --edge-color: var(--ink);
+  --edge-a1: 16%;
+  --edge-a2: 11%;
+}
+
+.dark .edge-gradient {
+  --edge-color: var(--accent);
+  --edge-a1: 22%;
+  --edge-a2: 14%;
+}
+
+/* El degradado vertical es lo que se mueve. Tres paradas del acento a
+   distintas alturas y con poca alfa: es un ambiente, no una forma. */
+.edge-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in oklab, var(--edge-color) var(--edge-a1), transparent) 22%,
+    transparent 42%,
+    color-mix(in oklab, var(--edge-color) var(--edge-a2), transparent) 62%,
+    transparent 82%
+  );
+  background-size: inherit;
+  background-position: inherit;
+  animation: inherit;
+}
+
+/* La máscara horizontal: denso en el borde de la pantalla y a cero antes de
+   llegar al texto. Sin ella el degradado tendría un canto recto contra la
+   columna de contenido. */
+.edge-gradient--left::before {
+  mask-image: linear-gradient(to left, transparent, black 85%);
+}
+
+.edge-gradient--right::before {
+  mask-image: linear-gradient(to right, transparent, black 85%);
+}
+
+.edge-gradient--left {
+  left: 0;
+}
+
+.edge-gradient--right {
+  right: 0;
+}
+
+/* Desfase entre los dos lados: con la misma animación latían a la vez y se
+   leía como un parpadeo de la página entera. */
+.edge-gradient--right::before {
+  animation-delay: -13s;
+}
+
+@keyframes edge-drift {
+  from {
+    background-position: 50% 0%;
+  }
+  to {
+    background-position: 50% 100%;
+  }
+}
+
+/* El bloque global de `index.css` ya pone las animaciones a 0.01ms. Aquí
+   además se congela el degradado en una posición intermedia, para que no se
+   quede en el extremo del recorrido. */
+@media (prefers-reduced-motion: reduce) {
+  .edge-gradient,
+  .edge-gradient::before {
+    animation: none !important;
+    background-position: 50% 50% !important;
+  }
+}
+
+/* Modo claro: hairlines que derivan hacia abajo, no niebla.
+
+   Es el lenguaje de la propia página —toda la retícula está hecha de líneas de
+   un pelo— y sobre papel da contraste donde una niebla solo da una mancha.
+   La máscara horizontal de arriba las desvanece antes de llegar al texto, así
+   que el borde denso queda pegado a la pantalla y el interior limpio.
+
+   `background-repeat: repeat` es obligatorio y no decorativo: el `::before`
+   hereda `no-repeat` del padre, y sin reponerlo el patrón se pinta una sola
+   vez arriba y el resto del margen queda vacío. */
+:root:not(.dark) .edge-gradient::before {
+  --edge-step: 20px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--ink) 26%, transparent) 0 1px,
+    transparent 1px var(--edge-step)
+  );
+  background-size: 100% var(--edge-step);
+  background-position: 0 0;
+  background-repeat: repeat;
+  /* Un paso completo por ciclo: al reiniciar, el patrón coincide consigo mismo
+     y la deriva no tiene costura. */
+  animation: edge-scan 14s linear infinite;
+  opacity: 1;
+  transition: opacity 700ms ease;
+}
+
+/* Al entrar en Experiencia los hairlines se retiran casi del todo. El margen
+   **cambia** de efecto en vez de acumular dos: dejarlos a plena intensidad
+   bajo el raíl era seguir enseñando el mismo patrón, que es justo lo que se
+   quería evitar. No se apagan del todo para que la transición de vuelta no
+   parezca un encendido. */
+:root:not(.dark) .edge-gradient[data-rail='true']::before {
+  opacity: 0.18;
+}
+
+@keyframes edge-scan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 var(--edge-step);
+  }
+}
+
+/* El raíl de Experiencia: una línea vertical con una marca que baja con el
+   recorrido. Solo en claro —en oscuro el margen ya tiene su niebla— y solo
+   mientras la sección ocupa el centro.
+
+   No es otro patrón: es una línea sola. Un tramado más, por distinto que
+   fuera el paso, se habría leído como lo mismo con otra forma. */
+.edge-rail {
+  position: absolute;
+  top: 12vh;
+  bottom: 12vh;
+  width: 1px;
+  /* No `line`: es el token decorativo, a 1.29:1, y aquí la línea es lo único
+     que hay en el margen. Con `ink` diluido se ve sin gritar. */
+  background: color-mix(in oklab, var(--ink) 24%, transparent);
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+/* Pegado al lado del contenido, no al borde de la pantalla: ahí funciona como
+   el canto de la caja de texto y no como un adorno suelto en el vacío. */
+.edge-gradient--left .edge-rail {
+  right: 2.5rem;
+}
+
+.edge-gradient--right .edge-rail {
+  left: 2.5rem;
+}
+
+:root:not(.dark) .edge-gradient[data-rail='true'] .edge-rail {
+  opacity: 1;
+}
+
+/* La marca. `--xp-progress` la escribe React de 0 a 1; el `calc` la traduce a
+   la altura del raíl. La transición corta absorbe el salto entre fotogramas de
+   scroll sin llegar a arrastrarse por detrás del dedo. */
+.edge-rail__mark {
+  position: absolute;
+  left: -3px;
+  width: 7px;
+  height: 1px;
+  background: var(--accent);
+  top: calc(var(--xp-progress, 0) * 100%);
+  transition: top 120ms linear;
+}
+
+/* Con la preferencia puesta el raíl se queda, porque no se mueve solo: lo
+   mueve el scroll del propio lector. Lo que se quita es la interpolación, que
+   sí es animación. */
+@media (prefers-reduced-motion: reduce) {
+  .edge-rail,
+  .edge-rail__mark {
+    transition: none;
+  }
+}

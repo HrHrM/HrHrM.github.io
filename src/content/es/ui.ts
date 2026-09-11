@@ -13,15 +13,15 @@ export const ui: UIStrings = {
     skipToContent: 'Saltar al contenido',
   },
   hero: {
-    eyebrow: 'Desarrollador de software · Caracas',
-    headline: 'Ingeniería de arquitectura web y móvil escalable.',
-    headlineAccent: 'escalable.',
+    eyebrow: 'Desarrollador de software · Caracas, Venezuela',
+    tagline: 'Desarrollando aplicaciones web y móviles escalables.',
+    taglineAccent: 'escalables.',
     cta: 'Ver experiencia',
     // «Empresas» se encuadra por alcance y no por geografía: la ubicación ya
     // la dice el eyebrow, y repetirla gastaría una de las tres celdas en un
     // dato que no habla de capacidad.
     facts: [
-      { label: 'Experiencia', value: '4 años en producción' },
+      { label: 'Experiencia', value: '+4 años en la industria' },
       { label: 'Empresas', value: '3 · Empresarial y multi-cliente' },
       { label: 'Núcleo', value: 'React · Angular · Flutter' },
     ],
@@ -63,6 +63,7 @@ export const ui: UIStrings = {
     underNda: 'Bajo NDA',
     viewLive: 'Ver en vivo',
     viewRepo: 'Ver repositorio',
+    viewStore: 'Ver en Play Store',
     present: 'Actualidad',
   },
   contact: {

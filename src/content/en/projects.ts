@@ -7,27 +7,52 @@ import type { Project } from '../types'
  * Keep `slug` identical to the Spanish bundle: the language switcher relies on
  * it to stay on the same project when you change language.
  *
- * The three client projects are `nda`: the employer is named in Experience — it
- * is on the CV and on LinkedIn — but there is no internal architecture, no
- * business numbers, no dashboards and no code here. End-client sectors are
- * given without naming the clients.
+ * The client projects are `nda`: the employer is named in Experience — it is on
+ * the CV and on LinkedIn — but there is no internal architecture, no business
+ * numbers, no dashboards and no code here. End-client sectors are given without
+ * naming the clients.
  */
 export const projects: Project[] = [
   {
     slug: 'suite-administrativa',
     title: 'Multi-Client Admin Suite',
     tagline:
-      'Restructuring fractured administrative workflows into a unified, consolidated flow.',
+      'Restructuring fractured administrative web workflows for the Galilei 360 ecosystem (GaliSuite).',
     context:
-      'Enterprise suite · ~20 internal operators and external corporate accounts',
+      'Enterprise suite · ~20 internal operators, multiple corporate accounts',
     problem:
-      'The suite aggregated payments, invoicing, fleet tracking, and order management into siloed modules. Legacy interface patterns forced operators through deep screen hierarchies and repetitive multi-click workflows, compounding navigation errors.',
+      'The suite aggregated payments, invoicing, fleet tracking, and order management into siloed modules. Legacy interface patterns forced operators through deep screen hierarchies and repetitive workflows, compounding errors.',
     solution:
-      'Rebuilt core navigation around task-oriented paths rather than departmental silos, cutting total interaction depth per transaction. Migrated legacy modules iteratively to protect day-to-day operations while establishing modern interface conventions.',
-    role: 'Sole frontend responsibility. Implementation of client-facing interfaces, integration against REST APIs, and definition of UI states, input validation, and layout logic on top of base designs.',
-    stack: ['React', 'React Native', 'TypeScript'],
+      'Rebuilt core navigation around task-oriented paths, cutting interaction depth per transaction. Migrated legacy modules iteratively to protect day-to-day production operations.',
+    role: 'Key frontend participation. Implemented client-facing interfaces, integrated REST APIs, and built layout logic over legacy administrative modules.',
+    // TODO(outcome): if you can count the clicks or screens of ONE concrete
+    // flow before and after, that is the most convincing number you have.
+    stack: ['React', 'TypeScript'],
     links: {},
     visibility: 'nda',
+    featured: true,
+    year: 2025,
+  },
+  {
+    slug: 'ecosistema-movil-galilei',
+    title: 'Multi-Role Mobile Ecosystem',
+    tagline:
+      'Location-aware field clients and real-time BI dashboards for the Galilei 360 enterprise suite (Galisales, GaliMate, and Gali-bi).',
+    context:
+      'Enterprise suite · 3 role-specific mobile apps (sales, supervision, management)',
+    problem:
+      'Field teams and managers lacked synchronized data access. Operations required background geolocation tracking for reps and high-level analytics for executives without fragmenting the underlying database.',
+    solution:
+      'Engineered a suite of role-specific React Native applications sharing unified core logic. Integrated location services for field reps and dynamic data visualization for management.',
+    role: 'Cross-platform mobile development and architecture. Maximized component reuse across distinct mobile clients to accelerate delivery.',
+    stack: ['React Native', 'TypeScript', 'Geolocation', 'REST APIs'],
+    // This is the Venezuelan Play Store listing: from abroad it may answer
+    // "not available in your country", so the link does not always prove what
+    // it promises to a recruiter outside the country.
+    links: {
+      store: 'https://play.google.com/store/apps/details?id=com.galisales.app',
+    },
+    visibility: 'public',
     featured: true,
     year: 2025,
   },
@@ -35,14 +60,14 @@ export const projects: Project[] = [
     slug: 'sitio-corporativo-galilei',
     title: 'Galilei Corporate Website',
     tagline:
-      'Production-ready marketing and services portal delivered from design to release.',
+      'Production-ready main portal and services showcase for Galilei Smart Solutions.',
     context: 'Corporate web platform · Public',
     problem:
-      'The company needed a robust, fully responsive corporate presence built against approved mockups, removing technical dependency on external web studios for updates.',
+      'The company needed a robust, fully responsive web presence built against external agency mockups, removing technical dependency on third-party studios for product updates.',
     solution:
-      'Built the full web client in React and TypeScript, resolving responsive breakpoints, fluid layout shifts, and missing UI states directly during development.',
-    role: 'End-to-end frontend development. UI design provided by external agency; architecture, component structure, markup, and responsive implementations delivered independently, with delivery accelerated by AI sub-agent and spec-kit workflows.',
-    stack: ['React', 'TypeScript'],
+      'Built the autonomous full web client in React and TypeScript, resolving responsive breakpoints, fluid layout shifts, and missing UI states directly during development.',
+    role: 'End-to-end solo frontend development. The design came from a third-party agency; architecture, component structure, and markup were delivered independently, accelerated by AI sub-agents and spec-kit workflows.',
+    stack: ['React', 'TypeScript', 'Claude Code', 'spec-kit'],
     links: { live: 'https://galilei.com.ve/' },
     visibility: 'public',
     featured: true,
@@ -50,18 +75,18 @@ export const projects: Project[] = [
   },
   {
     slug: 'plataforma-multicliente',
-    title: 'Enterprise Multi-Tenant Platform',
+    title: 'Modular Permission Web Platform',
     tagline:
-      'Role-based permission architecture supporting four corporate clients on a single codebase.',
+      'Custom role-engine and dynamic routing for the Pegasus Connect enterprise system.',
     context:
-      'Software consultancy · 4 corporate clients (Telecommunications, Banking, Entertainment, Hospitality)',
+      'Software consultancy · 4 corporate clients (Telecom, Banking, Cinema and Leisure)',
     problem:
-      'Four distinct enterprise clients required vastly different operational features inside the same core application. The existing codebase risked branching into hard client forks, multiplying maintenance overhead.',
+      'The core web product served four corporate clients with entirely distinct operational requirements. The codebase risked permanent bifurcation into separate repositories.',
     solution:
-      'Implemented a dynamic, role-based permission system and modular navigation that rendered custom feature suites per client from a shared application core. Extracted common business logic into shared frontend services.',
-    role: 'Development of admin modules and permissions engine. Integration of ecosystem REST APIs and technical agreement on data payload contracts with backend engineers.',
+      'Implemented a dynamic role-based permission system and modular routing that rendered custom suites per client from a single instance. Extracted repeated logic into shared utility functions.',
+    role: 'Development of administrative modules and permission engine. Integrated REST APIs and defined technical data contracts with the backend team.',
     outcome:
-      'Eliminated the need for code forks, standardizing cross-client feature delivery and improving release velocity across the frontend team.',
+      'Eliminated the need to fork the codebase, accelerating overall development and improving component reusability across the frontend team.',
     stack: ['Angular', 'TypeScript', 'REST APIs'],
     links: {},
     visibility: 'nda',
@@ -70,37 +95,45 @@ export const projects: Project[] = [
   },
   {
     slug: 'app-punto-de-venta',
-    title: 'POS Hardware Operations App',
+    title: 'POS Terminal Management App',
     tagline:
-      'Low-latency operational client engineered for resource-constrained Android POS terminals.',
+      'Real-time Flutter client explicitly optimized for low-resource point-of-sale hardware.',
     context: 'Low-spec Android POS hardware',
     problem:
-      'Standard mobile development patterns overloaded the target hardware due to severe memory ceilings. Data volume had to be tightly managed to prevent application dropouts during operations.',
+      'Conventional mobile development patterns overwhelmed the target hardware due to severe memory ceilings. State volume and image caching had to be strictly managed to prevent crashes.',
     solution:
-      'Architected the application foundation in Flutter with strictly paginated queries and client-side memory caps. Managed live state sync through targeted Firebase listeners, optimizing payload footprints before consumption.',
-    role: 'Initial project architecture: structural UI foundation, caching layers, and Firebase integration. Established code standards for downstream contributors.',
+      'Architected the Flutter foundation with strictly paginated payloads and client-side memory limits. Managed real-time synchronization via Firebase, optimizing data payloads before they reached the device.',
+    role: 'Initial project architecture: screen structure, data layer, and Firebase integration. Set the architectural standards for the rest of the development lifecycle.',
     outcome:
-      'Prioritized memory efficiency and runtime stability over non-essential graphical overhead, achieving dependable operation on low-power hardware.',
+      'Deliberate prioritization of memory efficiency over visual details, achieving reliable operation on low-power POS hardware.',
     stack: ['Flutter', 'Dart', 'Firebase'],
     links: {},
+    // The new tag list dropped "Under NDA" for this one, but did not say the
+    // NDA had lifted. It stays: removing a confidentiality mark is the
+    // client's call, not a layout decision.
     visibility: 'nda',
     featured: true,
     year: 2023,
   },
   {
     slug: 'comunicador-caa',
-    title: 'AAC Mobile Communicator',
-    tagline: 'Accessible mobile speech synthesis for non-verbal individuals.',
-    context: 'Undergraduate Thesis · Universidad Alejandro de Humboldt',
+    title: 'AAC Communicator for Non-Verbal Users',
+    tagline:
+      'Icons and typed text turned into speech for people who cannot produce it themselves.',
+    context: 'Thesis project · Universidad Alejandro de Humboldt',
     problem:
-      'Dedicated Augmentative and Alternative Communication (AAC) hardware carries prohibitive cost barriers, restricting access for individuals with speech and motor disabilities.',
+      'Dedicated Augmentative and Alternative Communication devices are prohibitively expensive, creating a hard access barrier for people with speech disabilities.',
     solution:
-      'Developed an accessible React Native client utilizing custom icon grids and text-to-speech engines, enabling rapid sentence construction and vocalization directly from standard smartphones.',
-    role: 'Individual engineering project: user requirements, mobile development, testing, and technical documentation.',
+      'Built a React Native application where tapping icons or typing text makes the phone speak it aloud through speech synthesis, so sentences can be assembled fast enough to hold a conversation.',
+    role: 'Solo academic project: requirements analysis, mobile development, and technical documentation.',
     stack: ['React Native', 'JavaScript', 'Text-to-Speech'],
     links: { repo: 'https://github.com/HrHrM/ReactN-Tesis' },
     visibility: 'public',
-    featured: true,
+    // Out of the section: the new five-card list does not include it, and the
+    // mobile ecosystem takes its place. The data stays rather than being
+    // deleted — the thesis is still named under Education — and it comes back
+    // by flipping this to `true`.
+    featured: false,
     year: 2022,
   },
 ]

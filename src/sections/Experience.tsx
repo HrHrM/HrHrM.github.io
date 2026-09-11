@@ -1,38 +1,61 @@
+import { Badge } from '@/components/ui/Badge'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { useLocale } from '@/hooks/useLocale'
+import { useNearestRow } from '@/hooks/useNearestRow'
 import { formatMonthYear } from '@/lib/dates'
 
+import './Experience.css'
+
+/**
+ * El efecto de proximidad va **por empresa**, no por línea: la unidad que el
+ * lector recorre aquí es el puesto entero, y encender los highlights uno a uno
+ * convertiría un timeline en un menú. Cada `<li>` es una fila del efecto.
+ *
+ * El puntero se escucha en la **sección**, no en la lista: la lista la limita
+ * el `Container`, así que atándolo ahí el efecto se apagaba al pasar por los
+ * márgenes laterales aunque siguieras a la altura de la misma entrada.
+ *
+ * Formación entra en el mismo efecto y con el **mismo hook**, continuando la
+ * numeración de índices detrás de los puestos. Son dos listas en el marcado
+ * pero una sola secuencia de filas para el puntero, así que nunca puede haber
+ * dos encendidas a la vez: la regla sigue siendo «la fila cuya banda vertical
+ * contiene el cursor».
+ */
 export function Experience() {
   const { ui, experience, education, locale } = useLocale()
+  const { containerRef, itemRef } = useNearestRow<HTMLElement>()
 
   const range = (start: string, end: string | null) =>
     `${formatMonthYear(start, locale)} — ${end ? formatMonthYear(end, locale) : ui.project.present}`
 
   return (
     <section
+      ref={containerRef}
       id="experience"
       aria-labelledby="experience-title"
       className="py-section"
     >
       <SectionHeading
         id="experience"
-        index="01"
+        index="02"
         title={ui.sections.experience.title}
       />
       <Container>
         <ol>
-          {experience.map((item) => (
+          {experience.map((item, index) => (
             <li
               key={`${item.company}-${item.start}`}
-              className="grid gap-3 border-b border-line py-8 md:grid-cols-12 md:gap-8"
+              ref={itemRef(index)}
+              className="xp-item grid gap-3 border-b border-line py-8 md:grid-cols-12 md:gap-8"
             >
-              <p className="font-mono text-meta text-muted tabular-nums md:col-span-3">
+              <p className="xp-date font-mono text-meta tabular-nums md:col-span-3">
+                <span aria-hidden="true" className="xp-marker" />
                 {range(item.start, item.end)}
               </p>
               <div className="md:col-span-9">
-                <h3 className="text-lead text-ink">
-                  {item.company}
+                <h3 className="xp-heading text-lead">
+                  <span className="xp-company">{item.company}</span>
                   <span className="text-muted"> · {item.role}</span>
                 </h3>
                 <p className="mt-2 max-w-prose">{item.summary}</p>
@@ -48,6 +71,16 @@ export function Experience() {
                     ))}
                   </ul>
                 ) : null}
+                {/* El chip vive en `Badge`, no en clases repetidas aquí: es
+                    el mismo que usan las fichas de Proyectos, y una tecnología
+                    no puede dibujarse de dos maneras según la sección. */}
+                <ul className="mt-6 flex flex-wrap items-center gap-2">
+                  {item.stack.map((tech) => (
+                    <li key={tech}>
+                      <Badge>{tech}</Badge>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </li>
           ))}
@@ -60,17 +93,19 @@ export function Experience() {
           {ui.sections.experience.education}
         </h3>
         <ul>
-          {education.map((item) => (
+          {education.map((item, index) => (
             <li
               key={`${item.institution}-${item.start}`}
-              className="grid gap-3 border-b border-line py-8 last:border-0 md:grid-cols-12 md:gap-8"
+              ref={itemRef(experience.length + index)}
+              className="xp-item grid gap-3 border-b border-line py-8 last:border-0 md:grid-cols-12 md:gap-8"
             >
-              <p className="font-mono text-meta text-muted tabular-nums md:col-span-3">
+              <p className="xp-date font-mono text-meta tabular-nums md:col-span-3">
+                <span aria-hidden="true" className="xp-marker" />
                 {range(item.start, item.end)}
               </p>
               <div className="md:col-span-9">
-                <p className="text-lead text-ink">
-                  {item.degree}
+                <p className="xp-heading text-lead">
+                  <span className="xp-company">{item.degree}</span>
                   <span className="text-muted"> · {item.institution}</span>
                 </p>
                 {item.note ? (
