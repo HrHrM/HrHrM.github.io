@@ -26,6 +26,17 @@ export function Navbar() {
   const { ui, home } = useLocale()
   const [open, setOpen] = useState(false)
   const active = useScrollSpy([...SECTION_IDS])
+
+  // Los enlaces de sección son `Link` del router y **no** `<a href="#id">`, y
+  // no es cosmético. Con un ancla plana el navegador cambia el hash por su
+  // cuenta; el router lo ve como una navegación y `<ScrollRestoration />`
+  // restaura la posición que tenía guardada para esa clave, cancelando el
+  // salto al ancla. Se veía como «hay que pulsar dos veces»: en realidad el
+  // primer clic saltaba y la restauración lo devolvía.
+  //
+  // Con `Link` la navegación la conduce el router, que al haber hash busca el
+  // elemento y va a él en vez de restaurar. Es lo que ya hacía bien el CTA del
+  // hero, que siempre fue un `Link`.
   const past = useScrolledPast('hero')
 
   // `pointer-events-none` va con `opacity-0`: un enlace invisible que sigue
@@ -85,8 +96,8 @@ export function Navbar() {
           <ul className="flex items-center gap-7">
             {items.map(({ id, label }) => (
               <li key={id}>
-                <a
-                  href={`#${id}`}
+                <Link
+                  to={`#${id}`}
                   aria-current={active === id ? 'true' : undefined}
                   className={cn(
                     'font-mono text-meta tracking-wide uppercase transition-colors',
@@ -94,7 +105,7 @@ export function Navbar() {
                   )}
                 >
                   {label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -135,13 +146,13 @@ export function Navbar() {
           <ul className="flex flex-col px-gutter py-2">
             {items.map(({ id, label }) => (
               <li key={id} className="border-b border-line last:border-0">
-                <a
-                  href={`#${id}`}
+                <Link
+                  to={`#${id}`}
                   onClick={() => setOpen(false)}
                   className="block py-4 font-mono text-meta tracking-wide text-muted uppercase"
                 >
                   {label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
