@@ -25,7 +25,15 @@ export function ThemeToggle({
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={(event) => {
+        // El centro del propio botón, no el punto del clic: con teclado no hay
+        // coordenadas y `event.clientX` valdría 0, así que el círculo saldría
+        // de la esquina. Y todo con `getBoundingClientRect`, que da
+        // coordenadas de viewport; `offsetLeft` es relativo al ancestro
+        // posicionado y aquí la Navbar es uno.
+        const box = event.currentTarget.getBoundingClientRect()
+        toggle({ x: box.left + box.width / 2, y: box.top + box.height / 2 })
+      }}
       aria-label={theme === 'dark' ? labels.toLight : labels.toDark}
       className={cn(
         'grid size-9 place-items-center border text-muted transition-colors hover:text-ink',

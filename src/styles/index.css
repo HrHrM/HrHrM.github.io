@@ -260,3 +260,120 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Transición de tema: un círculo que crece desde el botón.
+   Idea de https://transition-kit.space/transition/circle-reveal
+
+   Es CSS puro sobre la View Transitions API: no hay librería ni un solo byte
+   de JS de animación. `useTheme` solo envuelve el cambio de clase en
+   `startViewTransition` y deja el centro y el radio en tres variables.
+
+   Donde la API no existe el tema cambia de golpe, que es lo que hacía antes,
+   así que el fallback no pierde nada. `prefers-reduced-motion` lo salta desde
+   JS, porque a esta pseudo-clase no llega el bloque global de más abajo.
+   ───────────────────────────────────────────────────────────── */
+/* Lo común a las dos transiciones: sin el fundido cruzado que los navegadores
+   ponen por defecto, y la capa nueva encima de la vieja. Recortar la que entra
+   —en vez de fundir— es lo que hace que el borde sea nítido en ambas. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* El cambio de tema va acotado con `.vt-theme`, que `useTheme` pone y quita.
+   Sin acotarlo, el círculo se aplicaría también al cambio de idioma, que es
+   otra navegación con transición y tiene que verse distinta. */
+.vt-theme::view-transition-new(root) {
+  animation: theme-circle-reveal 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes theme-circle-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+  to {
+    clip-path: circle(
+      var(--vt-r, 100vmax) at var(--vt-x, 50%) var(--vt-y, 50%)
+    );
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Cambio de idioma: un barrido lateral.
+
+   Deliberadamente **distinto del círculo del tema**: son dos acciones
+   distintas y compartir gesto las confundiría. El círculo dice «la página
+   cambia de piel»; el barrido dice «te has movido de lado, a la otra versión
+   de lo mismo».
+
+   La dirección la fija `--vt-dir` desde el conmutador: hacia la izquierda al
+   pasar a inglés y hacia la derecha al volver, para que ir y volver no se
+   sientan igual. Lo dispara `viewTransition` del Link de React Router.
+   ───────────────────────────────────────────────────────────── */
+:root:not(.vt-theme)::view-transition-new(root) {
+  /* El frente de onda.
+
+     El recorte duro de un `clip-path` no deja ver por dónde va pasando: solo
+     hay «ya está» y «todavía no». Con una máscara, el borde puede tener
+     grosor, y ahí caben tres bandas de opacidad creciente por delante del
+     frente sólido. Se leen como la cresta y su estela, y dejan entrever la
+     página anterior justo en el punto por el que va cruzando.
+
+     El ángulo sale de `--vt-dir`: 90deg entra por la izquierda y 270deg por la
+     derecha. Se calcula en vez de escribir dos reglas porque `to right` y
+     `to left` son palabras clave y no admiten variable.
+
+     Se descartó pintar la cresta con `background-image` sobre la capa vieja:
+     `::view-transition-old(root)` es una instantánea opaca, así que el fondo
+     queda detrás y no se ve nunca. */
+  --locale-crest: linear-gradient(
+    calc(90deg + var(--vt-dir, 1) * 180deg),
+    transparent 0 34%,
+    rgb(0 0 0 / 0.16) 39%,
+    transparent 42%,
+    rgb(0 0 0 / 0.4) 47%,
+    transparent 50%,
+    rgb(0 0 0 / 0.72) 55%,
+    rgb(0 0 0) 62% 100%
+  );
+  -webkit-mask-image: var(--locale-crest);
+  mask-image: var(--locale-crest);
+  -webkit-mask-size: 220% 100%;
+  mask-size: 220% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: locale-wipe 680ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* La máscara mide 220% del ancho, así que desplazarla de un extremo al otro
+   lleva el frente de un lado a otro de la pantalla: a 0% la capa nueva ve la
+   parte transparente y está oculta; a 100%, la opaca y está entera. */
+@keyframes locale-wipe {
+  from {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+  }
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+/* El tema ya se salta la transición desde JS, pero el idioma lo dispara el
+   `Link` del router y ahí no hay dónde comprobarlo: se apaga desde CSS. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
