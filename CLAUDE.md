@@ -28,7 +28,7 @@ Todo lo demás en la página está al servicio de eso.
 | Animación  | CSS (`@keyframes`) + View Transitions     | ver §4. `motion` y `gsap` **no** están instalados, y es deliberado    |
 | Iconos     | `lucide-react`                            |                                                                       |
 | Formulario | `react-hook-form` + `zod`                 | envío vía Formspree / Web3Forms                                       |
-| Pruebas    | Playwright                                | `playwright.config.ts`, 98 pruebas en Chromium y Firefox              |
+| Pruebas    | Playwright                                | `playwright.config.ts`, 104 pruebas en Chromium y Firefox             |
 | Lint       | Oxlint                                    | `.oxlintrc.json`, sin ESLint                                          |
 | Formato    | Prettier (o `oxfmt`)                      |                                                                       |
 | Utilidades | `clsx` + `tailwind-merge` → helper `cn()` |                                                                       |
@@ -84,6 +84,16 @@ Todo lo demás en la página está al servicio de eso.
   con estilos — verificado capturando fotogramas con red a 300 kbps. No hay
   nada que arreglar: si se quiere comprobar cómo lo ve un visitante, hay que
   mirar `npm run build` servido, no el dev server.
+- **`ogl` no lanza cuando no consigue contexto WebGL.** Hace
+  `console.error('unable to create webgl context')` y sigue adelante con `gl`
+  a `null` (`Renderer.js:46`); lo que revienta es la primera línea que lo usa,
+  y ese `TypeError` sube hasta el ErrorBoundary: **el sitio entero se cae a la
+  página de error por culpa de un adorno**. Hay que sondear WebGL antes de
+  construir el `Renderer`, y sondear —no capturar la excepción— para que su
+  `console.error` no quede en la consola del visitante. Sin GPU no es un caso
+  raro: aceleración por hardware desactivada, máquinas virtuales, escritorios
+  remotos, navegadores endurecidos. **Chromium lo esconde** porque cae a
+  SwiftShader por software; lo destapó Firefox en CI.
 - **Oxlint es linter, no formateador.** No sustituye a Prettier.
 
 ---
@@ -482,8 +492,8 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
       la raíz, así que no hay `base` ni `basename` que tocar.
 
       Ojo con la barra final: en Pages, `/en` responde 301 hacia `/en/`, así que
-          `absoluteUrl()` la añade a las rutas de página (y no a los ficheros). Hay
-          una prueba que exige que toda canónica responda 200 sin redirigir.
+                  `absoluteUrl()` la añade a las rutas de página (y no a los ficheros). Hay
+                  una prueba que exige que toda canónica responda 200 sin redirigir.
 
 ### Qué va en `public/` y qué en `src/assets/`
 

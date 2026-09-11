@@ -20,7 +20,7 @@ HTML. Sin servidor, sin base de datos, sin CMS.
 | Animación  | CSS `@keyframes` y la View Transitions API                     |
 | 3D         | `ogl` para las partículas del hero                             |
 | Tipografía | Schibsted Grotesk + JetBrains Mono, autohospedadas             |
-| Pruebas    | Playwright — 98 pruebas en Chromium y Firefox                  |
+| Pruebas    | Playwright — 104 pruebas en Chromium y Firefox                 |
 | Lint       | Oxlint · Prettier                                              |
 | Hosting    | GitHub Pages, desplegado por Actions                           |
 
@@ -73,6 +73,11 @@ de verdad durante el desarrollo.
   contenido invisible durante el retardo.
 - **Cero scroll horizontal** a 390/768/1024/1440/1920, y cero errores de
   consola.
+- **Sin WebGL, el sitio sigue siendo el sitio.** Esto se rompió: `ogl` no lanza
+  al quedarse sin contexto, sigue con `gl` a `null`, y el `TypeError` posterior
+  llegaba al ErrorBoundary — la página entera se convertía en «Un error
+  inesperado». Lo encontró Firefox en CI, sin GPU; en local no se veía porque
+  Chromium cae a WebGL por software.
 - **axe** sobre las dos rutas en los dos temas.
 
 ## Estructura

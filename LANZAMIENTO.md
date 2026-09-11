@@ -160,7 +160,7 @@ Lo que **no** hace falta: ni schema.org, ni blog, ni keywords.
 
 ## 4. Pruebas — ✅ HECHO
 
-**98 pruebas en Chromium y Firefox, todas en verde.** Corren en el despliegue,
+**104 pruebas en Chromium y Firefox, todas en verde.** Corren en el despliegue,
 entre el lint y la publicación.
 
 ```bash
@@ -186,6 +186,28 @@ y no aplica el prerender.
 | `links.spec.ts`      | Los enlaces de salida (fuera de CI: dependen de terceros)                                                  |
 
 ### Lo que encontraron
+
+- **Sin WebGL, el portafolio entero se caía a la página de error.** El fallo más
+  grave de los tres, y solo lo destapó Firefox en el runner de CI, que no tiene
+  GPU: en local Chromium cae a SwiftShader por software y consigue contexto, así
+  que era invisible en las dos máquinas donde se desarrolla.
+
+  La cadena: `ogl` **no lanza** al quedarse sin contexto — hace `console.error`
+  y sigue con `gl` a `null` (`Renderer.js:46`), así que reventaba la primera
+  línea que lo usaba con un `TypeError` que subía hasta el ErrorBoundary de
+  `root.tsx`. El visitante veía «Un error inesperado. Vuelve a intentarlo.» en
+  lugar del portafolio, por culpa de un adorno del hero.
+
+  Y no es un caso de laboratorio: pasa con la aceleración por hardware
+  desactivada —frecuente en portátiles corporativos—, en máquinas virtuales y
+  escritorios remotos, y en navegadores endurecidos por privacidad.
+
+  Arreglado sondeando WebGL antes de tocar `ogl`: si no hay contexto, el efecto
+  se retira en silencio y el `ParticlesStatic` que ya está pintado debajo se
+  queda visible. Se sondea en vez de capturar la excepción para no dejar el
+  `console.error` de ogl a la vista. Tiene prueba propia en
+  `degradation.spec.ts`, que bloquea WebGL desde JavaScript para correr igual en
+  los dos motores.
 
 - **La canónica de `/en` apuntaba a una URL que redirige.** Arreglado (§3).
 - **El inglés no puede anclar Contacto a 80px.** Es la última sección y al
