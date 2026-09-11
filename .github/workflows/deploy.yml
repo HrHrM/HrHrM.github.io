@@ -3,6 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # También en cada PR hacia main, y ahí está media la gracia: una suite que
+  # solo corre **después** de fusionar avisa tarde. En un PR se construye y se
+  # prueba, pero no se despliega — lo impide el `if` del job `deploy`.
+  pull_request:
+    branches: [main]
   # Permite lanzarlo a mano desde la pestaña Actions, sin tener que empujar.
   workflow_dispatch:
 
@@ -92,6 +97,10 @@ jobs:
 
   deploy:
     needs: build
+    # Solo desde `main`. Sin esto, abrir un PR publicaría su rama en el sitio
+    # en vivo — que es exactamente lo que no debe pasar al añadir el disparador
+    # de `pull_request`.
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
