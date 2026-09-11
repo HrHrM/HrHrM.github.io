@@ -1,33 +1,28 @@
 import { Container } from '@/components/ui/Container'
 import { InfiniteSpiral } from '@/components/ui/InfiniteSpiral'
 import type { SpiralItem } from '@/components/ui/InfiniteSpiral'
+import { TECH_ICONS } from '@/lib/techIcons'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { useLocale } from '@/hooks/useLocale'
 import { cn } from '@/lib/cn'
 
 /**
- * **Provisional.** Stock de Lorem Picsum, un servicio de marcadores de
- * posición: las semillas fijan la foto, así que el HTML prerenderizado y el
- * cliente piden la misma URL y no hay salto al hidratar. Son seis peticiones a
- * un tercero y no salen de `src/assets/`, o sea que **no pueden llegar al
- * lanzamiento** tal cual (CLAUDE.md §8).
+ * Los diez logos de la espiral, en el orden en que entran.
+ *
+ * Salen de `content/es/skills.ts`, que es el stack de verdad: los cinco
+ * frameworks y lenguajes que sostienen el CV, el servicio gestionado y las
+ * dos herramientas que tienen icono. No están todos —React Native, Claude
+ * Code, spec-kit, Maestro y Pencil no tienen logo en la librería—, y eso hay
+ * que tenerlo presente: la espiral no es la lista del stack, esa es la
+ * sección Stack. Aquí es un adorno reconocible, no un inventario.
  *
  * En el ámbito del módulo a propósito: `items` entra en las dependencias del
  * efecto de `InfiniteSpiral`, y un array literal dentro del JSX cambiaría de
  * identidad en cada render y remontaría el bucle.
  */
-const PLACEHOLDER_IMAGES: readonly SpiralItem[] = [
-  { id: 'ph-a', src: 'https://picsum.photos/seed/portafolio-a/320/320' },
-  { id: 'ph-b', src: 'https://picsum.photos/seed/portafolio-b/320/320' },
-  { id: 'ph-c', src: 'https://picsum.photos/seed/portafolio-c/320/320' },
-  { id: 'ph-d', src: 'https://picsum.photos/seed/portafolio-d/320/320' },
-  { id: 'ph-e', src: 'https://picsum.photos/seed/portafolio-e/320/320' },
-  { id: 'ph-f', src: 'https://picsum.photos/seed/portafolio-f/320/320' },
-  { id: 'ph-g', src: 'https://picsum.photos/seed/portafolio-g/320/320' },
-  { id: 'ph-h', src: 'https://picsum.photos/seed/portafolio-h/320/320' },
-  { id: 'ph-i', src: 'https://picsum.photos/seed/portafolio-i/320/320' },
-  { id: 'ph-j', src: 'https://picsum.photos/seed/portafolio-j/320/320' },
-]
+const STACK_SPIRAL: readonly SpiralItem[] = TECH_ICONS.map(
+  ({ title, path }) => ({ id: title, label: title, path }),
+)
 
 /**
  * El texto vive en `content/{es,en}/ui.ts`, no aquí: añadir o cambiar un
@@ -66,10 +61,10 @@ export function About() {
             ))}
           </div>
 
-          {/* `aria-hidden` mientras sean fotos de stock: no dicen nada que no
-              esté en el texto, y anunciar siete imágenes sin contenido a un
-              lector de pantalla es ruido. Cuando lleven imágenes reales hay
-              que quitarlo y darles `alt`. */}
+          {/* Sigue con `aria-hidden`: el stack ya está escrito en la sección
+              Stack, en los chips de cada puesto y en los de cada proyecto —20
+              menciones de «React» en la página—, así que anunciarlo una quinta
+              vez a un lector de pantalla es repetición, no información. */}
           {/* `self-stretch` y sin alto en `lg`: la fila la mide la columna de
               texto, así que las dos acaban a la misma altura sea cual sea el
               idioma. Debajo de `lg` no hay con qué igualarse y el alto es
@@ -79,7 +74,7 @@ export function About() {
             className="h-[350px] lg:col-span-5 lg:col-start-8 lg:h-auto lg:self-stretch"
           >
             <InfiniteSpiral
-              items={PLACEHOLDER_IMAGES}
+              items={STACK_SPIRAL}
               animationMode="all"
               speed={0.4}
               radius={118}
@@ -90,7 +85,6 @@ export function About() {
               cardRadius={0}
               centerScale={1.18}
               edgeBlur={5}
-              grayscale={1}
               pauseOnHover
             />
           </div>

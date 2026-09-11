@@ -64,3 +64,18 @@
     cursor: default !important;
   }
 }
+
+/* Paneles de logo. No son fotos: el glifo va centrado, con aire y pintado con
+   un token, así que el panel deja de comportarse como un marco de imagen.
+
+   El color es `muted` y no `ink`: los logos están al lado de la columna de
+   texto y no deben pesar más que ella. */
+.infinite-spiral__glyph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 42%;
+  height: 42%;
+  transform: translate(-50%, -50%);
+  color: var(--muted);
+}

@@ -34,8 +34,18 @@ import './InfiniteSpiral.css'
  * y remonta el bucle entero. Declárese en el ámbito del módulo.
  */
 
+/**
+ * Un panel de la espiral: o una imagen (`src`) o un trazo SVG (`path`).
+ *
+ * Los dos casos existen porque no son la misma cosa. Una foto se recorta a
+ * `cover` y llena el panel; un logo es un glifo que tiene que ir centrado, con
+ * aire alrededor y pintado con un token nuestro. Meterlos por el mismo camino
+ * obligaría a maquillar un `<img>` para que se comportara como un icono.
+ */
 export type SpiralItem = {
-  src: string
+  src?: string
+  /** Trazo de un SVG de 24×24. Se pinta con `currentColor`. */
+  path?: string
   alt?: string
   href?: string
   target?: string
@@ -242,7 +252,8 @@ export function InfiniteSpiral({
       lastScrollY = nextScrollY
       if (!scrollEnabled || !onScreen || scrollDelta === 0) return
       targetProgressRef.current += clamp(
-        (scrollDelta * scrollSpeedMultiplier) / Math.max(verticalSpacing * 2, 1),
+        (scrollDelta * scrollSpeedMultiplier) /
+          Math.max(verticalSpacing * 2, 1),
         -1.5,
         1.5,
       )
@@ -327,7 +338,7 @@ export function InfiniteSpiral({
       onMouseLeave={() => {
         hoveredRef.current = false
       }}
-      onPointerDown={event => {
+      onPointerDown={(event) => {
         if (!dragEnabled || event.button !== 0) return
         draggingRef.current = true
         dragMovedRef.current = false
@@ -336,7 +347,7 @@ export function InfiniteSpiral({
         event.currentTarget.setPointerCapture(event.pointerId)
         event.currentTarget.style.cursor = 'grabbing'
       }}
-      onPointerMove={event => {
+      onPointerMove={(event) => {
         if (!draggingRef.current) return
         const pointerDelta = event.clientY - lastPointerYRef.current
         lastPointerYRef.current = event.clientY
@@ -345,7 +356,7 @@ export function InfiniteSpiral({
       }}
       onPointerUp={stopDragging}
       onPointerCancel={stopDragging}
-      onClickCapture={event => {
+      onClickCapture={(event) => {
         // Soltar el arrastre encima de una tarjeta no debe abrir su enlace.
         if (!dragMovedRef.current) return
         event.preventDefault()
@@ -364,7 +375,18 @@ export function InfiniteSpiral({
             cardRefs.current[index] = node
           }
 
-          const image = (
+          // Un glifo, no una foto: `contain` implícito, centrado y con aire,
+          // y el color sale del token en vez de un filtro sobre píxeles.
+          const media = item.path ? (
+            <svg
+              className="infinite-spiral__glyph"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d={item.path} fill="currentColor" />
+            </svg>
+          ) : (
             <img
               className="infinite-spiral__image"
               src={item.src}
@@ -390,7 +412,7 @@ export function InfiniteSpiral({
 
           return item.href ? (
             <a
-              key={item.id ?? `${item.src}-${index}`}
+              key={item.id ?? item.src ?? item.label ?? index}
               ref={setRef}
               className="infinite-spiral__item"
               style={style}
@@ -399,16 +421,16 @@ export function InfiniteSpiral({
               rel={item.target === '_blank' ? 'noreferrer' : undefined}
               aria-label={item.label ?? item.alt}
             >
-              {image}
+              {media}
             </a>
           ) : (
             <div
-              key={item.id ?? `${item.src}-${index}`}
+              key={item.id ?? item.src ?? item.label ?? index}
               ref={setRef}
               className="infinite-spiral__item"
               style={style}
             >
-              {image}
+              {media}
             </div>
           )
         })}
