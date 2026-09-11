@@ -220,7 +220,56 @@ export function Particles({
     if (palette.length === 0) return
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    const renderer = new Renderer({ dpr, depth: false, alpha: true })
+
+    /**
+     * **Si el navegador no da WebGL, no se monta nada y ya está.**
+     *
+     * Sin esta comprobación, el portafolio entero se sustituye por «Un error
+     * inesperado. Vuelve a intentarlo.» — la página de error del ErrorBoundary
+     * de `root.tsx`. Para un sitio cuyo objetivo es que alguien lo abra y vea
+     * el trabajo, es el peor fallo posible, y lo provoca un adorno.
+     *
+     * La cadena: `ogl` **no lanza** al no conseguir contexto. Hace
+     * `console.error('unable to create webgl context')` y sigue con `gl` a
+     * `null` (`node_modules/ogl/src/core/Renderer.js:46`); lo que revienta es
+     * la primera línea que lo usa, con un `TypeError` que sube por el render de
+     * React. Por eso no basta con un `try` alrededor del `new Renderer()`: hay
+     * que preguntar antes.
+     *
+     * No es un caso de laboratorio. Pasa con la aceleración por hardware
+     * desactivada (frecuente en portátiles corporativos), en máquinas
+     * virtuales y escritorios remotos, en Firefox con `webgl.disabled` y en
+     * navegadores endurecidos por privacidad. Lo destapó Firefox en el runner
+     * de CI, que no tiene GPU; Chromium no lo veía porque cae a SwiftShader
+     * por software y sí consigue contexto.
+     *
+     * Sondear aparte tiene además una ventaja sobre capturar la excepción:
+     * **no deja el `console.error` de ogl en la consola del visitante**, y una
+     * consola limpia es lo que permite que «cero errores» siga siendo una
+     * aserción útil.
+     *
+     * Retirarse en silencio es lo correcto: `onFirstFrame` no llega a
+     * llamarse, así que `ParticlesStatic` —ya pintado debajo— se queda
+     * visible y nadie nota nada.
+     */
+    const probeCanvas = document.createElement('canvas')
+    const probeGl =
+      probeCanvas.getContext('webgl2') ?? probeCanvas.getContext('webgl')
+    if (!probeGl) return
+    // El sondeo consume un contexto, y el navegador solo concede unos pocos.
+    probeGl.getExtension('WEBGL_lose_context')?.loseContext()
+
+    // El `try` se queda como segunda red: la creación puede fallar por otras
+    // razones —contexto perdido al arrancar, memoria— y ninguna justifica
+    // tumbar la página.
+    let renderer
+    try {
+      renderer = new Renderer({ dpr, depth: false, alpha: true })
+      if (!renderer.gl) return
+    } catch {
+      return
+    }
+
     const gl = renderer.gl
     gl.clearColor(0, 0, 0, 0)
     container.appendChild(gl.canvas)

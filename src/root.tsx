@@ -62,7 +62,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        {/*
+          Tres iconos, y cada uno cubre un hueco distinto:
+          · el SVG es el bueno, y el que usa cualquier navegador moderno;
+          · el `.ico` es para Safari, que sigue sin leer favicons en SVG;
+          · el `apple-touch-icon` es el que sale al añadir el sitio a la
+            pantalla de inicio en iOS, y va sin esquinas redondeadas porque
+            iOS aplica su propia máscara encima.
+          El orden importa: el navegador se queda con el último que entiende,
+          así que el SVG va después del `.ico`.
+        */}
+        <link rel="icon" href="/favicon.ico" sizes="48x48" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <Meta />
         <Links />

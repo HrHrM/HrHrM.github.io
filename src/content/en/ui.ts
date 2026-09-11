@@ -70,7 +70,7 @@ export const ui: UIStrings = {
     cv: 'Download CV',
   },
   footer: {
-    builtWith: 'Built with React, Tailwind, and static prerendering.',
+    builtWith: 'Built with React and Tailwind.',
     rights: 'All rights reserved.',
   },
   theme: {

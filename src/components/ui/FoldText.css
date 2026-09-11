@@ -49,7 +49,9 @@
   display: inline-block;
   backface-visibility: hidden;
   animation: fold-unfold var(--fold-duration) var(--fold-ease) both;
-  animation-delay: calc(var(--fold-delay) + var(--fold-i) * var(--fold-stagger));
+  animation-delay: calc(
+    var(--fold-delay) + var(--fold-i) * var(--fold-stagger)
+  );
 }
 
 /* La sombra del pliegue: oscura en el borde de la bisagra y clara en el
@@ -62,7 +64,9 @@
   mix-blend-mode: multiply;
   opacity: 0;
   animation: fold-crease var(--fold-duration) var(--fold-ease) both;
-  animation-delay: calc(var(--fold-delay) + var(--fold-i) * var(--fold-stagger));
+  animation-delay: calc(
+    var(--fold-delay) + var(--fold-i) * var(--fold-stagger)
+  );
 }
 
 .fold-text[data-hinge='top'] .fold-text__panel {

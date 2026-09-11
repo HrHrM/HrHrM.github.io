@@ -1,9 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Cometa">
   <!--
-    Marca provisional, con los tokens de la paleta: tinta sobre papel y el
-    acento como único punto de color, igual que en la página.
-    TODO(identidad): sustituir por un monograma cuando haya nombre.
+    Un cometa, con los tokens de la paleta: cuadrado de tinta, núcleo en papel
+    y cola en el acento.
+
+    Nace de `comet.png`, pero **no es un trazado de esa imagen**, y a propósito.
+    Aquel PNG no tiene un solo píxel opaco —el alfa llega a 183 de 255— y el
+    64% del lienzo es transparente: es todo halo. Vectorizar un degradado suave
+    da cientos de polígonos apilados que pesan más que el original y a 16px
+    siguen siendo la misma mancha gris. Medido: reducido a 16px, el PNG es un
+    borrón azulado que casi desaparece en una barra de pestañas clara.
+
+    Así que la referencia se redibujó como dos formas planas. Un favicon se ve
+    a 16px el 99% del tiempo, y ahí solo sobrevive lo que tiene bordes duros y
+    mucho contraste.
+
+    La cabeza es grande a propósito (r=5 sobre un lienzo de 32). Con r=4 el
+    núcleo se pierde a 16px y el icono pasa a leerse como una raya diagonal.
+
+    El acento es el de **modo oscuro** (`#17a394`), no el de claro (`#0f766e`):
+    la cola va siempre sobre el cuadrado de tinta, así que manda el contraste
+    contra ese fondo. Calculado, 5.98:1 — el teal claro se quedaba en 2.6:1 y
+    se hundía en el negro. El núcleo sobre tinta da 18.3:1.
+
+    El cuadrado opaco es lo que hace que funcione igual en una barra clara y en
+    una oscura, sin necesidad de dos versiones.
   -->
-  <rect width="32" height="32" rx="6" fill="#17150F"/>
-  <circle cx="16" cy="16" r="5" fill="#9E3B22"/>
+  <rect width="32" height="32" rx="7" fill="#0b1512"/>
+  <path d="M9.1 16.6 C14.2 12.4, 20.4 8.6, 27.4 5.4 C22.3 11.5, 18.2 17.4, 15.4 23.2 Z" fill="#17a394"/>
+  <circle cx="12" cy="20" r="5" fill="#fbfdfc"/>
 </svg>
