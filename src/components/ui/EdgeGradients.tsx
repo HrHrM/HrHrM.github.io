@@ -1,4 +1,6 @@
+import { useInView } from '@/hooks/useInView'
 import { useScrolledPast } from '@/hooks/useScrolledPast'
+import { useSectionProgress } from '@/hooks/useSectionProgress'
 
 import './EdgeGradients.css'
 
@@ -16,6 +18,13 @@ import './EdgeGradients.css'
  * —sobre papel no hay nada que iluminar— así que es sombra: `ink` de la paleta,
  * que es lo que da contraste sobre blanco.
  *
+ * **En Experiencia el margen cambia de efecto, no suma otro.** Los hairlines
+ * se apagan y aparece un raíl: una sola línea vertical con una marca que baja
+ * según lo que llevas recorrido de la sección. Se eligió así porque otro
+ * patrón repetido —ticks, puntos, tramas— habría sido lo mismo con otra forma;
+ * el raíl es de otra naturaleza, y además **dice algo**: Experiencia es una
+ * línea de tiempo, y la marca te sitúa dentro de ella.
+ *
  * Es puramente decorativo: `aria-hidden` y `pointer-events: none`. No hay aquí
  * ninguna información, y nada que se pueda pulsar.
  *
@@ -27,10 +36,26 @@ import './EdgeGradients.css'
  */
 export function EdgeGradients() {
   const past = useScrolledPast('hero')
+  const onExperience = useInView('experience')
+  const progress = useSectionProgress('experience')
+
+  const rail = { '--xp-progress': progress } as React.CSSProperties
+
   return (
     <div aria-hidden="true">
-      <div className="edge-gradient edge-gradient--left" data-visible={past} />
-      <div className="edge-gradient edge-gradient--right" data-visible={past} />
+      {(['left', 'right'] as const).map((side) => (
+        <div
+          key={side}
+          className={`edge-gradient edge-gradient--${side}`}
+          data-visible={past}
+          data-rail={onExperience}
+          style={rail}
+        >
+          <span className="edge-rail">
+            <span className="edge-rail__mark" />
+          </span>
+        </div>
+      ))}
     </div>
   )
 }

@@ -151,6 +151,17 @@
   /* Un paso completo por ciclo: al reiniciar, el patrón coincide consigo mismo
      y la deriva no tiene costura. */
   animation: edge-scan 14s linear infinite;
+  opacity: 1;
+  transition: opacity 700ms ease;
+}
+
+/* Al entrar en Experiencia los hairlines se retiran casi del todo. El margen
+   **cambia** de efecto en vez de acumular dos: dejarlos a plena intensidad
+   bajo el raíl era seguir enseñando el mismo patrón, que es justo lo que se
+   quería evitar. No se apagan del todo para que la transición de vuelta no
+   parezca un encendido. */
+:root:not(.dark) .edge-gradient[data-rail='true']::before {
+  opacity: 0.18;
 }
 
 @keyframes edge-scan {
@@ -159,5 +170,60 @@
   }
   to {
     background-position: 0 var(--edge-step);
+  }
+}
+
+/* El raíl de Experiencia: una línea vertical con una marca que baja con el
+   recorrido. Solo en claro —en oscuro el margen ya tiene su niebla— y solo
+   mientras la sección ocupa el centro.
+
+   No es otro patrón: es una línea sola. Un tramado más, por distinto que
+   fuera el paso, se habría leído como lo mismo con otra forma. */
+.edge-rail {
+  position: absolute;
+  top: 12vh;
+  bottom: 12vh;
+  width: 1px;
+  /* No `line`: es el token decorativo, a 1.29:1, y aquí la línea es lo único
+     que hay en el margen. Con `ink` diluido se ve sin gritar. */
+  background: color-mix(in oklab, var(--ink) 24%, transparent);
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+/* Pegado al lado del contenido, no al borde de la pantalla: ahí funciona como
+   el canto de la caja de texto y no como un adorno suelto en el vacío. */
+.edge-gradient--left .edge-rail {
+  right: 2.5rem;
+}
+
+.edge-gradient--right .edge-rail {
+  left: 2.5rem;
+}
+
+:root:not(.dark) .edge-gradient[data-rail='true'] .edge-rail {
+  opacity: 1;
+}
+
+/* La marca. `--xp-progress` la escribe React de 0 a 1; el `calc` la traduce a
+   la altura del raíl. La transición corta absorbe el salto entre fotogramas de
+   scroll sin llegar a arrastrarse por detrás del dedo. */
+.edge-rail__mark {
+  position: absolute;
+  left: -3px;
+  width: 7px;
+  height: 1px;
+  background: var(--accent);
+  top: calc(var(--xp-progress, 0) * 100%);
+  transition: top 120ms linear;
+}
+
+/* Con la preferencia puesta el raíl se queda, porque no se mueve solo: lo
+   mueve el scroll del propio lector. Lo que se quita es la interpolación, que
+   sí es animación. */
+@media (prefers-reduced-motion: reduce) {
+  .edge-rail,
+  .edge-rail__mark {
+    transition: none;
   }
 }
