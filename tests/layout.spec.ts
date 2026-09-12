@@ -76,36 +76,44 @@ test('el menú móvil abre y navega', async ({ page }) => {
 
   const menu = page.getByRole('button', { name: /menú|menu/i }).first()
 
-  // El botón del menú se oculta sobre el Hero igual que los enlaces —abre lo
-  // mismo, así que ahí no tendría nada que abrir— y hay que bajar antes de
-  // pulsarlo. Se reintenta porque `<ScrollRestoration />` sube la página al
-  // acabar la hidratación; ver la nota larga en `navigation.spec.ts`.
-  await expect
-    .poll(
-      async () => {
-        const y = await page
-          .locator('#hero')
-          .evaluate((el) => el.getBoundingClientRect().bottom + window.scrollY)
-        await page.evaluate(
-          (to) => window.scrollTo({ top: to, behavior: 'instant' }),
-          y + 40,
-        )
-        await page.waitForTimeout(200)
-        return menu.evaluate((el) => getComputedStyle(el).pointerEvents)
-      },
-      { timeout: 15_000 },
-    )
-    .toBe('auto')
-
+  // Ya no hace falta bajar del Hero: en móvil el botón está siempre visible,
+  // porque los controles de idioma y tema se mudaron dentro del panel y es lo
+  // único que da acceso a ellos.
+  //
   // Con el ratón en coordenadas, no con `locator.click()`: este desplaza la
-  // página antes de pulsar y con una cabecera `sticky` eso acaba en scrollY 0,
-  // donde el botón vuelve a estar oculto. La nota larga está en
-  // `navigation.spec.ts`, junto a `clickNav`.
+  // página antes de pulsar y con una cabecera `sticky` eso acaba en scrollY 0.
+  // La nota larga está en `navigation.spec.ts`, junto a `clickNav`.
   const menuBox = (await menu.boundingBox())!
   await page.mouse.click(
     menuBox.x + menuBox.width / 2,
     menuBox.y + menuBox.height / 2,
   )
+
+  // **Hay que esperar a que el panel termine de crecer antes de medir el
+  // enlace.** Mientras se abre, su caja se está moviendo hacia abajo: se toman
+  // unas coordenadas, el panel sigue creciendo y el clic aterriza donde el
+  // enlace estaba, no donde está. Se veía como que el menú no navegaba —
+  // `#contact` quedaba a 11030px del borde— y solo fallaba en CI, que es más
+  // lento. `toBeVisible()` no basta: un elemento a media transición ya es
+  // visible.
+  const clip = page.locator('#menu-movil .nav-panel__clip')
+  await expect
+    .poll(
+      () =>
+        clip.evaluate((el) => Math.round(el.getBoundingClientRect().height)),
+      {
+        timeout: 5000,
+      },
+    )
+    .toBeGreaterThan(200)
+  await expect
+    .poll(async () => {
+      const a = await clip.evaluate((el) => el.getBoundingClientRect().height)
+      await page.waitForTimeout(80)
+      const b = await clip.evaluate((el) => el.getBoundingClientRect().height)
+      return a === b
+    })
+    .toBe(true)
 
   const link = page.locator('#menu-movil a[href$="#contact"]')
   await expect(link).toBeVisible()

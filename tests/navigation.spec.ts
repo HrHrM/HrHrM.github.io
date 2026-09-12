@@ -391,24 +391,60 @@ test.describe('barra en móvil', () => {
 
   test('el menú se abre con recorrido, no de golpe', async ({ page }) => {
     await visit(page, '/')
-    const clip = page.locator('#menu-movil .nav-panel__clip')
 
-    await tap(page, burger(page))
+    /**
+     * El muestreo empieza **antes** del clic y va por `requestAnimationFrame`
+     * hasta que el alto se estabiliza.
+     *
+     * La primera versión miraba una sola vez, a 140ms fijos, y comparaba esa
+     * muestra con la final. Eso es la misma fragilidad que documenta `settle`
+     * unas líneas más arriba, y perdió la carrera en Firefox sobre CI: a los
+     * 140ms la transición ya había terminado, así que medio y final valían los
+     * dos 356 y la prueba falló sin que nada estuviera roto.
+     *
+     * Contar valores distintos no depende de cuándo se mire. Un cambio seco da
+     * exactamente dos —0 y el final—; una transición da decenas.
+     */
+    const serie = await page.evaluate(async () => {
+      const clip = document.querySelector<HTMLElement>(
+        '#menu-movil .nav-panel__clip',
+      )!
+      const alturas: number[] = []
+      let quieto = 0
 
-    // A mitad de la transición el alto tiene que estar **entre** los dos
-    // extremos. Si fuera un cambio seco, la muestra intermedia ya valdría el
-    // final y esta comprobación no distinguiría una cosa de la otra.
-    await page.waitForTimeout(140)
-    const medio = await clip.evaluate((el) => el.getBoundingClientRect().height)
+      const muestrear = () =>
+        new Promise<void>((resolve) => {
+          const tick = () => {
+            const h = Math.round(clip.getBoundingClientRect().height)
+            quieto = h === alturas.at(-1) ? quieto + 1 : 0
+            alturas.push(h)
+            // Doce fotogramas sin cambio, y un techo por si algo se atasca.
+            if (quieto >= 12 || alturas.length > 240) resolve()
+            else requestAnimationFrame(tick)
+          }
+          requestAnimationFrame(tick)
+        })
 
-    await page.waitForTimeout(600)
-    const final = await clip.evaluate((el) => el.getBoundingClientRect().height)
+      const pending = muestrear()
+      document
+        .querySelector<HTMLElement>(
+          'header button[aria-controls="menu-movil"]',
+        )!
+        .click()
+      await pending
+      return alturas
+    })
+
+    const final = serie.at(-1)!
+    const distintos = new Set(serie).size
 
     expect(final, 'el panel no llegó a abrirse').toBeGreaterThan(200)
-    expect(medio, `a mitad medía ${medio} y al final ${final}`).toBeGreaterThan(
-      0,
-    )
-    expect(medio).toBeLessThan(final)
+    expect(
+      distintos,
+      `el alto solo tomó ${distintos} valores (${[...new Set(serie)].slice(0, 6).join(', ')}…): eso es un salto, no una animación`,
+    ).toBeGreaterThan(4)
+    // Y que de verdad pasó por posiciones intermedias, no solo por los extremos.
+    expect(serie.some((h) => h > 0 && h < final)).toBe(true)
   })
 
   test('el icono se pliega en aspa al abrir', async ({ page }) => {

@@ -508,8 +508,8 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
       la raíz, así que no hay `base` ni `basename` que tocar.
 
       Ojo con la barra final: en Pages, `/en` responde 301 hacia `/en/`, así que
-                          `absoluteUrl()` la añade a las rutas de página (y no a los ficheros). Hay
-                          una prueba que exige que toda canónica responda 200 sin redirigir.
+                              `absoluteUrl()` la añade a las rutas de página (y no a los ficheros). Hay
+                              una prueba que exige que toda canónica responda 200 sin redirigir.
 
 ### Qué va en `public/` y qué en `src/assets/`
 
