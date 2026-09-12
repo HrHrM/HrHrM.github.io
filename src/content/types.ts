@@ -93,7 +93,11 @@ export type UIStrings = {
     stack: string
     experience: string
     contact: string
-    /** Etiqueta accesible del botón de menú en móvil. */
+    /**
+     * Etiqueta accesible del botón de menú en móvil, y nombre del panel que
+     * abre. **Sin verbo**: `aria-expanded` ya dice si está abierto, así que
+     * «Abrir menú» pasaba a ser falso justo al abrirlo.
+     */
     menu: string
     /** Nombre accesible de la navegación principal. */
     primary: string

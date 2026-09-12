@@ -94,6 +94,22 @@ Todo lo demás en la página está al servicio de eso.
   raro: aceleración por hardware desactivada, máquinas virtuales, escritorios
   remotos, navegadores endurecidos. **Chromium lo esconde** porque cae a
   SwiftShader por software; lo destapó Firefox en CI.
+- **`cn()` se come las clases propias que empiecen por un prefijo de Tailwind.**
+  `cn()` es clsx + `tailwind-merge`, y `tailwind-merge` resuelve conflictos por
+  familia: para él `text-type__cursor`, `text-type__cursor--blink` y
+  `text-type__cursor--hidden` son tres utilidades del grupo `text-*` que se
+  pisan, así que **solo sobrevive la última**. Medido: el cursor acababa con
+  `class="text-type__cursor--hidden"` a secas, sin clase base ni parpadeo, y
+  sin ningún error — la animación simplemente no existía.
+
+  Las clases BEM de un componente **no van por `cn()`**: se concatenan. `cn()`
+  es para condicionales de Tailwind, y solo lo que llega de fuera
+  (`className`) necesita fusionarse. Auditado el resto del proyecto contra
+  `twMerge` comparando por token —no por subcadena, que es como se me escapó a
+  la primera—: de 47 clases propias, las siete `text-type*` eran las únicas
+  afectadas. `fold-text`, `star-border`, `spotlight-card`, `infinite-spiral`,
+  `nav-*` y `xp-*` no colisionan con ninguna familia.
+
 - **Oxlint es linter, no formateador.** No sustituye a Prettier.
 
 ---
@@ -492,8 +508,8 @@ Esto bloquea el diseño. Rellenar antes de escribir componentes:
       la raíz, así que no hay `base` ni `basename` que tocar.
 
       Ojo con la barra final: en Pages, `/en` responde 301 hacia `/en/`, así que
-                  `absoluteUrl()` la añade a las rutas de página (y no a los ficheros). Hay
-                  una prueba que exige que toda canónica responda 200 sin redirigir.
+                              `absoluteUrl()` la añade a las rutas de página (y no a los ficheros). Hay
+                              una prueba que exige que toda canónica responda 200 sin redirigir.
 
 ### Qué va en `public/` y qué en `src/assets/`
 

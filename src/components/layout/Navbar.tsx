@@ -1,21 +1,34 @@
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
 import { Link } from 'react-router'
 
 import { LocaleSwitch } from './LocaleSwitch'
 import { ThemeToggle } from './ThemeToggle'
+import { TextType } from '@/components/ui/TextType'
 import { useLocale } from '@/hooks/useLocale'
 import { useScrolledPast } from '@/hooks/useScrolledPast'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { SECTION_IDS } from '@/lib/nav'
 import { SITE } from '@/lib/constants'
 import { cn } from '@/lib/cn'
+import './Navbar.css'
 
 /**
- * Mientras se está en el Hero solo se ven los dos controles —idioma y tema— y
- * el resto de la barra no existe: ni fondo, ni hairline, ni enlaces. La
- * navegación aparece a partir de Experiencia, que es donde hay algo entre lo
- * que navegar.
+ * La barra tiene dos formas, y no son la misma con menos cosas.
+ *
+ * **En escritorio** aparece a partir de Experiencia —que es donde hay algo
+ * entre lo que navegar— con el nombre, los cinco enlaces y los dos controles.
+ * Sobre el Hero se atenúa entera.
+ *
+ * **En móvil solo existe el botón de menú, y está siempre.** Antes el idioma y
+ * el tema vivían también en la barra, sin prefijo `md:`, así que sobre el Hero
+ * se pintaban cuatro controles sueltos encima del texto: la barra es
+ * transparente ahí, y al desplazarse el titular pasaba por debajo de un
+ * «ES EN ☾ ☰» que no tenía fondo. Ahora los dos controles se han mudado dentro
+ * del panel, y arriba queda un solo botón.
+ *
+ * Que el botón esté visible **también sobre el Hero** es consecuencia de esa
+ * mudanza, no un capricho: si se ocultara, en móvil no habría forma de cambiar
+ * de idioma ni de tema sin bajar primero.
  *
  * Lo que se oculta se atenúa, no se desmonta. Con `opacity-0` la maqueta no se
  * mueve al cambiar de estado, y `focus-within` lo devuelve entero en cuanto
@@ -44,6 +57,23 @@ export function Navbar() {
   const hidden =
     'pointer-events-none opacity-0 focus-within:pointer-events-auto focus-within:opacity-100'
 
+  // Al pasar a escritorio el panel se oculta por CSS, pero el estado seguiría
+  // abierto y el bloqueo de scroll puesto: la página se quedaría sin poder
+  // desplazarse y sin nada visible que explicara por qué.
+  //
+  // Se cierra desde el evento del `matchMedia` y no comparando un booleano en
+  // el cuerpo del efecto. La diferencia no es de estilo: llamar a `setOpen`
+  // ahí encadena un render extra en cada montaje, y solo hay que cerrar cuando
+  // el ancho **cruza** el umbral, que es justo lo que ese evento significa.
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 48rem)')
+    const onChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false)
+    }
+    query.addEventListener('change', onChange)
+    return () => query.removeEventListener('change', onChange)
+  }, [])
+
   // Bloquea el scroll del fondo mientras el menú móvil está abierto.
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -70,7 +100,7 @@ export function Navbar() {
         // El borde se mantiene declarado y solo cambia de color: quitarlo
         // movería la barra un píxel cada vez que aparece.
         'sticky top-0 z-50 border-b transition-colors duration-200',
-        past
+        past || open
           ? 'border-line bg-paper/85 backdrop-blur-sm'
           : 'border-transparent bg-transparent',
       )}
@@ -83,7 +113,19 @@ export function Navbar() {
             !past && hidden,
           )}
         >
-          {SITE.name}
+          {/* Se teclea una sola vez, cuando la barra aparece. `reserveSpace`
+              es lo que evita que los enlaces de al lado tiemblen mientras se
+              escribe: el ancho está reservado desde el principio. */}
+          <TextType
+            as="span"
+            text={SITE.name}
+            start={past}
+            typingSpeed={38}
+            loop={false}
+            hideCursorWhenDone
+            cursorCharacter="_"
+            cursorBlinkDuration={0.45}
+          />
         </Link>
 
         <nav
@@ -111,9 +153,19 @@ export function Navbar() {
           </ul>
         </nav>
 
+        {/* En móvil este bloque es solo el botón: los dos controles están
+            dentro del panel. En escritorio no cambia nada respecto a antes. */}
         <div className="flex items-center gap-2">
-          <LocaleSwitch variant={past ? 'bar' : 'bare'} />
-          <ThemeToggle labels={ui.theme} variant={past ? 'bar' : 'bare'} />
+          {/* **Sin atenuar sobre el Hero, y es deliberado**: en escritorio hay
+              sitio de sobra y estos dos son lo único que se ofrece antes de
+              bajar. Solo cambian de caja — `bare` sin borde arriba, `bar`
+              cuando la barra ya tiene fondo. Lo que se oculta ahí son los
+              enlaces, que sobre el Hero no llevan a ningún sitio todavía. */}
+          <div className="hidden items-center gap-2 md:flex">
+            <LocaleSwitch variant={past ? 'bar' : 'bare'} />
+            <ThemeToggle labels={ui.theme} variant={past ? 'bar' : 'bare'} />
+          </div>
+
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -121,43 +173,72 @@ export function Navbar() {
             aria-controls="menu-movil"
             aria-label={ui.nav.menu}
             className={cn(
-              'grid size-9 place-items-center border text-muted transition-opacity duration-200 md:hidden',
-              past ? 'border-line' : 'border-transparent',
-              // El menú abre los mismos enlaces que se ocultan arriba, así que
-              // sobre el Hero no tiene nada que abrir.
-              !past && hidden,
+              'grid size-9 place-items-center border text-muted transition-colors md:hidden',
+              past || open
+                ? 'border-line text-ink'
+                : 'border-transparent text-muted',
             )}
           >
-            {open ? (
-              <X aria-hidden="true" className="size-4" />
-            ) : (
-              <Menu aria-hidden="true" className="size-4" />
-            )}
+            {/* Dos trazos en vez de los iconos de lucide: el aspa del
+                `CardNav` necesita animar cada línea por separado, y un `<svg>`
+                que se sustituye por otro no se puede interpolar. */}
+            <span aria-hidden="true" className="nav-burger">
+              <span className="nav-burger__line" />
+              <span className="nav-burger__line" />
+            </span>
           </button>
         </div>
       </div>
 
-      {open ? (
-        <nav
-          id="menu-movil"
-          aria-label={ui.nav.menu}
-          className="border-t border-line bg-paper md:hidden"
-        >
-          <ul className="flex flex-col px-gutter py-2">
-            {items.map(({ id, label }) => (
-              <li key={id} className="border-b border-line last:border-0">
-                <Link
-                  to={`#${id}`}
-                  onClick={() => setOpen(false)}
-                  className="block py-4 font-mono text-meta tracking-wide text-muted uppercase"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      ) : null}
+      {/* El panel se queda montado siempre: la altura se anima con
+          `grid-template-rows`, y desmontarlo mataría también la animación de
+          cierre. `inert` es lo que lo saca del foco y del árbol de
+          accesibilidad mientras está plegado — sin él, tabular desde la barra
+          entraría en unos enlaces que nadie ve. */}
+      <div
+        id="menu-movil"
+        data-open={open}
+        inert={!open}
+        className="nav-panel md:hidden"
+      >
+        <div className="nav-panel__clip">
+          <div className="nav-panel__body">
+            <nav aria-label={ui.nav.menu}>
+              <ul className="flex flex-col px-gutter">
+                {items.map(({ id, label }, i) => (
+                  <li
+                    key={id}
+                    style={{ '--nav-i': i } as React.CSSProperties}
+                    className="nav-panel__item border-b border-line"
+                  >
+                    <Link
+                      to={`#${id}`}
+                      onClick={() => setOpen(false)}
+                      aria-current={active === id ? 'true' : undefined}
+                      className={cn(
+                        'block py-4 font-mono text-meta tracking-wide uppercase transition-colors',
+                        active === id ? 'text-accent' : 'text-muted',
+                      )}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Idioma y tema cierran la lista, con el mismo escalonado: entran
+                como una fila más, después de los enlaces. */}
+            <div
+              style={{ '--nav-i': items.length } as React.CSSProperties}
+              className="nav-panel__item flex items-center justify-between px-gutter py-4"
+            >
+              <LocaleSwitch variant="bar" />
+              <ThemeToggle labels={ui.theme} variant="bar" />
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
   )
 }

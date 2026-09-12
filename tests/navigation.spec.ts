@@ -283,6 +283,256 @@ for (const path of ['/', '/en/']) {
   })
 }
 
+/**
+ * La barra en móvil, donde vive el fallo que originó todo esto.
+ *
+ * En móvil la barra es transparente sobre el Hero, y ahí se pintaban **cuatro**
+ * controles sueltos: `ES`, `EN`, el tema y el menú. Al desplazarse un poco, el
+ * titular pasaba justo por debajo y quedaba «Desarrollando ap·ES·icaciones ☰
+ * web y móviles». Con un solo botón el problema desaparece, y estas pruebas
+ * son las que impiden que los controles vuelvan a la barra sin querer.
+ */
+test.describe('barra en móvil', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  const burger = (page: Page) =>
+    page.locator('header button[aria-controls="menu-movil"]')
+
+  /** Pulsa con el ratón en coordenadas: ver la nota de `clickNav`. */
+  async function tap(page: Page, locator: ReturnType<Page['locator']>) {
+    const box = await locator.boundingBox()
+    expect(box, 'el elemento no tiene caja').not.toBeNull()
+    await page.mouse.click(box!.x + box!.width / 2, box!.y + box!.height / 2)
+  }
+
+  test('en el Hero solo se ve el botón de menú', async ({ page }) => {
+    await visit(page, '/')
+
+    // El botón, sí: es lo único desde lo que se puede hacer algo en móvil, así
+    // que se queda visible incluso con la barra transparente.
+    await expect(burger(page)).toBeVisible()
+    expect(
+      await burger(page).evaluate((el) => getComputedStyle(el).pointerEvents),
+    ).toBe('auto')
+
+    // Y nada más. Se cuenta lo que hay **fuera** del panel, que es donde
+    // estaban antes los cuatro controles.
+    const fuera = await page.evaluate(() => {
+      const bar = document.querySelector('header > div')
+      if (!bar) return null
+      return [...bar.querySelectorAll('a, button')].filter((el) => {
+        const r = el.getBoundingClientRect()
+        return (
+          r.width > 0 && r.height > 0 && getComputedStyle(el).opacity !== '0'
+        )
+      }).length
+    })
+    expect(fuera, 'hay más de un control visible en la barra').toBe(1)
+  })
+
+  test('el idioma y el tema viven dentro del menú', async ({ page }) => {
+    await visit(page, '/')
+    const panel = page.locator('#menu-movil')
+
+    // Cerrado: `inert` lo saca del foco y del árbol de accesibilidad.
+    await expect(panel).toHaveAttribute('inert', '')
+    expect(
+      await panel.evaluate(
+        (el) =>
+          el.querySelector('.nav-panel__clip')!.getBoundingClientRect().height,
+      ),
+    ).toBe(0)
+
+    await tap(page, burger(page))
+    await expect(panel).not.toHaveAttribute('inert', '')
+
+    // Los cinco enlaces más los dos controles, todos dentro.
+    await expect(panel.locator('a[href*="#"]')).toHaveCount(5)
+    await expect(panel.locator('a[hreflang]')).toHaveCount(2)
+    await expect(
+      panel.getByRole('button', { name: /tema|theme/i }),
+    ).toHaveCount(1)
+  })
+
+  test('el tema se puede cambiar desde el menú, sin salir del Hero', async ({
+    page,
+  }) => {
+    // Es la razón por la que el botón sigue visible arriba: si no, en móvil no
+    // habría forma de llegar a estos dos controles sin bajar antes.
+    await visit(page, '/')
+    const antes = await page
+      .locator('html')
+      .evaluate((el) => el.classList.contains('dark'))
+
+    await tap(page, burger(page))
+
+    // Hay que esperar a que el panel termine de crecer: mientras se abre, la
+    // caja del botón todavía se está moviendo y el clic cae donde estaba, no
+    // donde está. Es el mismo tipo de carrera que el desplazamiento suave.
+    const clip = page.locator('#menu-movil .nav-panel__clip')
+    await expect
+      .poll(() => clip.evaluate((el) => el.getBoundingClientRect().height), {
+        timeout: 3000,
+      })
+      .toBeGreaterThan(200)
+    await page.waitForTimeout(120)
+
+    await tap(
+      page,
+      page.locator('#menu-movil').getByRole('button', { name: /tema|theme/i }),
+    )
+
+    await expect
+      .poll(() =>
+        page.locator('html').evaluate((el) => el.classList.contains('dark')),
+      )
+      .toBe(!antes)
+  })
+
+  test('el menú se abre con recorrido, no de golpe', async ({ page }) => {
+    await visit(page, '/')
+
+    /**
+     * El muestreo empieza **antes** del clic y va por `requestAnimationFrame`
+     * hasta que el alto se estabiliza.
+     *
+     * La primera versión miraba una sola vez, a 140ms fijos, y comparaba esa
+     * muestra con la final. Eso es la misma fragilidad que documenta `settle`
+     * unas líneas más arriba, y perdió la carrera en Firefox sobre CI: a los
+     * 140ms la transición ya había terminado, así que medio y final valían los
+     * dos 356 y la prueba falló sin que nada estuviera roto.
+     *
+     * Contar valores distintos no depende de cuándo se mire. Un cambio seco da
+     * exactamente dos —0 y el final—; una transición da decenas.
+     */
+    const serie = await page.evaluate(async () => {
+      const clip = document.querySelector<HTMLElement>(
+        '#menu-movil .nav-panel__clip',
+      )!
+      const alturas: number[] = []
+      let quieto = 0
+
+      const muestrear = () =>
+        new Promise<void>((resolve) => {
+          const tick = () => {
+            const h = Math.round(clip.getBoundingClientRect().height)
+            quieto = h === alturas.at(-1) ? quieto + 1 : 0
+            alturas.push(h)
+            // Doce fotogramas sin cambio, y un techo por si algo se atasca.
+            if (quieto >= 12 || alturas.length > 240) resolve()
+            else requestAnimationFrame(tick)
+          }
+          requestAnimationFrame(tick)
+        })
+
+      const pending = muestrear()
+      document
+        .querySelector<HTMLElement>(
+          'header button[aria-controls="menu-movil"]',
+        )!
+        .click()
+      await pending
+      return alturas
+    })
+
+    const final = serie.at(-1)!
+    const distintos = new Set(serie).size
+
+    expect(final, 'el panel no llegó a abrirse').toBeGreaterThan(200)
+    expect(
+      distintos,
+      `el alto solo tomó ${distintos} valores (${[...new Set(serie)].slice(0, 6).join(', ')}…): eso es un salto, no una animación`,
+    ).toBeGreaterThan(4)
+    // Y que de verdad pasó por posiciones intermedias, no solo por los extremos.
+    expect(serie.some((h) => h > 0 && h < final)).toBe(true)
+  })
+
+  test('el icono se pliega en aspa al abrir', async ({ page }) => {
+    await visit(page, '/')
+    const lines = () =>
+      page
+        .locator('.nav-burger__line')
+        .evaluateAll((els) => els.map((el) => getComputedStyle(el).transform))
+
+    expect(await lines()).toEqual(['none', 'none'])
+
+    await tap(page, burger(page))
+    await page.waitForTimeout(500)
+
+    // 45° son cos/sin = 0.7071 en la matriz, y el desplazamiento vertical es
+    // medio hueco más medio grosor: (6 + 1.5) / 2 = 3.75px.
+    const abierto = await lines()
+    expect(abierto[0]).toContain('0.707107')
+    expect(abierto[0]).toContain('3.75')
+    expect(abierto[1]).toContain('-3.75')
+  })
+
+  test('el menú se cierra al elegir una sección', async ({ page }) => {
+    await visit(page, '/')
+    await tap(page, burger(page))
+    await page.waitForTimeout(600)
+
+    await tap(page, page.locator('#menu-movil a[href$="#experience"]'))
+    await expect(page.locator('#menu-movil')).toHaveAttribute('inert', '')
+    await expect(burger(page)).toHaveAttribute('aria-expanded', 'false')
+  })
+})
+
+/**
+ * El nombre de la barra se escribe a máquina cuando la barra aparece.
+ *
+ * Lo que de verdad se protege aquí es el **ancho reservado**. Sin él, el nodo
+ * crece letra a letra dentro de un contenedor flex y empuja a los enlaces en
+ * cada pulsación: no es un detalle estético, es toda la fila temblando durante
+ * medio segundo cada vez que se pasa del Hero.
+ */
+test.describe('el nombre se teclea en la barra', () => {
+  test('se escribe entero y sin mover los enlaces de al lado', async ({
+    page,
+  }) => {
+    await visit(page, '/')
+
+    const navLeft = () =>
+      page
+        .locator('header nav[aria-label]')
+        .first()
+        .evaluate((el) => Math.round(el.getBoundingClientRect().left))
+
+    const partida = await navLeft()
+    await revealNavbar(page)
+
+    const posiciones: number[] = []
+    for (let i = 0; i < 8; i++) {
+      await page.waitForTimeout(110)
+      posiciones.push(await navLeft())
+    }
+
+    expect(
+      new Set([partida, ...posiciones]).size,
+      `los enlaces se movieron: ${[...new Set(posiciones)].join(', ')}`,
+    ).toBe(1)
+
+    await expect
+      .poll(
+        () =>
+          page
+            .locator('header .text-type__live')
+            .evaluate((el) => el.textContent?.replace('_', '') ?? ''),
+        { timeout: 5000 },
+      )
+      .toBe('Johnny Bohorquez')
+  })
+
+  test('el nombre completo llega a un lector de pantalla', async ({ page }) => {
+    // Lo visual va `aria-hidden` porque un nodo que cambia cada 38ms se
+    // anunciaría sin parar. El texto real vive en un nodo aparte.
+    await visit(page, '/')
+    await expect(page.locator('header .text-type__sr')).toHaveText(
+      'Johnny Bohorquez',
+    )
+  })
+})
+
 test.describe('idioma', () => {
   test('cambiar de idioma conserva la ruta y cambia el lang', async ({
     page,

@@ -30,6 +30,40 @@ for (const path of ROUTES) {
       await page.waitForTimeout(400)
       await page.evaluate(() => window.scrollTo(0, 0))
 
+      /**
+       * **Hay que esperar a que la barra termine de desvanecerse.**
+       *
+       * Al volver arriba, la barra tarda en irse: el `IntersectionObserver`
+       * que decide si se ha pasado del Hero no ha disparado todavía, y encima
+       * hay 200ms de transición. Medido en Firefox: a los 200ms del `scrollTo`
+       * la barra seguía a `opacity: 1`, y no llegaba a 0 hasta pasados los 500.
+       *
+       * Analizar ahí dentro es medir un fotograma cualquiera de un fundido, y
+       * axe marcaba contraste insuficiente en el nombre y en dos enlaces — con
+       * razón, porque a media opacidad el contraste es malo de verdad. No es un
+       * defecto del sitio: es texto que se está yendo. Solo falló en CI, que va
+       * más lento, y por eso pasó desapercibido en local.
+       *
+       * Se espera a que la opacidad se estabilice y no a un tiempo fijo, que es
+       * la misma disciplina que `settle` en `navigation.spec.ts`.
+       */
+      const barra = page.locator('header nav[aria-label]').first()
+      await expect
+        .poll(
+          async () => {
+            const antes = await barra.evaluate(
+              (el) => getComputedStyle(el).opacity,
+            )
+            await page.waitForTimeout(100)
+            const despues = await barra.evaluate(
+              (el) => getComputedStyle(el).opacity,
+            )
+            return antes === despues ? despues : null
+          },
+          { timeout: 5000 },
+        )
+        .toBe('0')
+
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
         .analyze()
