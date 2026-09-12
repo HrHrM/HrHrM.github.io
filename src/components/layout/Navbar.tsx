@@ -195,12 +195,10 @@ export function Navbar() {
           cierre. `inert` es lo que lo saca del foco y del árbol de
           accesibilidad mientras está plegado — sin él, tabular desde la barra
           entraría en unos enlaces que nadie ve. */}
-      <div
-        id="menu-movil"
-        data-open={open}
-        inert={!open}
-        className="nav-panel md:hidden"
-      >
+      {/* Sin `md:hidden`: el `display` del panel —y su punto de ruptura— los
+          gobierna `Navbar.css`. Mezclar los dos perdía la carrera de orden en
+          la hoja y el panel acababa renderizándose en escritorio. */}
+      <div id="menu-movil" data-open={open} inert={!open} className="nav-panel">
         <div className="nav-panel__clip">
           <div className="nav-panel__body">
             <nav aria-label={ui.nav.menu}>

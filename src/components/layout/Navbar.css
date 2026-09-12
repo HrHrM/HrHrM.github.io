@@ -17,11 +17,29 @@
 
 /* El truco del alto: el panel es una rejilla de una fila que pasa de 0fr a
    1fr. El hijo necesita `overflow: hidden` o el contenido se sale mientras la
-   fila todavía mide menos que él. */
+   fila todavía mide menos que él.
+
+   **El `display` lo gobierna este fichero, no una utilidad de Tailwind**, y no
+   es preferencia de estilo: `.nav-panel` y `.md\:hidden` tienen la misma
+   especificidad —una clase cada una— así que decide el orden de aparición en
+   la hoja. Medido en el build: `.md\:hidden` cae en el offset 23995 y
+   `.nav-panel` en el 31069, o sea que `display: grid` ganaba y **el panel
+   móvil se renderizaba también en escritorio**: 285px de menú maquetados y
+   recortados a cero en cada carga. Invisible, `inert` y sin síntoma — el tipo
+   de cosa que no aparece en una captura.
+
+   Con la media query aquí no hay carrera posible: el fichero que fija el
+   `display` fija también sus puntos de ruptura. */
 .nav-panel {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 48rem) {
+  .nav-panel {
+    display: none;
+  }
 }
 
 .nav-panel[data-open='true'] {
