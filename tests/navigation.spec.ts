@@ -79,27 +79,51 @@ async function revealNavbar(page: Page) {
   await expect
     .poll(
       async () => {
-        const heroBottom = await page
+        const objetivo = await page
           .locator('#hero')
-          .evaluate((el) => el.getBoundingClientRect().bottom + window.scrollY)
+          .evaluate(
+            (el) =>
+              Math.round(el.getBoundingClientRect().bottom + window.scrollY) +
+              40,
+          )
         // `instant` y no el `smooth` de la hoja de estilos: aquí interesa
         // llegar, no la animación, y el desplazamiento suave añade una carrera
         // más a una función que ya está esperando a la hidratación.
         await page.evaluate(
           (y) => window.scrollTo({ top: y, behavior: 'instant' }),
-          heroBottom + 40,
+          objetivo,
         )
         await settle(page)
-        return page
-          .getByRole('navigation')
-          .first()
-          .locator('a[href*="#"]')
-          .first()
-          .evaluate((el) => getComputedStyle(el).pointerEvents)
+
+        /**
+         * Se devuelve una cadena con el estado completo, no solo
+         * `pointer-events`.
+         *
+         * La versión anterior devolvía «none» a secas, y cuando falló en CI
+         * —una vez, en `/en/`, imposible de reproducir en local ni en ocho
+         * intentos— el mensaje no decía **nada** sobre por qué: ¿no se había
+         * pasado del Hero? ¿el scroll no había llegado? ¿lo había deshecho
+         * `<ScrollRestoration />`? Con el estado dentro del mensaje, el
+         * siguiente fallo se diagnostica leyendo el log en vez de adivinando.
+         *
+         * Y se comprueba que el scroll **se ha quedado** donde se pidió: si
+         * algo lo devuelve arriba, eso aparece en la cadena y el sondeo
+         * reintenta, en vez de dar por bueno un `pointer-events` medido en una
+         * posición que no es la que se pidió.
+         */
+        return page.evaluate((y) => {
+          const link = document.querySelector<HTMLElement>(
+            'header nav a[href*="#"]',
+          )
+          const pe = link ? getComputedStyle(link).pointerEvents : 'sin-enlace'
+          const donde = Math.round(window.scrollY)
+          const llego = Math.abs(donde - y) <= 2 ? 'sí' : 'NO'
+          return `pe=${pe} scrollY=${donde} objetivo=${y} llegó=${llego}`
+        }, objetivo)
       },
       { timeout: 15_000, intervals: [200, 300, 500, 1000] },
     )
-    .toBe('auto')
+    .toMatch(/^pe=auto .* llegó=sí$/)
 }
 
 /**

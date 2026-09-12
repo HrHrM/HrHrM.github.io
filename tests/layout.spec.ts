@@ -130,6 +130,47 @@ test('el menú móvil abre y navega', async ({ page }) => {
   expect(Math.abs(top - 80)).toBeLessThanOrEqual(6)
 })
 
+test('el panel del menú móvil no existe en escritorio', async ({ page }) => {
+  /**
+   * `display: none`, no «invisible».
+   *
+   * El panel lleva `display: grid` en `Navbar.css` y llevaba además `md:hidden`
+   * de Tailwind. Las dos son una sola clase, así que a igual especificidad
+   * decide el orden en la hoja — y `Navbar.css` va después. Resultado: en
+   * escritorio el panel se renderizaba igual, con sus 285px de menú maquetados
+   * y recortados a cero por el `overflow: hidden`.
+   *
+   * No se veía en ninguna captura y axe no lo marcaba, porque cerrado va
+   * `inert` y sale del árbol de accesibilidad. El único síntoma era trabajo de
+   * maquetación que nadie pedía y un segundo selector de idioma en el DOM.
+   */
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.goto('/')
+
+  const panel = page.locator('#menu-movil')
+  expect(await panel.evaluate((el) => getComputedStyle(el).display)).toBe(
+    'none',
+  )
+
+  // Y no queda menú duplicado maquetado por debajo.
+  const alturas = await panel
+    .locator('nav')
+    .evaluateAll((els) =>
+      els.map((el) => Math.round(el.getBoundingClientRect().height)),
+    )
+  expect(
+    alturas.every((h) => h === 0),
+    `alturas: ${alturas.join(', ')}`,
+  ).toBe(true)
+
+  // En móvil sí tiene que existir, plegado.
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  expect(await panel.evaluate((el) => getComputedStyle(el).display)).toBe(
+    'grid',
+  )
+})
+
 test('las imágenes y el CV que se enlazan existen', async ({
   page,
   request,
