@@ -49,6 +49,52 @@ for (const path of ['/', '/en/']) {
   })
 }
 
+test('con movimiento reducido, el nombre de la barra no se teclea', async ({
+  page,
+}) => {
+  // Escribir carácter a carácter es de los movimientos que más molestan: obliga
+  // a leer algo que se está moviendo. Con la preferencia puesta el texto sale
+  // entero de una vez, y el cursor deja de parpadear — un rectángulo que se
+  // enciende y se apaga cada 0,9s es movimiento igual.
+  await page.goto('/')
+  await page.evaluate(() => {
+    const hero = document.getElementById('hero')!
+    window.scrollTo(
+      0,
+      hero.getBoundingClientRect().bottom + window.scrollY + 40,
+    )
+  })
+
+  const live = page.locator('header .text-type__live')
+  await expect(live).toContainText('Johnny Bohorquez')
+
+  const cursor = page.locator('header .text-type__live .text-type__cursor')
+  expect(
+    await cursor.evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe('none')
+})
+
+test('con movimiento reducido, el menú móvil sigue abriendo', async ({
+  page,
+}) => {
+  // Sin recorrido, pero usable: quitar la animación no puede dejar el menú sin
+  // abrirse, que es el modo en que este tipo de arreglo se rompe.
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+
+  const button = page.locator('header button[aria-controls="menu-movil"]')
+  const box = (await button.boundingBox())!
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2)
+
+  const clip = page.locator('#menu-movil .nav-panel__clip')
+  await expect
+    .poll(() => clip.evaluate((el) => el.getBoundingClientRect().height), {
+      timeout: 3000,
+    })
+    .toBeGreaterThan(200)
+  await expect(page.locator('#menu-movil a[href$="#contact"]')).toBeVisible()
+})
+
 test('con movimiento reducido, todo el contenido está visible', async ({
   page,
 }) => {

@@ -1,0 +1,71 @@
+/* TextType — React Bits (MIT + Commons Clause, © David Haz).
+   https://reactbits.dev
+
+   Lo que cambia respecto al original va marcado con «CAMBIO». */
+
+/* CAMBIO — `inline-grid` con las dos capas en la misma celda, en vez del
+   `inline-block` del original. El medidor lleva el texto más largo y es quien
+   fija el ancho; la capa viva se pinta encima. Sin esto el nodo crece letra a
+   letra y empuja a sus hermanos en cada pulsación. */
+.text-type {
+  display: inline-grid;
+  white-space: pre-wrap;
+}
+
+.text-type__sizer,
+.text-type__live {
+  grid-area: 1 / 1;
+}
+
+/* `visibility: hidden` y no `opacity: 0`: sigue ocupando su sitio —que es todo
+   lo que se le pide— pero no se pinta ni se lee. */
+.text-type__sizer {
+  visibility: hidden;
+}
+
+.text-type__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.text-type__cursor {
+  display: inline-block;
+  margin-left: 0.15em;
+}
+
+/* CAMBIO — el parpadeo era una `gsap.to` con `repeat: -1, yoyo: true`. Con
+   `alternate` el resultado es el mismo, y la duración sale de la variable que
+   escribe el componente. `steps` no: el original interpola la opacidad, así
+   que el cursor se desvanece en vez de saltar. */
+.text-type__cursor--blink {
+  animation: text-type-blink var(--type-blink, 1s) ease-in-out infinite
+    alternate;
+}
+
+.text-type__cursor--hidden {
+  visibility: hidden;
+}
+
+@keyframes text-type-blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Con la preferencia puesta el componente ya sale escrito entero (lo decide el
+   TSX), así que aquí solo queda parar el cursor: un rectángulo parpadeando
+   indefinidamente es movimiento igual, y de los que más molestan. */
+@media (prefers-reduced-motion: reduce) {
+  .text-type__cursor--blink {
+    animation: none;
+  }
+}

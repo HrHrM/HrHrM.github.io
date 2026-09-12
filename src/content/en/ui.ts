@@ -8,7 +8,7 @@ export const ui: UIStrings = {
     stack: 'Stack',
     experience: 'Experience',
     contact: 'Contact',
-    menu: 'Open menu',
+    menu: 'Menu',
     primary: 'Main navigation',
     skipToContent: 'Skip to content',
   },
