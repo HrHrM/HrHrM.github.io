@@ -21,6 +21,20 @@ for (const path of ROUTES) {
     test(`axe sin infracciones en ${path} · tema ${scheme}`, async ({
       page,
     }) => {
+      /**
+       * Triplica el tiempo permitido (30s → 90s), y no es tapar una carrera.
+       *
+       * Axe recorre el DOM entero calculando contraste elemento por elemento,
+       * y en Firefox eso son entre 10 y 20 segundos por ruta. Con cuatro
+       * workers compitiendo por la misma máquina se pasaba de los 30 por
+       * defecto: fallaba con `Test timeout exceeded`, sin una sola infracción,
+       * mientras que la misma prueba a solas terminaba en 12s.
+       *
+       * Un fallo por reloj en una prueba que en realidad pasa es peor que una
+       * prueba lenta: enseña a ignorar el rojo.
+       */
+      test.slow()
+
       await page.emulateMedia({ colorScheme: scheme })
       await page.goto(path)
       // Que monten los efectos que dependen de estar en pantalla.

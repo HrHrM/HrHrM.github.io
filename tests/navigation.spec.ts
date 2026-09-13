@@ -76,15 +76,32 @@ async function visit(page: Page, path: string) {
  * enlace refleja lo que tenga el `<nav>` que lo contiene.
  */
 async function revealNavbar(page: Page) {
+  let intento = 0
   await expect
     .poll(
       async () => {
+        /**
+         * Cada reintento mueve el objetivo un píxel, alternando.
+         *
+         * Reintentar a la **misma** posición no sirve de nada: `scrollTo` a
+         * donde ya estás no genera ningún cambio, así que el
+         * `IntersectionObserver` que decide `past` no tiene nada nuevo que
+         * informar y el sondeo se queda dando vueltas sobre el mismo estado.
+         * Con un píxel de diferencia hay intersección nueva en cada vuelta.
+         *
+         * Se vio con el diagnóstico de abajo: en Firefox sobre CI salía
+         * `pe=none scrollY=667 objetivo=667 llegó=sí` — el scroll estaba
+         * exactamente donde se pidió y aun así la barra seguía oculta.
+         */
+        intento += 1
         const objetivo = await page
           .locator('#hero')
           .evaluate(
-            (el) =>
+            (el, extra) =>
               Math.round(el.getBoundingClientRect().bottom + window.scrollY) +
-              40,
+              40 +
+              extra,
+            intento % 2,
           )
         // `instant` y no el `smooth` de la hoja de estilos: aquí interesa
         // llegar, no la animación, y el desplazamiento suave añade una carrera
@@ -499,6 +516,91 @@ test.describe('barra en móvil', () => {
     await tap(page, page.locator('#menu-movil a[href$="#experience"]'))
     await expect(page.locator('#menu-movil')).toHaveAttribute('inert', '')
     await expect(burger(page)).toHaveAttribute('aria-expanded', 'false')
+  })
+})
+
+/**
+ * La barra tiene que irse al volver arriba, la haya tocado el ratón o no.
+ *
+ * El fallo: la excepción para teclado era `focus-within`, que en CSS es
+ * `:focus` a secas y por tanto salta también con el ratón. Al pulsar el nombre
+ * —que navega al inicio— el enlace se quedaba enfocado y la barra no se iba
+ * nunca, aunque la página estuviera arriba del todo y el cursor lejos. Medido:
+ * `scrollY=0` con el logo en `opacity: 1` y `:focus-visible = false`.
+ *
+ * Se arregló con `:focus-visible`, que solo salta cuando el navegador
+ * dibujaría el anillo de foco. De ahí que estas pruebas vayan por parejas: lo
+ * que hace el ratón y lo que hace el teclado tienen que salir distinto, porque
+ * si salieran igual una de las dos cosas estaría rota.
+ */
+test.describe('la barra se va al volver arriba', () => {
+  const opacidades = (page: Page) =>
+    page.evaluate(() => ({
+      scrollY: Math.round(window.scrollY),
+      logo: getComputedStyle(
+        document.querySelector<HTMLElement>('header a[data-discover]')!,
+      ).opacity,
+      nav: getComputedStyle(
+        document.querySelector<HTMLElement>('header nav[aria-label]')!,
+      ).opacity,
+    }))
+
+  test('con el ratón: pulsar el nombre no la deja enganchada', async ({
+    page,
+  }) => {
+    await visit(page, '/')
+    await revealNavbar(page)
+
+    const logo = page.locator('header a[data-discover]').first()
+    const box = (await logo.boundingBox())!
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2)
+    await settle(page)
+
+    const r = await opacidades(page)
+    expect(r.scrollY, 'el nombre debería llevar al inicio').toBeLessThan(40)
+
+    // Con sondeo: el fundido dura 200ms y una sola lectura lo pillaba a medias
+    // —daba «0.00386235»—, que es la misma fragilidad que estas pruebas llevan
+    // tres rondas corrigiendo. Lo que se comprueba es dónde acaba, no por
+    // dónde pasa.
+    await expect
+      .poll(async () => (await opacidades(page)).logo, { timeout: 4000 })
+      .toBe('0')
+  })
+
+  test('con el ratón: pulsar un enlace y volver arriba la esconde', async ({
+    page,
+  }) => {
+    await visit(page, '/')
+    await revealNavbar(page)
+    await clickNav(page, 'about')
+    await settle(page)
+
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+    await settle(page)
+    // La transición de opacidad dura 200ms y el observer tarda en disparar.
+    await expect.poll(async () => (await opacidades(page)).nav).toBe('0')
+
+    expect((await opacidades(page)).logo).toBe('0')
+  })
+
+  test('con el teclado: sigue apareciendo desde el inicio', async ({
+    page,
+  }) => {
+    // La contraparte, y la razón de que la excepción exista: sin ratón no hay
+    // otra forma de alcanzar la navegación desde arriba. Si esta prueba falla,
+    // el arreglo se habrá llevado por delante la accesibilidad por teclado.
+    await visit(page, '/')
+
+    await page.keyboard.press('Tab') // saltar al contenido
+    await page.keyboard.press('Tab') // el nombre
+    await expect.poll(async () => (await opacidades(page)).logo).toBe('1')
+
+    await page.keyboard.press('Tab') // el primer enlace de sección
+    await expect.poll(async () => (await opacidades(page)).nav).toBe('1')
+    expect(
+      await page.evaluate(() => document.activeElement?.textContent?.trim()),
+    ).toBeTruthy()
   })
 })
 
