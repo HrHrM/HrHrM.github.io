@@ -52,10 +52,32 @@ export function Navbar() {
   // hero, que siempre fue un `Link`.
   const past = useScrolledPast('hero')
 
-  // `pointer-events-none` va con `opacity-0`: un enlace invisible que sigue
-  // siendo clicable es una trampa para el ratón.
+  /**
+   * Lo que se oculta sobre el Hero se atenúa, no se desmonta: con `opacity-0`
+   * la maqueta no se mueve al cambiar de estado. `pointer-events-none` va con
+   * ella, porque un enlace invisible que sigue siendo clicable es una trampa.
+   *
+   * **La excepción es `:focus-visible`, no `:focus`.** Antes era
+   * `focus-within`, que en CSS es `:focus` a secas y por tanto también salta
+   * con el ratón: al pulsar el nombre, el enlace se quedaba enfocado, y aunque
+   * la página volviera arriba la barra no se iba. Medido: tras el clic,
+   * `scrollY=0` pero el logo seguía en `opacity: 1`, con
+   * `:focus-visible = false` — el navegador ya sabía que ese foco venía del
+   * ratón; era la regla la que no preguntaba.
+   *
+   * `:focus-visible` solo salta cuando el navegador considera que hay que
+   * dibujar el anillo de foco, que en la práctica es teclado. Así el ratón deja
+   * de dejarla enganchada y quien navega con teclado la sigue alcanzando desde
+   * arriba sin hacer scroll primero, que es para lo que existía la excepción.
+   *
+   * Van dos versiones porque el elemento enfocado no siempre es el mismo: el
+   * nombre es el propio enlace, y la lista es un contenedor cuyos hijos se
+   * enfocan.
+   */
   const hidden =
-    'pointer-events-none opacity-0 focus-within:pointer-events-auto focus-within:opacity-100'
+    'pointer-events-none opacity-0 focus-visible:pointer-events-auto focus-visible:opacity-100'
+  const hiddenGroup =
+    'pointer-events-none opacity-0 has-[:focus-visible]:pointer-events-auto has-[:focus-visible]:opacity-100'
 
   // Al pasar a escritorio el panel se oculta por CSS, pero el estado seguiría
   // abierto y el bloqueo de scroll puesto: la página se quedaría sin poder
@@ -132,7 +154,7 @@ export function Navbar() {
           aria-label={ui.nav.primary}
           className={cn(
             'hidden transition-opacity duration-200 md:block',
-            !past && hidden,
+            !past && hiddenGroup,
           )}
         >
           <ul className="flex items-center gap-7">

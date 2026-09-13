@@ -80,9 +80,14 @@ export function Hero() {
     //
     // Es `min-h` y no `h`: si el contenido crece —en móvil son cinco líneas
     // más el zócalo— la sección se estira en vez de recortarlo.
+    // `overflow-x-clip` y no `overflow-hidden`, para que la textura pueda
+    // salirse por arriba: ver el comentario de la capa decorativa. `clip` en un
+    // solo eje es lo que permite dejar el otro en `visible` — con
+    // `overflow-x: hidden`, el eje vertical pasa a `auto` por especificación y
+    // la sección se convertiría en un contenedor con scroll propio.
     <section
       id="hero"
-      className="relative flex min-h-[78svh] flex-col justify-center overflow-hidden py-hero-y"
+      className="relative flex min-h-[78svh] flex-col justify-center overflow-x-clip py-hero-y"
     >
       {/* El orden en el DOM es el orden de pintado: partículas al fondo,
           geodésica encima, y el Container —que lleva `relative`— por delante
@@ -91,9 +96,25 @@ export function Hero() {
           Las partículas sí van a sangre y no solo a la derecha: son la capa
           de textura sobre la que se apoya la geodésica, y recortarlas a media
           portada dejaría un canto visible en mitad del titular. */}
+      {/* **Sube 4rem por encima de la sección, que es lo que mide la barra.**
+
+          La portada empieza justo debajo del `<header>`, así que una capa con
+          `inset-0` no puede pintar en esos 64px de arriba. La barra es
+          transparente mientras se está en la portada, de modo que ahí no había
+          nada: una banda vacía a todo lo ancho, con las partículas cortadas en
+          seco justo donde empieza. Se veía como un canto horizontal bajo el
+          navbar.
+
+          Así la textura pasa por debajo de la barra y llega al borde de la
+          ventana. No tapa nada: el `<header>` va en `z-50` y esto no lleva
+          `z-index`, así que el nombre y los controles siguen encima.
+
+          El `+ 1px` es el hairline inferior de la barra, que también ocupa
+          maqueta: con `-top-16` a secas quedaba una línea de 1px sin pintar
+          justo arriba del todo. Medido. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 animate-reveal [animation-delay:300ms]"
+        className="pointer-events-none absolute inset-x-0 -top-[calc(4rem+1px)] bottom-0 animate-reveal [animation-delay:300ms]"
       >
         {/* El SVG quieto sí viaja en el HTML prerenderizado, así que se ve
             antes de que exista una sola línea de JS. Se retira solo cuando el
